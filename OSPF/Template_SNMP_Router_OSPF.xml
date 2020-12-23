@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-12-23T16:01:26Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template SNMP Router OSPF - V2.1</template>
+            <name>Template SNMP Router OSPF - V2.1</name>
+            <description>https://share.zabbix.com/network_devices/generic/snmp-router-ospf-v2-fix&#13;
+&#13;
++ Added corrections by IVS</description>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>OSPF</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>OSPF router admin status</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>OSPF-MIB::ospfAdminStat.0</snmp_oid>
+                    <key>ospfAdminStat</key>
+                    <delay>5m</delay>
+                    <port>161</port>
+                    <applications>
+                        <application>
+                            <name>OSPF</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>SNMP OSPF Admin Status</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{nodata(15m)}=1</expression>
+                            <name>No data collected for OSPF-MIB</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>OSPF-config</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                        <trigger>
+                            <expression>{last()}&gt;1</expression>
+                            <name>OSPF Router Admin Status</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>OSPF-config</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>OSPF ospfAsLsaCount</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>OSPF-MIB::ospfAsLsaCount.0</snmp_oid>
+                    <key>ospfAsLsaCount</key>
+                    <delay>60s</delay>
+                    <port>161</port>
+                    <description>The number of AS-scope link state&#13;
+           advertisements in the AS-scope link state database.</description>
+                    <applications>
+                        <application>
+                            <name>OSPF</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>OSPF ospfExternLsaCount</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>OSPF-MIB::ospfExternLsaCount.0</snmp_oid>
+                    <key>ospfExternLsaCount</key>
+                    <delay>60s</delay>
+                    <port>161</port>
+                    <description>The number of external (LS type-5) link state advertisements in the link state database.&#13;
+&#13;
+OSPF Version 2, Appendix A.4.5 AS external link advertisements</description>
+                    <applications>
+                        <application>
+                            <name>OSPF</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>OSPF ospfOriginateNewLsas</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>OSPF-MIB::ospfOriginateNewLsas.0</snmp_oid>
+                    <key>ospfOriginateNewLsas</key>
+                    <delay>60s</delay>
+                    <port>161</port>
+                    <description>The number of new link state advertisements&#13;
+          that have been originated.  This number is&#13;
+          incremented each time the router originates a new&#13;
+          LSA.&#13;
+&#13;
+          Discontinuities in the value of this counter can&#13;
+          occur at re-initialization of the management system,&#13;
+          and at other times as indicated by the value of&#13;
+          ospfDiscontinuityTime.</description>
+                    <applications>
+                        <application>
+                            <name>OSPF</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>OSPF router ID</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>OSPF-MIB::ospfRouterId.0</snmp_oid>
+                    <key>ospfRouterId</key>
+                    <delay>10m</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <port>161</port>
+                    <description>A 32-bit integer uniquely identifying the&#13;
+          router in the Autonomous System.&#13;
+          By convention, to ensure uniqueness, this&#13;
+          should default to the value of one of the&#13;
+          router's IP interface addresses.&#13;
+&#13;
+          This object is persistent and when written&#13;
+          the entity SHOULD save the change to non-volatile storage.&#13;
+&#13;
+OSPF Version 2, C.1 Global parameters</description>
+                    <applications>
+                        <application>
+                            <name>OSPF</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>OSPF ospfRxNewLsas</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>OSPF-MIB::ospfRxNewLsas.0</snmp_oid>
+                    <key>ospfRxNewLsas</key>
+                    <delay>60s</delay>
+                    <port>161</port>
+                    <description>The number of link state advertisements received&#13;
+          that are determined to be new instantiations.&#13;
+          This number does not include newer instantiations&#13;
+          of self-originated link state advertisements.&#13;
+&#13;
+          Discontinuities in the value of this counter can&#13;
+          occur at re-initialization of the management system,&#13;
+          and at other times as indicated by the value of&#13;
+          ospfDiscontinuityTime.</description>
+                    <applications>
+                        <application>
+                            <name>OSPF</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>OSPF Areas</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>discovery[{#SNMPVALUE},OSPF-MIB::ospfAreaId]</snmp_oid>
+                    <key>ospfAreaId</key>
+                    <delay>5m</delay>
+                    <port>161</port>
+                    <lifetime>1h</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>OSPF area $1 LSA count</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>OSPF-MIB::ospfAreaLsaCount.{#SNMPINDEX}</snmp_oid>
+                            <key>ospfAreaLsaCount[{#SNMPVALUE}]</key>
+                            <port>161</port>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>OSPF area $1 status</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>OSPF-MIB::ospfAreaStatus.{#SNMPINDEX}</snmp_oid>
+                            <key>ospfAreaStatus[{#SNMPVALUE}]</key>
+                            <port>161</port>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>SNMP OSPF Area Status</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;1</expression>
+                                    <name>OSPF area {#SNMPVALUE} not active</name>
+                                    <priority>WARNING</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>OSPF</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>OSPF area $1 SPF runs</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>OSPF-MIB::ospfSpfRuns.{#SNMPINDEX}</snmp_oid>
+                            <key>ospfSpfRuns[{#SNMPVALUE}]</key>
+                            <port>161</port>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>OSPF Interfaces</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>discovery[{#SNMPVALUE},OSPF-MIB::ospfIfIpAddress]</snmp_oid>
+                    <key>ospfIfIpAddress</key>
+                    <delay>5m</delay>
+                    <port>161</port>
+                    <lifetime>1h</lifetime>
+                    <description>Identifies OSPF Interfaces.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>OSPF interface $1 admin status</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>OSPF-MIB::ospfIfAdminStat.{#SNMPINDEX}</snmp_oid>
+                            <key>ospfIfAdminStat[{#SNMPVALUE}]</key>
+                            <port>161</port>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>SNMP OSPF Admin Status</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}=2</expression>
+                                    <name>OSPF interface {#SNMPVALUE} disabled</name>
+                                    <priority>INFO</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>OSPF-config</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>OSPF interface $1 Backup Designated Router</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>1.3.6.1.2.1.14.7.1.14.{#SNMPVALUE}.0</snmp_oid>
+                            <key>ospfIfBackupDesignatedRouter[{#SNMPVALUE}]</key>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <port>161</port>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>OSPF interface $1 Designated Router</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>1.3.6.1.2.1.14.7.1.13.{#SNMPVALUE}.0</snmp_oid>
+                            <key>ospfIfDesignatedRouter[{#SNMPVALUE}]</key>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <port>161</port>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>OSPF interface $1 events</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>OSPF-MIB::ospfIfEvents.{#SNMPINDEX}</snmp_oid>
+                            <key>ospfIfEvents[{#SNMPVALUE}]</key>
+                            <units>s</units>
+                            <port>161</port>
+                            <description>The number of times this OSPF interface has&#13;
+          changed its state or an error has occurred.&#13;
+&#13;
+          Discontinuities in the value of this counter can occur&#13;
+          at re-initialization of the management system, and at other&#13;
+          times as indicated by the value of ospfDiscontinuityTime.</description>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>SIMPLE_CHANGE</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;0</expression>
+                                    <name>OSPF interface {#SNMPVALUE} event</name>
+                                    <priority>INFO</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>OSPF</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>OSPF interface $1 hello interval</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>OSPF-MIB::ospfIfHelloInterval.{#SNMPINDEX}</snmp_oid>
+                            <key>ospfIfHelloInterval[{#SNMPVALUE}]</key>
+                            <status>DISABLED</status>
+                            <units>s</units>
+                            <port>161</port>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>OSPF interface $1 dead interval</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>OSPF-MIB::ospfIfRtrDeadInterval.{#SNMPINDEX}</snmp_oid>
+                            <key>ospfIfRtrDeadInterval[{#SNMPVALUE}]</key>
+                            <status>DISABLED</status>
+                            <units>s</units>
+                            <port>161</port>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>OSPF interface $1 state</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>OSPF-MIB::ospfIfState.{#SNMPINDEX}</snmp_oid>
+                            <key>ospfIfState[{#SNMPVALUE}]</key>
+                            <port>161</port>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>SNMP OSPF interface state</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>OSPF interface $1 Interface Type</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>1.3.6.1.2.1.14.7.1.4.{#SNMPVALUE}.0</snmp_oid>
+                            <key>ospfIfType[{#SNMPVALUE}]</key>
+                            <port>161</port>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>SNMP OSPF Interface Type</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Template SNMP Router OSPF - V2.1:ospfIfBackupDesignatedRouter[{#SNMPVALUE}].str(0.0.0.0)}=1 and {Template SNMP Router OSPF - V2.1:ospfIfDesignatedRouter[{#SNMPVALUE}].str(0.0.0.0)}&lt;&gt;1</expression>
+                            <name>OSPF interface {#SNMPVALUE} Backup Designated Router is down</name>
+                            <priority>AVERAGE</priority>
+                            <description>DR exists, but not BackupDR — misconfiguration or OSPF link is down</description>
+                            <tags>
+                                <tag>
+                                    <tag>OSPF</tag>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>OSPF Neighbor</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>discovery[{#SNMPVALUE},OSPF-MIB::ospfNbrIpAddr]</snmp_oid>
+                    <key>ospfNbrIpAddr</key>
+                    <delay>5m</delay>
+                    <port>161</port>
+                    <lifetime>1h</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>OSPF NBMA Neighbor $1 Status</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>ospfNbmaNbrStatus.{#SNMPVALUE}.0</snmp_oid>
+                            <key>ospfNbmaNbrStatus[{#SNMPVALUE}]</key>
+                            <port>161</port>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>SNMP OSPF Area Status</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;1</expression>
+                                    <name>OSPF NBMA Neighbor {#SNMPVALUE} Status</name>
+                                    <priority>WARNING</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>OSPF-neighbor</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>OSPF Neighbor $1 Router ID</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>1.3.6.1.2.1.14.10.1.3.{#SNMPVALUE}.0</snmp_oid>
+                            <key>ospfNbrRtrId[{#SNMPVALUE}]</key>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <port>161</port>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>OSPF neighbor $1 state</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>OSPF-MIB::ospfNbrState.{#SNMPINDEX}</snmp_oid>
+                            <key>ospfNbrState[{#SNMPVALUE}]</key>
+                            <port>161</port>
+                            <description>Возможные состояния&#13;
+&#13;
+    Down — начальное состояние процесса обнаружения соседей. Это состояние указывает на то, что от соседей не была получена свежая информация. В NBMA сетях Hello-пакеты могут отправляться и соседям в состоянии Down, однако с меньшей частотой (PollInterval)&#13;
+&#13;
+        Attempt — это состояние имеет смысл только для соседей, которые присоединены к NBMA сетям. Оно указывает на то, что от соседа не была получена свежая информация и что нужно сделать попытку связаться с соседом. Это делается путём отправки соседу сообщений Hello с промежутком времени Hello Interval (в Cisco в этом состоянии сообщения Hello отправляются каждый PollInterval. Имеет смысл для соседей в NBMA сетях, которые заданы командой neighbor) &#13;
+&#13;
+    Init — состояние, в котором находится маршрутизатор, отправивший своему соседу hello и ожидающий от него ответного hello&#13;
+    Two-way — при получении ответных hello маршрутизатор должен увидеть в них свой RID в списке соседей. Если это так, то он устанавливает отношения и переходит в состояние two-way&#13;
+&#13;
+        Когда в широковещательном сегменте более 3х маршрутизаторов, то в этом состоянии остаются между собой маршрутизаторы DROTHER &#13;
+&#13;
+    Exstart — маршрутизаторы определяют Master/Slave отношения на основании Router ID. Маршрутизатор с высшим RID становится Master-маршрутизатором, который определяет DD Sequence number, а также первым начинает обмен DD-пакетами&#13;
+    Exchange — маршрутизаторы посылают друг другу database description пакеты (DD) с информацией о сетях, содержащихся в их собственной LSDB&#13;
+    Loading — Если маршрутизатор видит, что части маршрутов нет в его LSDB, он посылает сообщение LSR с перечислением тех сетей, по которым он хочет получить дополнительную информацию.  Пока маршрутизатор находится в ожидании ответа в виде LSU сообщений, он пребывает в состоянии Loading&#13;
+    Full — Когда маршрутизатор получил всю информацию и LSDB на обоих маршрутизаторах синхронизирована, оба маршрутизатора переходят в состояние fully adjacent (FULL)</description>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>SNMP OSPF Neighbor State (ospfNbrState)</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}=2</expression>
+                                    <name>OSPF neighbor {#SNMPVALUE} state: attempt</name>
+                                    <priority>WARNING</priority>
+                                    <description>Attempt — это состояние имеет смысл только для соседей, которые присоединены к NBMA сетям. Оно указывает на то, что от соседа не была получена свежая информация и что нужно сделать попытку связаться с соседом. Это делается путём отправки соседу сообщений Hello с промежутком времени Hello Interval (в Cisco в этом состоянии сообщения Hello отправляются каждый PollInterval. Имеет смысл для соседей в NBMA сетях, которые заданы командой neighbor)</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>OSPF-neighbor</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=1</expression>
+                                    <name>OSPF neighbor {#SNMPVALUE} state: down</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>down — начальное состояние процесса обнаружения соседей. Это состояние указывает на то, что от соседей не была получена свежая информация. В NBMA сетях Hello-пакеты могут отправляться и соседям в состоянии Down, однако с меньшей частотой (PollInterval)</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>OSPF-neighbor</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=6</expression>
+                                    <name>OSPF neighbor {#SNMPVALUE} state: exchange</name>
+                                    <priority>WARNING</priority>
+                                    <description>Exchange — маршрутизаторы посылают друг другу database description пакеты (DD) с информацией о сетях, содержащихся в их собственной LSDB</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>OSPF-neighbor</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=5</expression>
+                                    <name>OSPF neighbor {#SNMPVALUE} state: exstart</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Exstart — маршрутизаторы определяют Master/Slave отношения на основании Router ID. Маршрутизатор с высшим RID становится Master-маршрутизатором, который определяет DD Sequence number, а также первым начинает обмен DD-пакетами</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>OSPF-neighbor</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=3</expression>
+                                    <name>OSPF neighbor {#SNMPVALUE} state: init</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>init — состояние, в котором находится маршрутизатор, отправивший своему соседу hello и ожидающий от него ответного hello</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>OSPF-neighbor</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=7</expression>
+                                    <name>OSPF neighbor {#SNMPVALUE} state: loading</name>
+                                    <priority>WARNING</priority>
+                                    <description>Loading — Если маршрутизатор видит, что части маршрутов нет в его LSDB, он посылает сообщение LSR с перечислением тех сетей, по которым он хочет получить дополнительную информацию.  Пока маршрутизатор находится в ожидании ответа в виде LSU сообщений, он пребывает в состоянии Loading</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>OSPF-neighbor</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>SNMP OSPF Admin Status</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>enabled</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>disabled</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>SNMP OSPF Area Status</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>active</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>notInService</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>SNMP OSPF interface state</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>loopback</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>waiting</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>pointToPoint</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>designatedRouter</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>backupDesignatedRouter</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>otherDesignatedRouter</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>SNMP OSPF Interface Type</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>broadcast</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>nbma</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>pointToPoint</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>pointToMultipoint</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>SNMP OSPF Neighbor State (ospfNbrState)</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>attempt</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>init</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>twoWay</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>exchangeStart</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>exchange</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>loading</newvalue>
+                </mapping>
+                <mapping>
+                    <value>8</value>
+                    <newvalue>full</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
