@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-12-24T19:54:25Z</date>
+    <date>2020-12-24T20:21:24Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -96,7 +96,7 @@ OSPF Version 2, Appendix A.4.5 AS external link advertisements</description>
                     </applications>
                 </item>
                 <item>
-                    <name>OSPF New LSAs originated</name>
+                    <name>OSPF New LSAs originated count</name>
                     <type>SNMPV2</type>
                     <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                     <snmp_oid>1.3.6.1.2.1.14.1.9.0</snmp_oid>
@@ -156,7 +156,7 @@ This object is persistent and when written the entity SHOULD save the change to 
                     </applications>
                 </item>
                 <item>
-                    <name>OSPF New LSAs received</name>
+                    <name>OSPF New LSAs received count</name>
                     <type>SNMPV2</type>
                     <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                     <snmp_oid>1.3.6.1.2.1.14.1.10.0</snmp_oid>
