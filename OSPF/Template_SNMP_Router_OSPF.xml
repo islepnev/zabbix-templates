@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-12-24T20:21:24Z</date>
+    <date>2020-12-24T20:38:33Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -809,6 +809,33 @@ By way of a default, this field may be intuited from the corresponding value of 
             </screens>
         </template>
     </templates>
+    <graphs>
+        <graph>
+            <name>OSPF LSA rate</name>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>1A7C11</color>
+                    <calc_fnc>MAX</calc_fnc>
+                    <item>
+                        <host>Template SNMP Router OSPF v2</host>
+                        <key>ospfRxNewLsasPerSecond</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>0040FF</color>
+                    <calc_fnc>MAX</calc_fnc>
+                    <item>
+                        <host>Template SNMP Router OSPF v2</host>
+                        <key>ospfOriginateNewLsasPerSecond</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
     <value_maps>
         <value_map>
             <name>SNMP OSPF Admin Status</name>
