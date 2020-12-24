@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-12-24T20:38:33Z</date>
+    <date>2020-12-24T20:47:51Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -263,7 +263,7 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                             </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
-                            <name>OSPF area $1 SPF runs</name>
+                            <name>OSPF area $1 SPF run rate</name>
                             <type>DEPENDENT</type>
                             <key>ospfSpfRunsPerSecond[{#SNMPINDEX}]</key>
                             <delay>0</delay>
@@ -285,7 +285,7 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                             </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>OSPF area $1 SPF runs</name>
+                            <name>OSPF area $1 SPF run count</name>
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                             <snmp_oid>1.3.6.1.2.1.14.2.1.4.{#SNMPINDEX}</snmp_oid>
