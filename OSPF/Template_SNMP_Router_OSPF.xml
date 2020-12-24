@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-12-24T20:47:51Z</date>
+    <date>2020-12-24T20:53:55Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -280,6 +280,12 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                                     <name>OSPF area {#SNMPINDEX}</name>
                                 </application_prototype>
                             </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
                             <master_item>
                                 <key>ospfSpfRuns[{#SNMPINDEX}]</key>
                             </master_item>
