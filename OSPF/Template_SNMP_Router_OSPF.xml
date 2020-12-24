@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-12-23T17:27:02Z</date>
+    <date>2020-12-24T19:54:25Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -69,7 +69,7 @@
                     <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                     <snmp_oid>1.3.6.1.2.1.14.1.24.0</snmp_oid>
                     <key>ospfAsLsaCount</key>
-                    <delay>60s</delay>
+                    <delay>5m</delay>
                     <port>161</port>
                     <description>The number of AS-scope link state advertisements in the AS-scope link state database.</description>
                     <applications>
@@ -84,7 +84,7 @@
                     <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                     <snmp_oid>1.3.6.1.2.1.14.1.6.0</snmp_oid>
                     <key>ospfExternLsaCount</key>
-                    <delay>60s</delay>
+                    <delay>5m</delay>
                     <port>161</port>
                     <description>The number of external (LS type-5) link state advertisements in the link state database.&#13;
 &#13;
@@ -101,7 +101,7 @@ OSPF Version 2, Appendix A.4.5 AS external link advertisements</description>
                     <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                     <snmp_oid>1.3.6.1.2.1.14.1.9.0</snmp_oid>
                     <key>ospfOriginateNewLsas</key>
-                    <delay>60s</delay>
+                    <delay>5m</delay>
                     <port>161</port>
                     <description>The number of new link state advertisements that have been originated.  This number is incremented each time the router originates a new LSA.&#13;
 &#13;
@@ -111,12 +111,29 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                             <name>OSPF</name>
                         </application>
                     </applications>
+                </item>
+                <item>
+                    <name>OSPF New LSA originate rate</name>
+                    <type>DEPENDENT</type>
+                    <key>ospfOriginateNewLsasPerSecond</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>1/s</units>
+                    <description>Dependent item for graphing</description>
+                    <applications>
+                        <application>
+                            <name>OSPF</name>
+                        </application>
+                    </applications>
                     <preprocessing>
                         <step>
-                            <type>SIMPLE_CHANGE</type>
+                            <type>CHANGE_PER_SECOND</type>
                             <params/>
                         </step>
                     </preprocessing>
+                    <master_item>
+                        <key>ospfOriginateNewLsas</key>
+                    </master_item>
                 </item>
                 <item>
                     <name>OSPF router ID</name>
@@ -144,7 +161,7 @@ This object is persistent and when written the entity SHOULD save the change to 
                     <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                     <snmp_oid>1.3.6.1.2.1.14.1.10.0</snmp_oid>
                     <key>ospfRxNewLsas</key>
-                    <delay>60s</delay>
+                    <delay>5m</delay>
                     <port>161</port>
                     <description>The number of link state advertisements received that are determined to be new instantiations. This number does not include newer instantiations of self-originated link state advertisements.&#13;
 &#13;
@@ -154,12 +171,29 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                             <name>OSPF</name>
                         </application>
                     </applications>
+                </item>
+                <item>
+                    <name>OSPF New LSA receive rate</name>
+                    <type>DEPENDENT</type>
+                    <key>ospfRxNewLsasPerSecond</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>1/s</units>
+                    <description>Dependent item for graphing</description>
+                    <applications>
+                        <application>
+                            <name>OSPF</name>
+                        </application>
+                    </applications>
                     <preprocessing>
                         <step>
-                            <type>SIMPLE_CHANGE</type>
+                            <type>CHANGE_PER_SECOND</type>
                             <params/>
                         </step>
                     </preprocessing>
+                    <master_item>
+                        <key>ospfRxNewLsas</key>
+                    </master_item>
                 </item>
             </items>
             <discovery_rules>
@@ -178,7 +212,8 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                             <snmp_oid>1.3.6.1.2.1.14.2.1.7.{#SNMPINDEX}</snmp_oid>
-                            <key>ospfAreaLsaCount[{#SNMPVALUE}]</key>
+                            <key>ospfAreaLsaCount[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
                             <port>161</port>
                             <description>The total number of link-state advertisements in this area's link-state database, excluding AS External LSA's.</description>
                             <applications>
@@ -186,19 +221,19 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                                     <name>OSPF</name>
                                 </application>
                             </applications>
-                            <preprocessing>
-                                <step>
-                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                                    <params>3600</params>
-                                </step>
-                            </preprocessing>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF area {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
                         </item_prototype>
                         <item_prototype>
                             <name>OSPF area $1 status</name>
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                             <snmp_oid>1.3.6.1.2.1.14.2.1.10.{#SNMPINDEX}</snmp_oid>
-                            <key>ospfAreaStatus[{#SNMPVALUE}]</key>
+                            <key>ospfAreaStatus[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
                             <port>161</port>
                             <description>This variable displays the status of the entry. Setting it to 'invalid' has the effect of rendering it inoperative. The internal effect (row removal) is implementation dependent.</description>
                             <applications>
@@ -206,19 +241,18 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                                     <name>OSPF</name>
                                 </application>
                             </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF area {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
                             <valuemap>
                                 <name>SNMP OSPF Area Status</name>
                             </valuemap>
-                            <preprocessing>
-                                <step>
-                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                                    <params>3600</params>
-                                </step>
-                            </preprocessing>
                             <trigger_prototypes>
                                 <trigger_prototype>
                                     <expression>{last()}&gt;1</expression>
-                                    <name>OSPF area {#SNMPVALUE} not active</name>
+                                    <name>OSPF area {#SNMPINDEX} not active</name>
                                     <priority>WARNING</priority>
                                     <tags>
                                         <tag>
@@ -230,10 +264,33 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                         </item_prototype>
                         <item_prototype>
                             <name>OSPF area $1 SPF runs</name>
+                            <type>DEPENDENT</type>
+                            <key>ospfSpfRunsPerSecond[{#SNMPINDEX}]</key>
+                            <delay>0</delay>
+                            <value_type>FLOAT</value_type>
+                            <units>1/s</units>
+                            <description>Dependent item for graphing</description>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF area {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <master_item>
+                                <key>ospfSpfRuns[{#SNMPINDEX}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>OSPF area $1 SPF runs</name>
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                             <snmp_oid>1.3.6.1.2.1.14.2.1.4.{#SNMPINDEX}</snmp_oid>
-                            <key>ospfSpfRuns[{#SNMPVALUE}]</key>
+                            <key>ospfSpfRuns[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
                             <port>161</port>
                             <description>The number of times that the intra-area route table has been calculated using this area's link-state database. This is typically done using Dijkstra's algorithm.</description>
                             <applications>
@@ -241,14 +298,30 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                                     <name>OSPF</name>
                                 </application>
                             </applications>
-                            <preprocessing>
-                                <step>
-                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                                    <params>3600</params>
-                                </step>
-                            </preprocessing>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF area {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
                         </item_prototype>
                     </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>OSPF area {#SNMPINDEX} SPF algorithm runs</name>
+                            <ymin_type_1>FIXED</ymin_type_1>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>FILLED_REGION</drawtype>
+                                    <color>4000FF</color>
+                                    <calc_fnc>MAX</calc_fnc>
+                                    <item>
+                                        <host>Template SNMP Router OSPF v2</host>
+                                        <key>ospfSpfRuns[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
                 </discovery_rule>
                 <discovery_rule>
                     <name>OSPF Interfaces</name>
@@ -266,7 +339,8 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                             <snmp_oid>1.3.6.1.2.1.14.7.1.5.{#SNMPINDEX}</snmp_oid>
-                            <key>ospfIfAdminStat[{#SNMPVALUE}]</key>
+                            <key>ospfIfAdminStat[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
                             <port>161</port>
                             <description>The OSPF  interface's  administrative  status. The  value formed on the interface, and the interface will be advertised as an internal route to  some  area. The  value 'disabled' denotes that the interface is external to OSPF.</description>
                             <applications>
@@ -274,19 +348,18 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                                     <name>OSPF</name>
                                 </application>
                             </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF interface {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
                             <valuemap>
                                 <name>SNMP OSPF Admin Status</name>
                             </valuemap>
-                            <preprocessing>
-                                <step>
-                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                                    <params>3600</params>
-                                </step>
-                            </preprocessing>
                             <trigger_prototypes>
                                 <trigger_prototype>
                                     <expression>{last()}=2</expression>
-                                    <name>OSPF interface {#SNMPVALUE} disabled</name>
+                                    <name>OSPF interface {#SNMPINDEX} disabled</name>
                                     <priority>INFO</priority>
                                     <tags>
                                         <tag>
@@ -300,8 +373,9 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                             <name>OSPF interface $1 Backup Designated Router</name>
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
-                            <snmp_oid>1.3.6.1.2.1.14.7.1.14.{#SNMPVALUE}.0</snmp_oid>
-                            <key>ospfIfBackupDesignatedRouter[{#SNMPVALUE}]</key>
+                            <snmp_oid>1.3.6.1.2.1.14.7.1.14.{#SNMPINDEX}.0</snmp_oid>
+                            <key>ospfIfBackupDesignatedRouter[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
                             <trends>0</trends>
                             <value_type>TEXT</value_type>
                             <port>161</port>
@@ -311,6 +385,11 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                                     <name>OSPF</name>
                                 </application>
                             </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF interface {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
                             <preprocessing>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
@@ -322,8 +401,9 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                             <name>OSPF interface $1 Designated Router</name>
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
-                            <snmp_oid>1.3.6.1.2.1.14.7.1.13.{#SNMPVALUE}.0</snmp_oid>
-                            <key>ospfIfDesignatedRouter[{#SNMPVALUE}]</key>
+                            <snmp_oid>1.3.6.1.2.1.14.7.1.13.{#SNMPINDEX}.0</snmp_oid>
+                            <key>ospfIfDesignatedRouter[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
                             <trends>0</trends>
                             <value_type>TEXT</value_type>
                             <port>161</port>
@@ -333,6 +413,11 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                                     <name>OSPF</name>
                                 </application>
                             </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF interface {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
                             <preprocessing>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
@@ -341,12 +426,40 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                             </preprocessing>
                         </item_prototype>
                         <item_prototype>
+                            <name>OSPF interface $1 event rate</name>
+                            <type>DEPENDENT</type>
+                            <key>ospfIfEventsPerSecond[{#SNMPINDEX}]</key>
+                            <delay>0</delay>
+                            <value_type>FLOAT</value_type>
+                            <units>1/s</units>
+                            <description>Dependent item for graphs</description>
+                            <applications>
+                                <application>
+                                    <name>OSPF</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF interface {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ospfIfEvents[{#SNMPINDEX}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
                             <name>OSPF interface $1 events</name>
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                             <snmp_oid>1.3.6.1.2.1.14.7.1.15.{#SNMPINDEX}</snmp_oid>
-                            <key>ospfIfEvents[{#SNMPVALUE}]</key>
-                            <units>s</units>
+                            <key>ospfIfEvents[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
                             <port>161</port>
                             <description>The number of times this OSPF interface has changed its state or an error has occurred.&#13;
 &#13;
@@ -356,20 +469,15 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                                     <name>OSPF</name>
                                 </application>
                             </applications>
-                            <preprocessing>
-                                <step>
-                                    <type>SIMPLE_CHANGE</type>
-                                    <params/>
-                                </step>
-                                <step>
-                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                                    <params>3600</params>
-                                </step>
-                            </preprocessing>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF interface {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
                             <trigger_prototypes>
                                 <trigger_prototype>
-                                    <expression>{last()}&gt;0</expression>
-                                    <name>OSPF interface {#SNMPVALUE} event</name>
+                                    <expression>{diff()}&lt;&gt;0</expression>
+                                    <name>OSPF interface {#SNMPINDEX} event</name>
                                     <priority>INFO</priority>
                                     <tags>
                                         <tag>
@@ -384,7 +492,8 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                             <snmp_oid>1.3.6.1.2.1.14.7.1.9.{#SNMPINDEX}</snmp_oid>
-                            <key>ospfIfHelloInterval[{#SNMPVALUE}]</key>
+                            <key>ospfIfHelloInterval[{#SNMPINDEX}]</key>
+                            <delay>15m</delay>
                             <status>DISABLED</status>
                             <units>s</units>
                             <port>161</port>
@@ -394,19 +503,19 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                                     <name>OSPF</name>
                                 </application>
                             </applications>
-                            <preprocessing>
-                                <step>
-                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                                    <params>3600</params>
-                                </step>
-                            </preprocessing>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF interface {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
                         </item_prototype>
                         <item_prototype>
                             <name>OSPF interface $1 dead interval</name>
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                             <snmp_oid>1.3.6.1.2.1.14.7.1.10.{#SNMPINDEX}</snmp_oid>
-                            <key>ospfIfRtrDeadInterval[{#SNMPVALUE}]</key>
+                            <key>ospfIfRtrDeadInterval[{#SNMPINDEX}]</key>
+                            <delay>15m</delay>
                             <status>DISABLED</status>
                             <units>s</units>
                             <port>161</port>
@@ -416,19 +525,19 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                                     <name>OSPF</name>
                                 </application>
                             </applications>
-                            <preprocessing>
-                                <step>
-                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                                    <params>3600</params>
-                                </step>
-                            </preprocessing>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF interface {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
                         </item_prototype>
                         <item_prototype>
                             <name>OSPF interface $1 state</name>
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                             <snmp_oid>1.3.6.1.2.1.14.7.1.12.{#SNMPINDEX}</snmp_oid>
-                            <key>ospfIfState[{#SNMPVALUE}]</key>
+                            <key>ospfIfState[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
                             <port>161</port>
                             <description>The OSPF Interface State.</description>
                             <applications>
@@ -436,22 +545,22 @@ Discontinuities in the value of this counter can occur at re-initialization of t
                                     <name>OSPF</name>
                                 </application>
                             </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF interface {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
                             <valuemap>
                                 <name>SNMP OSPF interface state</name>
                             </valuemap>
-                            <preprocessing>
-                                <step>
-                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                                    <params>3600</params>
-                                </step>
-                            </preprocessing>
                         </item_prototype>
                         <item_prototype>
                             <name>OSPF interface $1 Interface Type</name>
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
-                            <snmp_oid>1.3.6.1.2.1.14.7.1.4.{#SNMPVALUE}.0</snmp_oid>
-                            <key>ospfIfType[{#SNMPVALUE}]</key>
+                            <snmp_oid>1.3.6.1.2.1.14.7.1.4.{#SNMPINDEX}.0</snmp_oid>
+                            <key>ospfIfType[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
                             <port>161</port>
                             <description>The OSPF interface type.&#13;
 &#13;
@@ -461,21 +570,20 @@ By way of a default, this field may be intuited from the corresponding value of 
                                     <name>OSPF</name>
                                 </application>
                             </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF interface {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
                             <valuemap>
                                 <name>SNMP OSPF Interface Type</name>
                             </valuemap>
-                            <preprocessing>
-                                <step>
-                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                                    <params>3600</params>
-                                </step>
-                            </preprocessing>
                         </item_prototype>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template SNMP Router OSPF v2:ospfIfBackupDesignatedRouter[{#SNMPVALUE}].str(0.0.0.0)}=1 and {Template SNMP Router OSPF v2:ospfIfDesignatedRouter[{#SNMPVALUE}].str(0.0.0.0)}&lt;&gt;1</expression>
-                            <name>OSPF interface {#SNMPVALUE} Backup Designated Router is down</name>
+                            <expression>{Template SNMP Router OSPF v2:ospfIfBackupDesignatedRouter[{#SNMPINDEX}].str(0.0.0.0)}=1 and {Template SNMP Router OSPF v2:ospfIfDesignatedRouter[{#SNMPINDEX}].str(0.0.0.0)}&lt;&gt;1</expression>
+                            <name>OSPF interface {#SNMPINDEX} Backup Designated Router is down</name>
                             <priority>AVERAGE</priority>
                             <description>DR exists, but not BackupDR — misconfiguration or OSPF link is down</description>
                             <tags>
@@ -485,6 +593,23 @@ By way of a default, this field may be intuited from the corresponding value of 
                             </tags>
                         </trigger_prototype>
                     </trigger_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>OSPF interface {#SNMPINDEX} event rate</name>
+                            <ymin_type_1>FIXED</ymin_type_1>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>FILLED_REGION</drawtype>
+                                    <color>D84315</color>
+                                    <calc_fnc>MAX</calc_fnc>
+                                    <item>
+                                        <host>Template SNMP Router OSPF v2</host>
+                                        <key>ospfIfEvents[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
                 </discovery_rule>
                 <discovery_rule>
                     <name>OSPF Neighbors</name>
@@ -500,8 +625,9 @@ By way of a default, this field may be intuited from the corresponding value of 
                             <name>OSPF NBMA Neighbor $1 Status</name>
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
-                            <snmp_oid>1.3.6.1.2.1.14.10.1.9.{#SNMPVALUE}.0</snmp_oid>
-                            <key>ospfNbmaNbrStatus[{#SNMPVALUE}]</key>
+                            <snmp_oid>1.3.6.1.2.1.14.10.1.9.{#SNMPINDEX}.0</snmp_oid>
+                            <key>ospfNbmaNbrStatus[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
                             <port>161</port>
                             <description>This variable displays the status of  the  entry. Setting it to 'invalid' has the effect of rendering it inoperative. The internal effect (row removal) is implementation dependent.</description>
                             <applications>
@@ -509,15 +635,14 @@ By way of a default, this field may be intuited from the corresponding value of 
                                     <name>OSPF</name>
                                 </application>
                             </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF neighbor {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
                             <valuemap>
                                 <name>SNMP OSPF Area Status</name>
                             </valuemap>
-                            <preprocessing>
-                                <step>
-                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                                    <params>3600</params>
-                                </step>
-                            </preprocessing>
                             <trigger_prototypes>
                                 <trigger_prototype>
                                     <expression>{last()}&gt;1</expression>
@@ -535,8 +660,9 @@ By way of a default, this field may be intuited from the corresponding value of 
                             <name>OSPF Neighbor $1 Router ID</name>
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
-                            <snmp_oid>1.3.6.1.2.1.14.10.1.3.{#SNMPVALUE}.0</snmp_oid>
-                            <key>ospfNbrRtrId[{#SNMPVALUE}]</key>
+                            <snmp_oid>1.3.6.1.2.1.14.10.1.3.{#SNMPINDEX}.0</snmp_oid>
+                            <key>ospfNbrRtrId[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
                             <trends>0</trends>
                             <value_type>CHAR</value_type>
                             <port>161</port>
@@ -546,6 +672,11 @@ By way of a default, this field may be intuited from the corresponding value of 
                                     <name>OSPF</name>
                                 </application>
                             </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF neighbor {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
                             <preprocessing>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
@@ -558,7 +689,8 @@ By way of a default, this field may be intuited from the corresponding value of 
                             <type>SNMPV2</type>
                             <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
                             <snmp_oid>1.3.6.1.2.1.14.10.1.6.{#SNMPINDEX}</snmp_oid>
-                            <key>ospfNbrState[{#SNMPVALUE}]</key>
+                            <key>ospfNbrState[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
                             <port>161</port>
                             <description>The State of the relationship with this Neighbor.&#13;
 &#13;
@@ -588,15 +720,14 @@ By way of a default, this field may be intuited from the corresponding value of 
                                     <name>OSPF</name>
                                 </application>
                             </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>OSPF neighbor {#SNMPINDEX}</name>
+                                </application_prototype>
+                            </application_prototypes>
                             <valuemap>
                                 <name>SNMP OSPF Neighbor State (ospfNbrState)</name>
                             </valuemap>
-                            <preprocessing>
-                                <step>
-                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                                    <params>3600</params>
-                                </step>
-                            </preprocessing>
                             <trigger_prototypes>
                                 <trigger_prototype>
                                     <expression>{last()}=2</expression>
@@ -669,6 +800,13 @@ By way of a default, this field may be intuited from the corresponding value of 
                     </item_prototypes>
                 </discovery_rule>
             </discovery_rules>
+            <screens>
+                <screen>
+                    <name>OSPF Algorithm Run Count</name>
+                    <hsize>1</hsize>
+                    <vsize>1</vsize>
+                </screen>
+            </screens>
         </template>
     </templates>
     <value_maps>
