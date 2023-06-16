@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.4</version>
+    <date>2023-06-16T18:00:15Z</date>
+    <groups>
+        <group>
+            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>e3decc1028da486b82a11175c20853f3</uuid>
+            <template>Template WRS_v6 Temperatures ssh</template>
+            <name>Template WRS_v6 Temperatures ssh</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>6ff50e031fb241cb9967035311fb0590</uuid>
+                    <name>FPGA Temperature</name>
+                    <type>DEPENDENT</type>
+                    <key>HAL.temp.fpga</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$[&quot;HAL.temp.fpga&quot;]</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>ssh.run[wrs_dump_shmem_hal]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>HAL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Temperature</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>6040196c187d44d880eeb8b15720624d</uuid>
+                    <name>PLL Temperature</name>
+                    <type>DEPENDENT</type>
+                    <key>HAL.temp.pll</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$[&quot;HAL.temp.pll&quot;]</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>ssh.run[wrs_dump_shmem_hal]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>HAL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Temperature</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>18abe58bfe8e42dd9a82d3b83a05779c</uuid>
+                    <name>PSL Temperature</name>
+                    <type>DEPENDENT</type>
+                    <key>HAL.temp.psl</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$[&quot;HAL.temp.psl&quot;]</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>ssh.run[wrs_dump_shmem_hal]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>HAL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Temperature</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>0c48b87f28e74822b8f64815f3babae0</uuid>
+                    <name>PSR Temperature</name>
+                    <type>DEPENDENT</type>
+                    <key>HAL.temp.psr</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$[&quot;HAL.temp.psr&quot;]</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>ssh.run[wrs_dump_shmem_hal]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>HAL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Temperature</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>40e1ae9b3f65403c891badac0e5fd706</uuid>
+                    <name>HAL shmem dump JSON (temperature only)</name>
+                    <type>SSH</type>
+                    <key>ssh.run[wrs_dump_shmem_hal]</key>
+                    <delay>30s</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <params>/wr/bin/wrs_dump_shmem -L | grep HAL.temp</params>
+                    <username>{$WRS_USERNAME}</username>
+                    <password>{$WRS_PASSWORD}</password>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>var lines = value.split('\n');
+var data = {};
+while(lines.length) {
+    var hstr = lines.shift();
+    if (!hstr) break;
+    var harr = hstr.split(': ');
+    var k = harr[0].trim();
+    var v = harr[1].trim();
+    v = v.split('&quot;').join(''); // remove quotes
+    v = v.replace(/.+\(([0-9]+)\)$/, '$1'); // get number 3 from 'slave(3)'
+    data[k] = v;
+}
+return JSON.stringify(data, null, 2);
+</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>HAL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <uuid>7c15a2637cf549ca8b571edc2d450931</uuid>
+            <name>Temperature</name>
+            <yaxismin>20</yaxismin>
+            <yaxismax>70</yaxismax>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <ymax_type_1>FIXED</ymax_type_1>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>EE0000</color>
+                    <item>
+                        <host>Template WRS_v6 Temperatures ssh</host>
+                        <key>HAL.temp.fpga</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <color>DD00DD</color>
+                    <item>
+                        <host>Template WRS_v6 Temperatures ssh</host>
+                        <key>HAL.temp.pll</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>3</sortorder>
+                    <color>0000EE</color>
+                    <item>
+                        <host>Template WRS_v6 Temperatures ssh</host>
+                        <key>HAL.temp.psl</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>4</sortorder>
+                    <color>008800</color>
+                    <item>
+                        <host>Template WRS_v6 Temperatures ssh</host>
+                        <key>HAL.temp.psr</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>

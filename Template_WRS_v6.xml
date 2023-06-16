@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.4</version>
+    <date>2023-06-16T18:01:08Z</date>
+    <groups>
+        <group>
+            <uuid>e7946cf06c3c44daa3ae0f50b4457f4c</uuid>
+            <name>Templates/Switches</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>7120709b0316402280b2a35383e5a38e</uuid>
+            <template>Template_WRS_v6</template>
+            <name>Template_WRS_v6</name>
+            <templates>
+                <template>
+                    <name>Template WRS_v6_SoftPLL</name>
+                </template>
+                <template>
+                    <name>Template_LLD_SNMP_Interfaces</name>
+                </template>
+                <template>
+                    <name>Template_SNMP_System</name>
+                </template>
+                <template>
+                    <name>Template_WRS_v6_common</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>Templates/Switches</name>
+                </group>
+            </groups>
+        </template>
+    </templates>
+    <triggers>
+        <trigger>
+            <uuid>6871fbe87b9e41718c002f01a1bf54d5</uuid>
+            <expression>last(/Template_WRS_v6/wrsRestartReason)=7 and bytelength(last(/Template_WRS_v6/wrsRestartReasonMonit))&gt;0 and last(/Template_WRS_v6/Uptime)&lt;86400</expression>
+            <name>Restarted by Monitor: {ITEM.VALUE2}</name>
+            <priority>WARNING</priority>
+            <manual_close>YES</manual_close>
+        </trigger>
+        <trigger>
+            <uuid>ad68ab5fe97c4c83b219e73abd7fd8c8</uuid>
+            <expression>max(/Template_WRS_v6/wrsPtpServoUpdates,5m)=0 and last(/Template_WRS_v6/wrsSpllMode)=3</expression>
+            <name>WR servo not updating</name>
+            <priority>WARNING</priority>
+            <tags>
+                <tag>
+                    <tag>White Rabbit</tag>
+                </tag>
+            </tags>
+        </trigger>
+    </triggers>
+</zabbix_export>

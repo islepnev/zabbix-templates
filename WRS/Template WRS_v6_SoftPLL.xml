@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.4</version>
+    <date>2023-06-16T17:59:07Z</date>
+    <groups>
+        <group>
+            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>657dfdf6dd1149eea48316926370c408</uuid>
+            <template>Template WRS_v6_SoftPLL</template>
+            <name>Template WRS_v6_SoftPLL</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>258a4ba84f9343298b91ed43e71d114b</uuid>
+                    <name>SoftPLL Status</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsSoftPLLStatus.0</snmp_oid>
+                    <key>wrsSoftPLLStatus</key>
+                    <delay>30s</delay>
+                    <description>Grouped status of Soft PLL based on values in wrsSpllState
+            ok - values in wrsSpllState are correct
+            error - there is an error in wrsSpllState
+            warning - there is a warning in wrsSpllState
+            warningNA - there is N/A field in wrsSpllState
+            bug - bug in checking conditions of wrsSpllState, please report</description>
+                    <valuemap>
+                        <name>wrsSoftPLLStatus</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>SoftPLL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsTimingStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>da88c5c92f30495b80dfe8641ee1539c</uuid>
+                            <expression>last(/Template WRS_v6_SoftPLL/wrsSoftPLLStatus)&lt;&gt;1</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>min(/Template WRS_v6_SoftPLL/wrsSoftPLLStatus,15m)=1 and max(/Template WRS_v6_SoftPLL/wrsSoftPLLStatus,15m)=1</recovery_expression>
+                            <name>WR SoftPLL Status not Ok</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>07152d7d4cae432ab42cb27de66a23e9</uuid>
+                    <name>SoftPLL Align State</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsSpllAlignState.0</snmp_oid>
+                    <key>wrsSpllAlignState</key>
+                    <delay>30s</delay>
+                    <description>Align state of Soft PLL (values taken from file softpll_export.h, wrpc-sw repo)</description>
+                    <valuemap>
+                        <name>wrsSpllAlignState</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>SoftPLL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsSpllStatus</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>43e33532bee441e19e77dec26062491a</uuid>
+                    <name>SoftPLL Helper lock</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsSpllHlock.0</snmp_oid>
+                    <key>wrsSpllHlock</key>
+                    <delay>30s</delay>
+                    <description>HLock in Soft PLL</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>SoftPLL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsSpllStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>160c06a19a7c43f4b25bfb78f33017f3</uuid>
+                            <expression>last(/Template WRS_v6_SoftPLL/wrsSpllHlock)&lt;&gt;1</expression>
+                            <name>WR SoftPLL helper not locked</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>8a7a6d6e516e43a8bdb814a755b8d865</uuid>
+                    <name>SoftPLL Helper setpoint</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsSpllHY.0</snmp_oid>
+                    <key>wrsSpllHY</key>
+                    <delay>30s</delay>
+                    <description>H_y at Soft PLL</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>SoftPLL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsSpllStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>d067ab8945434f3e8f9078ecb44577f0</uuid>
+                            <expression>varpop(/Template WRS_v6_SoftPLL/wrsSpllHY,5m)=0</expression>
+                            <name>WR SoftPLL helper not updating</name>
+                            <priority>INFO</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>ea9cd71191964c86a80fdb092a818544</uuid>
+                    <name>SoftPLL Main lock</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsSpllMlock.0</snmp_oid>
+                    <key>wrsSpllMlock</key>
+                    <delay>30s</delay>
+                    <description>MLock in Soft PLL</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>SoftPLL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsSpllStatus</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>a37fb4ef8f96474ca83241f12c5df668</uuid>
+                    <name>SoftPLL Mode</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsSpllMode.0</snmp_oid>
+                    <key>wrsSpllMode</key>
+                    <delay>30s</delay>
+                    <description>Mode of Soft PLL (values taken from softpll_ng.h)</description>
+                    <valuemap>
+                        <name>wrsSpllMode</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>SoftPLL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsSpllStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>66cc2c43999842dab47c85047068ee4d</uuid>
+                            <expression>last(/Template WRS_v6_SoftPLL/wrsSpllMode)&lt;&gt;3</expression>
+                            <name>WR SoftPLL mode not slave</name>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>427cb42a1deb4373bce8e724abb0ecea</uuid>
+                    <name>SoftPLL Main setpoint</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsSpllMY.0</snmp_oid>
+                    <key>wrsSpllMY</key>
+                    <delay>30s</delay>
+                    <description>M_y at Soft PLL</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>SoftPLL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsSpllStatus</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>501de3a652444d13abeb64e6924aeb8e</uuid>
+                    <name>SoftPLL Sequence State</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsSpllSeqState.0</snmp_oid>
+                    <key>wrsSpllSeqState</key>
+                    <delay>30s</delay>
+                    <description>Sequence state of Soft PLL (values taken from file softpll_export.h, wrpc-sw repo)</description>
+                    <valuemap>
+                        <name>wrsSpllSeqState</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>SoftPLL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsSpllStatus</value>
+                        </tag>
+                    </tags>
+                </item>
+            </items>
+            <valuemaps>
+                <valuemap>
+                    <uuid>c9a83d003a0c41a39320603a8c58a61d</uuid>
+                    <name>wrsSoftPLLStatus</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>ok</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>warning</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>warningNA</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>bug</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>4689b705d0ab4046830789eadd89809b</uuid>
+                    <name>wrsSpllAlignState</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>extOff</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>start</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>initCsync</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>waitCsync</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>waitSample</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>compensateDelay</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>locked</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>7</value>
+                            <newvalue>startAlignment</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>8</value>
+                            <newvalue>startMain</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>9</value>
+                            <newvalue>waitClkIn</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>10</value>
+                            <newvalue>waitPlock</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>560af0591ba64ed99dfc891b82d96784</uuid>
+                    <name>wrsSpllMode</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>grandmaster</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>master</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>slave</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>disabled</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>d8bdabf7dc1741428b0df8dea9d817f0</uuid>
+                    <name>wrsSpllSeqState</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>startExt</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>waitExt</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>startHelper</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>waitHelper</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>startMain</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>waitMain</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>7</value>
+                            <newvalue>disabled</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>8</value>
+                            <newvalue>ready</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>9</value>
+                            <newvalue>clearDacs</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>10</value>
+                            <newvalue>waitClearDacs</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+            </valuemaps>
+        </template>
+    </templates>
+    <triggers>
+        <trigger>
+            <uuid>4dbfc71361c740fdbe28f8d6d056bf20</uuid>
+            <expression>last(/Template WRS_v6_SoftPLL/wrsSpllMlock)&lt;&gt;1 and last(/Template WRS_v6_SoftPLL/wrsSpllMode)=3</expression>
+            <name>WR SoftPLL main not locked</name>
+            <priority>INFO</priority>
+            <tags>
+                <tag>
+                    <tag>White Rabbit</tag>
+                </tag>
+            </tags>
+        </trigger>
+        <trigger>
+            <uuid>f6f61b9a4d184106b5abcab4f050f166</uuid>
+            <expression>varpop(/Template WRS_v6_SoftPLL/wrsSpllMY,5m)=0 and last(/Template WRS_v6_SoftPLL/wrsSpllMode)=3</expression>
+            <name>WR SoftPLL main not updating</name>
+            <priority>INFO</priority>
+            <tags>
+                <tag>
+                    <tag>White Rabbit</tag>
+                </tag>
+            </tags>
+        </trigger>
+        <trigger>
+            <uuid>98b3c530f6d142f0b955b64608ff10e8</uuid>
+            <expression>last(/Template WRS_v6_SoftPLL/wrsSpllMode)=1 and last(/Template WRS_v6_SoftPLL/wrsSpllAlignState)&lt;&gt;6</expression>
+            <name>WR SoftPLL not aligned in GM mode</name>
+            <priority>WARNING</priority>
+            <tags>
+                <tag>
+                    <tag>White Rabbit</tag>
+                </tag>
+            </tags>
+        </trigger>
+        <trigger>
+            <uuid>a73e3671eb97498e8b0affaf798585bb</uuid>
+            <expression>last(/Template WRS_v6_SoftPLL/wrsSpllMode)=3 and last(/Template WRS_v6_SoftPLL/wrsSpllMlock)&lt;&gt;1</expression>
+            <name>WR SoftPLL not locked</name>
+            <priority>WARNING</priority>
+            <tags>
+                <tag>
+                    <tag>White Rabbit</tag>
+                </tag>
+            </tags>
+        </trigger>
+    </triggers>
+    <graphs>
+        <graph>
+            <uuid>59730079f3f54214971b75e915e42720</uuid>
+            <name>SoftPLL Helper setpoint</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template WRS_v6_SoftPLL</host>
+                        <key>wrsSpllHY</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>b16c0a88846d4c2eb82cef1629a20e6a</uuid>
+            <name>SoftPLL Main setpoint</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template WRS_v6_SoftPLL</host>
+                        <key>wrsSpllMY</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>

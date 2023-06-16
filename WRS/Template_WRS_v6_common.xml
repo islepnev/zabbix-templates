@@ -1,0 +1,3370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.4</version>
+    <date>2023-06-16T17:58:29Z</date>
+    <groups>
+        <group>
+            <uuid>e7946cf06c3c44daa3ae0f50b4457f4c</uuid>
+            <name>Templates/Switches</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>668c8880b62b4f63a133bf121b99f22b</uuid>
+            <template>Template_WRS_v6_common</template>
+            <name>Template_WRS_v6_common</name>
+            <groups>
+                <group>
+                    <name>Templates/Switches</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>e22aed556637445e9f620bf4087c6bc0</uuid>
+                    <name>FPGA Temperature</name>
+                    <type>DEPENDENT</type>
+                    <key>HAL.temp.fpga</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$[&quot;HAL.temp.fpga&quot;]</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>ssh.run[wrs_dump_shmem_hal]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>HAL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Temperature</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>6461d80a552441b7b19be30aa53a236e</uuid>
+                    <name>PLL Temperature</name>
+                    <type>DEPENDENT</type>
+                    <key>HAL.temp.pll</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$[&quot;HAL.temp.pll&quot;]</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>ssh.run[wrs_dump_shmem_hal]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>HAL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Temperature</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>61e15ecbc09246d2b302e604ccc00e1c</uuid>
+                    <name>PSL Temperature</name>
+                    <type>DEPENDENT</type>
+                    <key>HAL.temp.psl</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$[&quot;HAL.temp.psl&quot;]</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>ssh.run[wrs_dump_shmem_hal]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>HAL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Temperature</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>89c5fdb2e39e4c069db18b47abd3c542</uuid>
+                    <name>PSR Temperature</name>
+                    <type>DEPENDENT</type>
+                    <key>HAL.temp.psr</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$[&quot;HAL.temp.psr&quot;]</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>ssh.run[wrs_dump_shmem_hal]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>HAL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Temperature</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>0ecc717a9f1d490bb77e9b467a9ca721</uuid>
+                    <name>CPU Load</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>HOST-RESOURCES-MIB::hrProcessorLoad.768</snmp_oid>
+                    <key>hrProcessorLoad.768</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>System</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>7b4a9cdff6354af886139eed9406a0d1</uuid>
+                    <name>HAL shmem dump JSON (temperature only)</name>
+                    <type>SSH</type>
+                    <key>ssh.run[wrs_dump_shmem_hal]</key>
+                    <delay>30s</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <params>/wr/bin/wrs_dump_shmem -L | grep HAL.temp</params>
+                    <username>{$WRS_USERNAME}</username>
+                    <password>{$WRS_PASSWORD}</password>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>var lines = value.split('\n');
+var data = {};
+while(lines.length) {
+    var hstr = lines.shift();
+    if (!hstr) break;
+    var harr = hstr.split(': ');
+    var k = harr[0].trim();
+    var v = harr[1].trim();
+    v = v.split('&quot;').join(''); // remove quotes
+    v = v.replace(/.+\(([0-9]+)\)$/, '$1'); // get number 3 from 'slave(3)'
+    data[k] = v;
+}
+return JSON.stringify(data, null, 2);
+</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>HAL</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>71aae8d015964bc7a450b9c09bf077b8</uuid>
+                    <name>dot-config download status</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsBootConfigStatus.0</snmp_oid>
+                    <key>wrsBootConfigStatus</key>
+                    <description>Result of loading or downloading dot-config file
+        ok - dot-config downloaded or loaded correctly
+        downloadError - unable to download a file from a given source
+        checkError - config file is not valid or too short (less than 200 characters).
+        errorMinor - cannot read the status file, problem is probably somewhere else
+        dhcpError - unable to get URL to dot-config via DHCP (only for forceDhcp)</description>
+                    <valuemap>
+                        <name>wrsBootConfigStatus</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsBootStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>b5585b15179940cdb9074f64614cc153</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsBootConfigStatus)&lt;&gt;1</expression>
+                            <name>boot configuration status is not ok</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>d3408236281640db83824679a879ec2f</uuid>
+                    <name>hwinfo readout status</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsBootHwinfoReadout.0</snmp_oid>
+                    <key>wrsBootHwinfoReadout</key>
+                    <description>Result of hwinfo readout
+        ok - hwinfo readout successful
+        error - hwinfo readout failed
+        errorMinor - cannot read status file, problem is probably somewhere else
+        warning - no hwinfo partition</description>
+                    <valuemap>
+                        <name>wrsBootHwinfoReadout</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsBootStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>d759528eab6940b9b7034646ab7800e2</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsBootHwinfoReadout)&lt;&gt;1</expression>
+                            <name>hwinfo readout is not ok</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>e70067bf648842519963feb6da3f40ca</uuid>
+                    <name>Number of kernel modules missing</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsBootKernelModulesMissing.0</snmp_oid>
+                    <key>wrsBootKernelModulesMissing</key>
+                    <description>Checking if all desired kernel modules are loaded.
+        allKernelModulesPresent - all modules loaded
+        other numbers represent number of modules not loaded
+        other errors (like unable to open /proc/modules) are reported as maximum number of missing modules</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsBootStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>e9ae79ac05d1438891bce1f14f04a9c2</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsBootKernelModulesMissing)&gt;0</expression>
+                            <name>Kernel modules missing</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>5c68ff7a8f6649ccb88bf1d581fd17d5</uuid>
+                    <name>FPGA load status</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsBootLoadFPGA.0</snmp_oid>
+                    <key>wrsBootLoadFPGA</key>
+                    <description>Result of loading FPGA
+        ok - FPGA loaded successfully
+        error - loading failed
+        errorMinor - cannot read status file, problem is probably somewhere else
+        fileNotFound - file to be loaded not found</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsBootStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>3a6f5222e89f49adb3466df42be3d57e</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsBootLoadFPGA)&lt;&gt;1</expression>
+                            <name>FPGA not loaded</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>04004a0a37ee4726b928c7584034b29c</uuid>
+                    <name>wrsBootSuccessful</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsBootSuccessful.0</snmp_oid>
+                    <key>wrsBootSuccessful</key>
+                    <description>Grouped status of wrsBootStatusGroup, indicating whether boot was
+            successful
+            ok - values in wrsBootStatusGroup are correct
+            error - there is an error in wrsBootStatusGroup
+            warning - there is a warning in wrsBootStatusGroup
+            warningNA - there is N/A field in wrsBootStatusGroup
+            bug - bug in checking conditions of wrsBootStatusGroup, please report</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsOSStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>c4677bb4aa794cb38cb0bac0330e244c</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsBootSuccessful)&lt;&gt;1</expression>
+                            <name>WR boot error</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>893283272dce41ee965f93efc2ca662b</uuid>
+                    <name>Number of userspace daemons missing</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsBootUserspaceDaemonsMissing.0</snmp_oid>
+                    <key>wrsBootUserspaceDaemonsMissing</key>
+                    <description>Checking if all desired daemons are running.
+        allDaemonsPresent - all daemons running
+        other numbers represent number of daemons not running
+        other errors (can be: unable to run ps command or problem with multiple process instances)
+        are reported as maximum number of missing modules</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsBootStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>843fb5499afd4b89ac86b73715f7f2fe</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsBootUserspaceDaemonsMissing)&gt;0</expression>
+                            <name>Userspace daemons missing</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>9069d363abdf436585596f74effc8573</uuid>
+                    <name>Source of used dot-config</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsConfigSource.0</snmp_oid>
+                    <key>wrsConfigSource</key>
+                    <description>Source of used dotconfig
+        local - used dot-config was stored on the switch
+        remote - dot-config retrieved from the network check the wrsConfigSourceUrl for the path
+        tryDhcp - try to get URL to the dot-config via DHCP, if DHCP retrieve fail do not propagate error to the wrsBootSuccessful;
+        forceDhcp - get URL to the dot-config via DHCP, if failed propagate error to the wrsBootSuccessful
+        errorMinor - cannot read the status file, problem is probably somewhere else</description>
+                    <valuemap>
+                        <name>wrsConfigSource</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsBootStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>cd8eda510bfc411896b9b7464ada083c</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsConfigSource)&lt;&gt;6</expression>
+                            <name>configuration file setting is not forceDHCP</name>
+                            <priority>INFO</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>ddcbf260dfc34f42b4f44b1c3de8c28d</uuid>
+                    <name>wrsCpuLoadHigh</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsCpuLoadHigh.0</snmp_oid>
+                    <key>wrsCpuLoadHigh</key>
+                    <delay>30s</delay>
+                    <description>Status of CPU load. Based on average load in group wrsCpuLoad.
+            Error - average CPU load is more than 3 for 1min, 2 for 5min or 1.5 for 15min
+            Warning - average CPU load is more than 2 for 1min, 1.5 for 5min or 1 for 15min</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsOSStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>b28b296fe775469eaafca0af2899d55e</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsCpuLoadHigh)&lt;&gt;1</expression>
+                            <name>WR CPU load high</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>3679eec61b654b83a7dc235cca42eaf5</uuid>
+                    <name>wrsDateTAI</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrSwitchMIB.7.1.1.1.0</snmp_oid>
+                    <key>wrsDateTAI</key>
+                    <delay>30s</delay>
+                    <description>The current time, in TAI seconds</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>d40ab99c91eb40c09eef45832b40c5a0</uuid>
+                    <name>wrsDateTAIOffset</name>
+                    <type>CALCULATED</type>
+                    <key>wrsDateTAIOffset</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <params>last(//wrsDateTAI) - now()</params>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>355c4c8777c84fac964e1b93b835efbe</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsDateTAIOffset) &lt; -50 or last(/Template_WRS_v6_common/wrsDateTAIOffset) &gt; 50</expression>
+                            <name>wrsDateTAI zabbix sampling delay too large</name>
+                            <status>DISABLED</status>
+                            <priority>INFO</priority>
+                            <description>Usually an indication of:
+ - Zabbix poller process being too busy
+ - TAI time jump
+ - Time not synchronized to GPS</description>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>59e4af6b69434b948f8cda80172ec4cd</uuid>
+                    <name>wrsDateTAIOffsetToLocal</name>
+                    <type>DEPENDENT</type>
+                    <key>wrsDateTAIOffsetToLocal</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>// subtract 0.5 due to integer input data
+return value - 0.5 - Date.now() / 1000;</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>wrsDateTAI</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>106d9acb134a4b3f9371c3252a977bf9</uuid>
+                            <expression>abs(last(/Template_WRS_v6_common/wrsDateTAIOffsetToLocal)-{$TAI_UTC_OFFSET}) &gt; {$TAI_UTC_OFFSET_WARNING}</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>abs(last(/Template_WRS_v6_common/wrsDateTAIOffsetToLocal)-{$TAI_UTC_OFFSET}) &lt; {$TAI_UTC_OFFSET_WARNING}/2</recovery_expression>
+                            <name>TAI to zabbix local time offset &gt; {$TAI_UTC_OFFSET_WARNING}</name>
+                            <priority>WARNING</priority>
+                            <description>Usually an indication of:
+ - Zabbix poller or preprocessor processes being too busy
+ - TAI time jump
+ - Time not synchronized to GPS</description>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>84711fd63b7b450b8398941b3088dcc3</uuid>
+                    <name>wrsDiskSpaceLow</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsDiskSpaceLow.0</snmp_oid>
+                    <key>wrsDiskSpaceLow</key>
+                    <description>Status of used disk space. Based on wrsDiskTable.
+            Error - more than 90% of any disk is used
+            Warning - more than 80% of any disk is used</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsOSStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>175d36cdf9fd4df6b40332c047979bfc</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsDiskSpaceLow)&lt;&gt;1</expression>
+                            <name>WR disk space low</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>328fc8d09cf84dc48e663232c7934618</uuid>
+                    <name>wrsEndpointStatus</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsEndpointStatus.0</snmp_oid>
+                    <key>wrsEndpointStatus</key>
+                    <delay>30s</delay>
+                    <description>Grouped status of all endpoints
+             ok - all endpoints are ok
+             error - erro in at least one endpoint
+             firstRead - cannot calculate value from only one read</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>416c7e55ae8d4b18aba78774315e479f</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsEndpointStatus)&lt;&gt;1</expression>
+                            <name>WR Endpoint Status not Ok</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>f2290af411ce4d76a285e7128fb4a196</uuid>
+                    <name>wrsLeapSecSource</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsLeapSecSource.0</snmp_oid>
+                    <key>wrsLeapSecSource</key>
+                    <description>Source leap second file (leap-seconds.list)
+            local - The local file is used
+            tryRemote - Try to download the file, if it fails do not propagate error
+            forceRemote - Try to download the file, if it fails the error is propagated
+            errorMinor - cannot read the status file, problem is probably somewhere else</description>
+                    <valuemap>
+                        <name>wrsLeapSecSource</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsCurrentTime</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>205ed35a679c4f98b36bef37c75e60ce</uuid>
+                    <name>wrsLeapSecSourceStatusDetails</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsLeapSecSourceStatusDetails.0</snmp_oid>
+                    <key>wrsLeapSecSourceStatusDetails</key>
+                    <description>Download status of the leap seconds file
+           ok - Everything is OK
+           updated  - Local leap seconds file has been updated
+           dhcpError - DHCP error detected
+           invalidUrl - The URL is not reachable or invalid
+           invalidFile - The download file is invalid
+           downloadError - Error detected during the download
+           errorMinor - cannot read the status file, problem is probably somewhere else</description>
+                    <valuemap>
+                        <name>wrsLeapSecSourceStatusDetails</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsCurrentTime</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>769078bc6a6742de9a87144da2b6a9eb</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsLeapSecSourceStatusDetails)&lt;&gt;1 and last(/Template_WRS_v6_common/wrsLeapSecSourceStatusDetails)&lt;&gt;4</expression>
+                            <name>Failed to download leap seconds file</name>
+                            <priority>INFO</priority>
+                            <description>Status: {ITEM.LASTVALUE}</description>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>c245d0eb331144f29fe49ad8c83e9ce8</uuid>
+                    <name>wrsLeapSecStatusDetails</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsLeapSecStatusDetails.0</snmp_oid>
+                    <key>wrsLeapSecStatusDetails</key>
+                    <description>Leap second status
+                        ok -  Everything ok
+                        leapSecFileExpired - The current leap second file is out-dated
+                    internalErrorDetected - Internal error detected (system,...)
+                        taiReadError - Cannot read the TAI time
+                        leaSecInserted - A leap second will be inserted at 00:00
+                        leapSecDeleted - A leap second will be deleted at 00:00
+            errorMinor - cannot read the status file, problem is probably somewhere else</description>
+                    <valuemap>
+                        <name>wrsLeapSecStatusDetails</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsCurrentTime</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>75e1d8aabaf94399aba60ddcdd217fd6</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsLeapSecStatusDetails)&lt;&gt;1</expression>
+                            <name>Leap second status not Ok: {ITEM.LASTVALUE}</name>
+                            <priority>WARNING</priority>
+                            <description>Status: {ITEM.LASTVALUE}</description>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>adf022b5dfc741838a95fd8263b5f772</uuid>
+                    <name>wrsMainSystemStatus</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsMainSystemStatus.0</snmp_oid>
+                    <key>wrsMainSystemStatus</key>
+                    <delay>30s</delay>
+                    <description>Grouped status of WRS switch
+            ok - other objects in wrsGeneralStatusGroup are ok
+            error - there is an error in wrsGeneralStatusGroup
+            warning - there is a warning in wrsGeneralStatusGroup
+            warningNA - there is N/A field in wrsGeneralStatusGroup
+            bug - bug in checking conditions of wrsGeneralStatusGroup, please report</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsGeneralStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>b2f127d9975d48d98802ad7570f1ccb7</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsMainSystemStatus)&lt;&gt;1</expression>
+                            <name>WR System Status not Ok</name>
+                            <status>DISABLED</status>
+                            <priority>INFO</priority>
+                            <description>disabled due to false error</description>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>1afb8231fc8d4b7cb71c53a4c87700b6</uuid>
+                    <name>wrsMemoryFreeLow</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsMemoryFreeLow.0</snmp_oid>
+                    <key>wrsMemoryFreeLow</key>
+                    <delay>30s</delay>
+                    <description>Status of free memory. Based on wrsMemoryGroup.
+            Error - more than 80% memory used
+            Warning - more than 50% memory used</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsOSStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>8d017795c94b4251bae750d7feb1fdf2</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsMemoryFreeLow)&lt;&gt;1</expression>
+                            <name>WR out of memory</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>acf7077340184856ad13150d3f881be4</uuid>
+                    <name>wrsNetworkingStatus</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsNetworkingStatus.0</snmp_oid>
+                    <key>wrsNetworkingStatus</key>
+                    <delay>30s</delay>
+                    <description>Grouped status of wrsNetworkingStatusGroup
+            ok - values in wrsNetworkingStatusGroup are ok
+            error - there is an error in wrsNetworkingStatusGroup
+            warning - there is a warning in wrsNetworkingStatusGroup
+            warningNA - there is N/A field in wrsNetworkingStatusGroup
+            bug - bug in checking conditions of wrsNetworkingStatusGroup, please report</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsGeneralStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>d3cf3f93616e4bd1a1b3f3ab3ba50ddb</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsNetworkingStatus)&lt;&gt;1</expression>
+                            <name>WR Networking Status not Ok</name>
+                            <status>DISABLED</status>
+                            <priority>INFO</priority>
+                            <description>false error in v4.2, disabed</description>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>b8bc54b240da418d9beafedb38f1908d</uuid>
+                    <name>wrsOSStatus</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsOSStatus.0</snmp_oid>
+                    <key>wrsOSStatus</key>
+                    <delay>30s</delay>
+                    <description>Grouped status of wrsOSStatusGroup
+            ok - values in wrsOSStatusGroup are ok
+            error - there is an error in wrsOSStatusGroup
+            warning - there is a warning in wrsOSStatusGroup
+            warningNA - there is N/A field in wrsOSStatusGroup
+            bug - bug in checking conditions of wrsOSStatusGroup, please report</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsGeneralStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>c8a50bdbbb5548428970604c79bb9cf4</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsOSStatus)&lt;&gt;1</expression>
+                            <name>WR OS Status not Ok</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>553e528878894749a582d93523b2c679</uuid>
+                    <name>wrsPtpClockOffsetErrCnt</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpClockOffsetErrCnt.1</snmp_oid>
+                    <key>wrsPtpClockOffsetErrCnt</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <description>Number of servo updates with wrong clock offset</description>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>caef2c62abb34eacbacf21d716adb823</uuid>
+                            <expression>change(/Template_WRS_v6_common/wrsPtpClockOffsetErrCnt)&gt;0</expression>
+                            <name>WR PTP Clock Offset Errors</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>ad9672e00e1646879fae49b7f34e07c8</uuid>
+                    <name>wrsPtpClockOffsetPs</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpClockOffsetPs.1</snmp_oid>
+                    <key>wrsPtpClockOffsetPs</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>ps</units>
+                    <description>Current clock offset from master in picoseconds</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>5d036a65ef5d428880e3233a563f8bb8</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsPtpClockOffsetPs)&gt;50</expression>
+                            <name>WR PTP offset &gt; 50 ps</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>f54b6d91af564b95a66f0f91966ce077</uuid>
+                    <name>wrsPtpClockOffsetPsHR</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpClockOffsetPsHR.1</snmp_oid>
+                    <key>wrsPtpClockOffsetPsHR</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>ps</units>
+                    <description>Human Readable current clock offset from master, in picoseconds with saturation to integer</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>67d856068dec4a48b4380e947428b8ad</uuid>
+                    <name>wrsPTPFramesFlowing</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPTPFramesFlowing.0</snmp_oid>
+                    <key>wrsPTPFramesFlowing</key>
+                    <delay>30s</delay>
+                    <description>Grouped status of TX and RX PTP packets flowing
+            ok - when there are PTP packets flowing in both directions on all
+                 wr ports that are up
+            warningNA - there is N/A in one of object used to calculate this value
+            error - no PTP packets flowing on at least one wr up port
+            firstRead - cannot calculate value from only one read</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsTimingStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>7169f9b8a134425fa32fcde2f250d07b</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsPTPFramesFlowing)&lt;&gt;1</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>min(/Template_WRS_v6_common/wrsPTPFramesFlowing,5m)=1 and max(/Template_WRS_v6_common/wrsPTPFramesFlowing,5m)=1</recovery_expression>
+                            <name>WR PTP Frames not flowing</name>
+                            <priority>INFO</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>6427d90b8073485ebe268643edafbaa8</uuid>
+                    <name>wrsPtpGrandmasterID</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpGrandmasterID.1</snmp_oid>
+                    <key>wrsPtpGrandmasterID</key>
+                    <delay>30s</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>The ClockID of the current grandmaster</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>0edebe4e135042d79cce16200a1c78b0</uuid>
+                    <name>wrsPtpLinkLength</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpLinkLength.1</snmp_oid>
+                    <key>wrsPtpLinkLength</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>m</units>
+                    <description>Estimated fiber length, from master-to-slave delay, in meters</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>e763992f00ce4b1f902a39229bcebd51</uuid>
+                    <name>wrsPtpMode</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpMode.1</snmp_oid>
+                    <key>wrsPtpMode</key>
+                    <delay>30s</delay>
+                    <description>The mode of this clock</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>7a8b6d1c1620461b942374c8f2cb0985</uuid>
+                    <name>wrsPtpOwnID</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpOwnID.1</snmp_oid>
+                    <key>wrsPtpOwnID</key>
+                    <delay>30s</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>The ClockID of this WR device</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>0bf14f1bb98e41b79d7ba0d03333683d</uuid>
+                    <name>wrsPtpPhaseTracking</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpPhaseTracking.1</snmp_oid>
+                    <key>wrsPtpPhaseTracking</key>
+                    <delay>30s</delay>
+                    <description>Whether phase tracking is enabled in the servo</description>
+                    <valuemap>
+                        <name>wrsPtpPhaseTracking</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>9af58bf9ec9f4618b688411821e73d84</uuid>
+                    <name>wrsPtpPortName</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpPortName.1</snmp_oid>
+                    <key>wrsPtpPortName</key>
+                    <delay>30s</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>Port name on which servo instance is running</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>85de176edce141dabc2632d90b0a59d2</uuid>
+                    <name>PTP Round-Trip Time</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpRTT.1</snmp_oid>
+                    <key>wrsPtpRTT</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>us</units>
+                    <description>The round-trip-time, from master, in picoseconds</description>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <parameters>
+                                <parameter>1e-6</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsPtpDataEntry</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>551251e0115b4385b9388ad90896f43a</uuid>
+                    <name>wrsPtpRTTErrCnt</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpRTTErrCnt.1</snmp_oid>
+                    <key>wrsPtpRTTErrCnt</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <description>Number of servo updates with wrong RTT</description>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>1b5f82945f3a496db6210267716b65a3</uuid>
+                    <name>wrsPtpServoStateErrCnt</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpServoStateErrCnt.1</snmp_oid>
+                    <key>wrsPtpServoStateErrCnt</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <description>Number of servo updates with wrong servo state</description>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>aeb30339119a45e2beab76b66f4d56ef</uuid>
+                            <expression>change(/Template_WRS_v6_common/wrsPtpServoStateErrCnt)&gt;0</expression>
+                            <name>WR PTP Servo Errors</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>014502cd2d9544d882a504ef6e0cc8e0</uuid>
+                    <name>wrsPtpServoStateN</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpServoStateN.1</snmp_oid>
+                    <key>wrsPtpServoStateN</key>
+                    <delay>30s</delay>
+                    <description>Numeric representation of servo state</description>
+                    <valuemap>
+                        <name>wrsPtpServoStateN</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>d51ddbe94c884abbaf53da2a157adbec</uuid>
+                    <name>wrsPtpServoUpdates</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpServoUpdates.1</snmp_oid>
+                    <key>wrsPtpServoUpdates</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <description>How many time did the servo run</description>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>52b7cfb094a84914baef8d54ac29a03d</uuid>
+                    <name>PTP Skew</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpSkew.1</snmp_oid>
+                    <key>wrsPtpSkew</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>ps</units>
+                    <description>The estimated change of master-to-slave delay, in picoseconds</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsPtpDataEntry</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>fde6f5db47874b0b969ba50ca51d89e2</uuid>
+                            <expression>abs(last(/Template_WRS_v6_common/wrsPtpSkew))&gt;30</expression>
+                            <name>WR PTP skew &gt; 30 ps</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>a022016d78f34b78918815186324cfd2</uuid>
+                    <name>wrsPTPStatus</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPTPStatus.0</snmp_oid>
+                    <key>wrsPTPStatus</key>
+                    <delay>30s</delay>
+                    <description>Grouped status of PTP daemon based on values in wrsPtpDataTable
+            ok - Correct values in wrsPtpDataTable
+            error - error in wrsPtpDataTable
+            firstRead - unable to calculate deltas in first read</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsTimingStatus</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>d9ad30b9654a42f0b2d44b6237cbe020</uuid>
+                    <name>wrsPtpSyncSource</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsPtpSyncSource.1</snmp_oid>
+                    <key>wrsPtpSyncSource</key>
+                    <delay>30s</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>The port name that is currently the synchronization source</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 PTP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>e8e5df7eafa249e4bca1c38629b631b3</uuid>
+                    <name>Reason of last switch restart</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsRestartReason.0</snmp_oid>
+                    <key>wrsRestartReason</key>
+                    <description>Reason of last switch restart.
+       error(1) - unable to read restart reason or reset counters
+       generalReset(2) -  Both VDDCORE and VDDBU rising (power-on)
+       wakeUpReset(3) - VDDCORE rising
+       watchdogReset(4) - Watchdog fault occurred
+       softwareReset(5) - Processor reset required by the software (system reboot)
+       userReset(6) -  NRST pin detected low (reset button)
+       restartByMonit(7) - Restart caused by Monit, please check wrsRestartReasonMonit for program that caused problems</description>
+                    <valuemap>
+                        <name>wrsRestartReason</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsBootStatus</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>5fb3a6107a8b4731ab2b3bffaa15de85</uuid>
+                    <name>wrsRestartReasonMonit</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsRestartReasonMonit.0</snmp_oid>
+                    <key>wrsRestartReasonMonit</key>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>Program's name which caused the monit to restart the switch due to too many crashes</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsBootStatus</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>1b08729a1b8448c1b763c4ea6114d44b</uuid>
+                    <name>wrsRTUStatus</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsRTUStatus.0</snmp_oid>
+                    <key>wrsRTUStatus</key>
+                    <delay>30s</delay>
+                    <description>RTU status
+             ok - correct RTU status
+             error - erroneous RTU status
+             firstRead - cannot calculate value from only one read</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>e2aa918ef9c046f5b14cabec784f5c7a</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsRTUStatus)&lt;&gt;1</expression>
+                            <name>WR RTU Status not Ok</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>7620a54276864966bdab81de7a5e68fa</uuid>
+                    <name>wrsSFPsStatus</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsSFPsStatus.0</snmp_oid>
+                    <key>wrsSFPsStatus</key>
+                    <delay>30s</delay>
+                    <description>Grouped status of SFPs
+            ok - all SFPs are ok
+            error - there is an error in SFP
+            warningNA - there is N/A in one of object used to calculate this value
+            bug - bug in checking conditions of SFPs, please report</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>6e40a4baa03d46e6a5909a4575fe3aa2</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsSFPsStatus)&lt;&gt;1</expression>
+                            <name>WR SFPs Status not Ok</name>
+                            <priority>INFO</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>19095001668c4c65afd39e986079e125</uuid>
+                    <name>wrsSlaveLinksStatus</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsSlaveLinksStatus.0</snmp_oid>
+                    <key>wrsSlaveLinksStatus</key>
+                    <delay>30s</delay>
+                    <description>Grouped status of slave link statuses
+            ok - all links have proper status
+            error - wrong link status of at least one link
+            warningNA - there is N/A in one of object used to calculate this value</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsTimingStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>1c4409e571f44d83944c616f75280929</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsSlaveLinksStatus)&lt;&gt;1</expression>
+                            <name>WR Slave Links Status not Ok</name>
+                            <priority>INFO</priority>
+                            <dependencies>
+                                <dependency>
+                                    <name>Software is older than v6.0</name>
+                                    <expression>find(/Template_WRS_v6_common/wrsVersionSwVersion,,&quot;regexp&quot;,&quot;^v[6-9]&quot;)=0</expression>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>fa2701bab4564e3c80d704dc03df3264</uuid>
+                    <name>wrsSwcoreStatus</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsSwcoreStatus.0</snmp_oid>
+                    <key>wrsSwcoreStatus</key>
+                    <delay>30s</delay>
+                    <description>Overall status of Soft Core.
+             ok - correct Soft Core status
+             error - erroneous Soft Core status
+             firstRead - cannot calculate value from only one read</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>00ddc14e594c49bc8a5891b2bac51f0a</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsSwcoreStatus)&lt;&gt;1</expression>
+                            <name>WR Swcore Status not Ok</name>
+                            <status>DISABLED</status>
+                            <priority>INFO</priority>
+                            <description>false error in v4.2, disabled</description>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>ffe07bbdf3b24e57807d88a13748c8bb</uuid>
+                    <name>wrsSystemClockDriftUs</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsSystemClockDriftUs.0</snmp_oid>
+                    <key>wrsSystemClockDriftUs</key>
+                    <value_type>FLOAT</value_type>
+                    <units>us</units>
+                    <description>Drift of system clock expressed in microseconds with saturation to min/max integer values</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsCurrentTime</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>510593db3b52424595a77a08e29d6f1e</uuid>
+                    <name>wrsSystemClockStatus</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsSystemClockStatus.0</snmp_oid>
+                    <key>wrsSystemClockStatus</key>
+                    <delay>30s</delay>
+                    <description>Grouped status of system clock
+            ok - system clock is withing threshold (set in WRS configuration) to NTP time and correct leap seconds file was loaded
+            error - system clock problem, either it diverged or incorrect leap seconds file is used
+            warning - leapseconds file is not valid anymore and should be updated
+            warningNA - some information could not be retrieved to calculate the value of this object</description>
+                    <valuemap>
+                        <name>wrsSystemClockStatus</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsTimingStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>231afe57373c4a2eb6f646cf918b2d7d</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsSystemClockStatus)&lt;&gt;1</expression>
+                            <name>WR System Clock Status not Ok</name>
+                            <priority>WARNING</priority>
+                            <description>status: {ITEM.LASTVALUE}</description>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>bdea0eb8fdde4438ae8a5514193cf20c</uuid>
+                    <name>wrsSystemClockStatusDetails</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsSystemClockStatusDetails.0</snmp_oid>
+                    <key>wrsSystemClockStatusDetails</key>
+                    <delay>30s</delay>
+                    <description>The system clock is compared to NTP time
+            ok - system clock is under the threshold value
+            thresholdExceeded - system clock has exceeded the threshold value
+            IOError - IO error detected (error)
+            unknownStatus - Unexpected status (error)
+            error - Error detected
+            warningNA - there is N/A in one of object used to calculate this value</description>
+                    <valuemap>
+                        <name>wrsSystemClockStatusDetails</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsTimingStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>a13ab09b1ce247e4a1a9a773653ea668</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsSystemClockStatusDetails)&lt;&gt;1</expression>
+                            <name>WR System Clock Status not Ok</name>
+                            <priority>WARNING</priority>
+                            <description>status: {ITEM.LASTVALUE}</description>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>cd624cc9592c490c9d3eeb64ebf82988</uuid>
+                    <name>wrsTemperatureWarning</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsTemperatureWarning.0</snmp_oid>
+                    <key>wrsTemperatureWarning</key>
+                    <delay>30s</delay>
+                    <description>Warning if temperature exceed threshold levels</description>
+                    <valuemap>
+                        <name>wrsTemperatureWarning</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsOSStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>a0a416d81a6c4342ac186f52f9616762</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsTemperatureWarning)=3</expression>
+                            <name>Temperature too high</name>
+                            <priority>HIGH</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>94e18fbc35ff481e9c3af8c8e56d7e7b</uuid>
+                    <name>wrsTempFPGA</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrSwitchMIB.7.1.3.1.0</snmp_oid>
+                    <key>wrsTempFPGA</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Temperature</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>ad4f42dc3ac6498fa0c1ddadcfde6c58</uuid>
+                    <name>wrsTempPLL</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrSwitchMIB.7.1.3.2.0</snmp_oid>
+                    <key>wrsTempPLL</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Temperature</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>d0ce9c558a3f4bb19ad3799553cf2d7c</uuid>
+                    <name>wrsTempPSL</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrSwitchMIB.7.1.3.3.0</snmp_oid>
+                    <key>wrsTempPSL</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Temperature</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>fd9cefcd6624483e80bc1a301d963740</uuid>
+                    <name>wrsTempPSR</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrSwitchMIB.7.1.3.4.0</snmp_oid>
+                    <key>wrsTempPSR</key>
+                    <delay>30s</delay>
+                    <value_type>FLOAT</value_type>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Temperature</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>055f963cc2344c7d8e87254a9e86bac5</uuid>
+                    <name>wrsTimingStatus</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsTimingStatus.0</snmp_oid>
+                    <key>wrsTimingStatus</key>
+                    <delay>30s</delay>
+                    <description>Grouped status of wrsTimingStatusGroup
+            ok - values in wrsTimingStatusGroup are ok
+            error - there is an error in wrsTimingStatusGroup
+            warning - there is a warning in wrsTimingStatusGroup
+            warningNA - there is N/A field in wrsTimingStatusGroup
+            bug - bug in checking conditions of wrsTimingStatusGroup, please report</description>
+                    <valuemap>
+                        <name>wrsStatusMapping</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit 4.2 Status</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsGeneralStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>02bc6728eb034e91a866a3b103e3e41f</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsTimingStatus)&lt;&gt;1</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>min(/Template_WRS_v6_common/wrsTimingStatus,5m)=1 and max(/Template_WRS_v6_common/wrsTimingStatus,5m)=1</recovery_expression>
+                            <name>WR Timing Status not Ok</name>
+                            <priority>INFO</priority>
+                            <dependencies>
+                                <dependency>
+                                    <name>Software is older than v6.0</name>
+                                    <expression>find(/Template_WRS_v6_common/wrsVersionSwVersion,,&quot;regexp&quot;,&quot;^v[6-9]&quot;)=0</expression>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>de88d89156df429093f1fc67be756144</uuid>
+                    <name>wrsVersionBackplaneVersion</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrSwitchMIB.6.3.4.0</snmp_oid>
+                    <key>wrsVersionBackplaneVersion</key>
+                    <delay>5m</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>The hardware version of minibackplane PCB</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>c0ee1ad33e384901881b21200b013895</uuid>
+                    <name>wrsVersionGwBuild</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrSwitchMIB.6.3.10.0</snmp_oid>
+                    <key>wrsVersionGwBuild</key>
+                    <delay>5m</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>The build ID of gateware (FPGA bitstream)</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>080d763fc78c4e8eb48362c2623d679e</uuid>
+                    <name>wrsVersionGwVersion</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrSwitchMIB.6.3.9.0</snmp_oid>
+                    <key>wrsVersionGwVersion</key>
+                    <delay>5m</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>The version of gateware (FPGA bitstream)</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>ca3b4ba8732c4d2f956e98af92ea5a00</uuid>
+                    <name>wrsVersionSwitchSerialNumber</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrSwitchMIB.6.3.7.0</snmp_oid>
+                    <key>wrsVersionSwitchSerialNumber</key>
+                    <delay>5m</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>The serial number (or string) of the switch</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>c1ad464f44de4de6ba6a1367eb7ad60b</uuid>
+                    <name>wrsVersionSwVersion</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsVersionSwVersion.0</snmp_oid>
+                    <key>wrsVersionSwVersion</key>
+                    <delay>5m</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>The software version, as returned from 'git describe' at build time</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsVersion</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>5977fb9698c44589b4a6e84dfe27735b</uuid>
+                            <expression>find(/Template_WRS_v6_common/wrsVersionSwVersion,,&quot;regexp&quot;,&quot;^v[6-9]&quot;)=0</expression>
+                            <name>Software is older than v6.0</name>
+                            <priority>INFO</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                        <trigger>
+                            <uuid>cf294f4ddd3a4fabb455ffaccf70384b</uuid>
+                            <expression>find(/Template_WRS_v6_common/wrsVersionSwVersion,,&quot;like&quot;,&quot;v6.1&quot;)=0</expression>
+                            <name>Software version is not v6.1</name>
+                            <priority>INFO</priority>
+                            <description>Current software version: {ITEM.LASTVALUE}</description>
+                            <dependencies>
+                                <dependency>
+                                    <name>Software is older than v6.0</name>
+                                    <expression>find(/Template_WRS_v6_common/wrsVersionSwVersion,,&quot;regexp&quot;,&quot;^v[6-9]&quot;)=0</expression>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>db9e0521e6014c46a322a2eeb2d20b29</uuid>
+                    <name>Result of setting up VLANs</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>WR-SWITCH-MIB::wrsVlansSetStatus.0</snmp_oid>
+                    <key>wrsVlansSetStatus</key>
+                    <description>Result of setting up VLANs
+        ok - successful set up of VLANs
+        failed - error while setting up VLANs
+        disabled - the setting up of VLANs disabled in dot-config
+        error - unsuported status
+        errorMinor - cannot read the status file, the problem is probably somewhere else</description>
+                    <valuemap>
+                        <name>wrsVlansSetStatus</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>White Rabbit</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>WRS-v6</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wrsBootStatus</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>6904d2505cb34f229c332a0acb4d227e</uuid>
+                            <expression>last(/Template_WRS_v6_common/wrsVlansSetStatus)=2 or last(/Template_WRS_v6_common/wrsVlansSetStatus)=4 or last(/Template_WRS_v6_common/wrsVlansSetStatus)=5</expression>
+                            <name>VLAN setup failed</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>White Rabbit</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>8634aef56b1444c7967903407757b016</uuid>
+                    <name>wrsPortStatusTable</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE}, wrsPortStatusPortName]</snmp_oid>
+                    <key>wrsPortStatusTable</key>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>a85777d724464c92b054038c85d852fd</uuid>
+                            <name>$1 link state</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>wrsPortStatusLink.{#SNMPINDEX}</snmp_oid>
+                            <key>wrsPortStatusLink[&quot;{#SNMPVALUE}&quot;]</key>
+                            <description>Whether the link is up or down</description>
+                            <request_method>POST</request_method>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit 4.2 Port Status</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>5d2af4794bdb4663b146b62774f363ca</uuid>
+                            <name>$1 peer locked</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>wrsPortStatusLocked.{#SNMPINDEX}</snmp_oid>
+                            <key>wrsPortStatusLocked[&quot;{#SNMPVALUE}&quot;]</key>
+                            <description>Whether the peers are locked or not</description>
+                            <request_method>POST</request_method>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit 4.2 Port Status</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>9a3f99fdbc794330ad67d6676164739f</uuid>
+                            <name>$1 PTP RX frames</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>wrsPortStatusPtpRxFrames.{#SNMPINDEX}</snmp_oid>
+                            <key>wrsPortStatusPtpRxFramesNew[&quot;{#SNMPVALUE}&quot;]</key>
+                            <value_type>FLOAT</value_type>
+                            <description>Number of received PTP frames per port (for all PPSI instances running on particular port</description>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit 4.2 Port Status</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>0d72be9c323c468290434cc7b96e8b7d</uuid>
+                            <name>$1 PTP TX frames</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>wrsPortStatusPtpTxFrames.{#SNMPINDEX}</snmp_oid>
+                            <key>wrsPortStatusPtpTxFramesNew[&quot;{#SNMPVALUE}&quot;]</key>
+                            <value_type>FLOAT</value_type>
+                            <description>Number of transmitted PTP frames per port (for all PPSI instances running on particular port</description>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit 4.2 Port Status</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>337c1f82f0044ec388da6023bcfc178e</uuid>
+                            <name>$1 SFP error</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>wrsPortStatusSfpError.{#SNMPINDEX}</snmp_oid>
+                            <key>wrsPortStatusSfpError[&quot;{#SNMPVALUE}&quot;]</key>
+                            <delay>10m</delay>
+                            <description>Problem with SFP configuration. Port has to be always 1GbE. Port has to be in data base as long as support WR.</description>
+                            <valuemap>
+                                <name>wrsPortStatusSfpError</name>
+                            </valuemap>
+                            <request_method>POST</request_method>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit 4.2 Port Status</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>2d24719ab27048efa6cb7e81bc1781d6</uuid>
+                                    <expression>last(/Template_WRS_v6_common/wrsPortStatusSfpError[&quot;{#SNMPVALUE}&quot;])=2</expression>
+                                    <name>{#SNMPVALUE} SFP Error</name>
+                                    <priority>INFO</priority>
+                                    <description>Problem with SFP configuration. Port has to be always 1GbE. Port has to be in data base as long as support WR.</description>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>{#SNMPVALUE} SFP not in database</name>
+                                            <expression>last(/Template_WRS_v6_common/wrsPortStatusSfpInDB[&quot;{#SNMPVALUE}&quot;])=1</expression>
+                                        </dependency>
+                                    </dependencies>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>6e8e2ea253ff4d25b7d8168ff1c25d2a</uuid>
+                            <name>$1 SFP is 1GbE</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>wrsPortStatusSfpGbE.{#SNMPINDEX}</snmp_oid>
+                            <key>wrsPortStatusSfpGbE[&quot;{#SNMPVALUE}&quot;]</key>
+                            <delay>10m</delay>
+                            <description>Whether the SFP is 1 GbE</description>
+                            <request_method>POST</request_method>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit 4.2 Port Status</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>e178d15005404efabb411948d6b75d79</uuid>
+                            <name>$1 SFP in database</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>wrsPortStatusSfpInDB.{#SNMPINDEX}</snmp_oid>
+                            <key>wrsPortStatusSfpInDB[&quot;{#SNMPVALUE}&quot;]</key>
+                            <delay>10m</delay>
+                            <description>Whether the SFP is in data base or not</description>
+                            <request_method>POST</request_method>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit 4.2 Port Status</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>1f47e64af04841478f3b1a62aac18b5f</uuid>
+                                    <expression>last(/Template_WRS_v6_common/wrsPortStatusSfpInDB[&quot;{#SNMPVALUE}&quot;])=1</expression>
+                                    <name>{#SNMPVALUE} SFP not in database</name>
+                                    <priority>INFO</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>1a7e1f6bb5a84cfc8f3d9b70e72c67a3</uuid>
+                            <name>$1 SFP Part Number</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>wrsPortStatusSfpPN.{#SNMPINDEX}</snmp_oid>
+                            <key>wrsPortStatusSfpPN[&quot;{#SNMPVALUE}&quot;]</key>
+                            <delay>10m</delay>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Part Number of SFP</description>
+                            <request_method>POST</request_method>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit 4.2 Port Status</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>0570545e3e9d4042b97d1e152bed9a02</uuid>
+                            <name>$1 SFP Vendor Name</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>wrsPortStatusSfpVN.{#SNMPINDEX}</snmp_oid>
+                            <key>wrsPortStatusSfpVN[&quot;{#SNMPVALUE}&quot;]</key>
+                            <delay>10m</delay>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Vendor Name of SFP</description>
+                            <request_method>POST</request_method>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit 4.2 Port Status</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>2b4bb66e388043019a2a8641d8410042</uuid>
+                            <name>$1 SFP Vendor serial number</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>wrsPortStatusSfpVS.{#SNMPINDEX}</snmp_oid>
+                            <key>wrsPortStatusSfpVS[&quot;{#SNMPVALUE}&quot;]</key>
+                            <delay>10m</delay>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Vendor serial number of SFP</description>
+                            <request_method>POST</request_method>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>White Rabbit 4.2 Port Status</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <uuid>32b10999bff84ede8108502518e83443</uuid>
+                            <name>PTP Frames {#SNMPVALUE}</name>
+                            <ymin_type_1>FIXED</ymin_type_1>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>FILLED_REGION</drawtype>
+                                    <color>00BB00</color>
+                                    <item>
+                                        <host>Template_WRS_v6_common</host>
+                                        <key>wrsPortStatusPtpRxFramesNew[&quot;{#SNMPVALUE}&quot;]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>BOLD_LINE</drawtype>
+                                    <color>0000FF</color>
+                                    <item>
+                                        <host>Template_WRS_v6_common</host>
+                                        <key>wrsPortStatusPtpTxFramesNew[&quot;{#SNMPVALUE}&quot;]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                    <request_method>POST</request_method>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$TAI_UTC_OFFSET}</macro>
+                    <value>37</value>
+                    <description>current TAI offset from leap_seconds.list file</description>
+                </macro>
+                <macro>
+                    <macro>{$TAI_UTC_OFFSET_WARNING}</macro>
+                    <value>5</value>
+                    <description>warn when TAI offset exceeds this many seconds</description>
+                </macro>
+            </macros>
+            <dashboards>
+                <dashboard>
+                    <uuid>6cc887d3410741e0991f6568dcf2773c</uuid>
+                    <name>WR PTP frames by port</name>
+                    <pages>
+                        <page>
+                            <widgets>
+                                <widget>
+                                    <type>GRAPH_PROTOTYPE</type>
+                                    <width>24</width>
+                                    <height>5</height>
+                                    <fields>
+                                        <field>
+                                            <type>INTEGER</type>
+                                            <name>columns</name>
+                                            <value>1</value>
+                                        </field>
+                                        <field>
+                                            <type>GRAPH_PROTOTYPE</type>
+                                            <name>graphid</name>
+                                            <value>
+                                                <name>PTP Frames {#SNMPVALUE}</name>
+                                                <host>Template_WRS_v6_common</host>
+                                            </value>
+                                        </field>
+                                    </fields>
+                                </widget>
+                            </widgets>
+                        </page>
+                    </pages>
+                </dashboard>
+                <dashboard>
+                    <uuid>7fdfa22ccf044d248c0b0b627ca009d3</uuid>
+                    <name>WR PTP Statistics</name>
+                    <pages>
+                        <page>
+                            <widgets>
+                                <widget>
+                                    <type>GRAPH_CLASSIC</type>
+                                    <y>10</y>
+                                    <width>12</width>
+                                    <height>5</height>
+                                    <fields>
+                                        <field>
+                                            <type>GRAPH</type>
+                                            <name>graphid</name>
+                                            <value>
+                                                <name>PTP clock offset</name>
+                                                <host>Template_WRS_v6_common</host>
+                                            </value>
+                                        </field>
+                                    </fields>
+                                </widget>
+                                <widget>
+                                    <type>GRAPH_CLASSIC</type>
+                                    <x>12</x>
+                                    <y>10</y>
+                                    <width>12</width>
+                                    <height>5</height>
+                                    <fields>
+                                        <field>
+                                            <type>GRAPH</type>
+                                            <name>graphid</name>
+                                            <value>
+                                                <name>PTP master to slave delay change</name>
+                                                <host>Template_WRS_v6_common</host>
+                                            </value>
+                                        </field>
+                                    </fields>
+                                </widget>
+                                <widget>
+                                    <type>GRAPH_CLASSIC</type>
+                                    <x>12</x>
+                                    <y>5</y>
+                                    <width>12</width>
+                                    <height>5</height>
+                                    <fields>
+                                        <field>
+                                            <type>GRAPH</type>
+                                            <name>graphid</name>
+                                            <value>
+                                                <name>PTP RTT</name>
+                                                <host>Template_WRS_v6_common</host>
+                                            </value>
+                                        </field>
+                                    </fields>
+                                </widget>
+                                <widget>
+                                    <type>GRAPH_CLASSIC</type>
+                                    <x>12</x>
+                                    <width>12</width>
+                                    <height>5</height>
+                                    <fields>
+                                        <field>
+                                            <type>GRAPH</type>
+                                            <name>graphid</name>
+                                            <value>
+                                                <name>PTP link length</name>
+                                                <host>Template_WRS_v6_common</host>
+                                            </value>
+                                        </field>
+                                    </fields>
+                                </widget>
+                                <widget>
+                                    <type>GRAPH_CLASSIC</type>
+                                    <width>12</width>
+                                    <height>5</height>
+                                    <fields>
+                                        <field>
+                                            <type>GRAPH</type>
+                                            <name>graphid</name>
+                                            <value>
+                                                <name>PTP Servo Errors</name>
+                                                <host>Template_WRS_v6_common</host>
+                                            </value>
+                                        </field>
+                                    </fields>
+                                </widget>
+                                <widget>
+                                    <type>GRAPH_CLASSIC</type>
+                                    <y>5</y>
+                                    <width>12</width>
+                                    <height>5</height>
+                                    <fields>
+                                        <field>
+                                            <type>GRAPH</type>
+                                            <name>graphid</name>
+                                            <value>
+                                                <name>PTP Servo Updates</name>
+                                                <host>Template_WRS_v6_common</host>
+                                            </value>
+                                        </field>
+                                    </fields>
+                                </widget>
+                            </widgets>
+                        </page>
+                    </pages>
+                </dashboard>
+            </dashboards>
+            <valuemaps>
+                <valuemap>
+                    <uuid>4334c4a3958c4feeaa0ba6e512f654fd</uuid>
+                    <name>wrsBootConfigStatus</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>ok</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>downloadError</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>checkError</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>errorMinor</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>dhcpError</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>a22abe7702974479bb50b02556fdaee0</uuid>
+                    <name>wrsBootHwinfoReadout</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>ok</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>errorMinor</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>warning</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>149e81a18e9845c99a77dedd0f6e5cdc</uuid>
+                    <name>wrsBootLoadFPGA</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>ok</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>errorMinor</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>fileNotFound</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>e068a814f12f4ef69b5e7e3734ec0952</uuid>
+                    <name>wrsConfigSource</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>errorMinor</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>local</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>remote</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>tryDhcp</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>forceDhcp</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>dcc2021193734f56ad24db2680b8ace8</uuid>
+                    <name>wrsLeapSecSource</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>errorMinor</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>local</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>tryRemote</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>forceRemote</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>41948a242a6e4a569f1ac9bf4a8c2bbc</uuid>
+                    <name>wrsLeapSecSourceStatusDetails</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>ok</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>statusFileMissing</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>unknownStatus</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>updated</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>dhcpError</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>invalidUrl</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>7</value>
+                            <newvalue>invalidFile</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>8</value>
+                            <newvalue>downloadError</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>cc1de808daaf4c6f986ccefc3878a46b</uuid>
+                    <name>wrsLeapSecStatusDetails</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>ok</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>statusFileMissing</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>unknownStatus</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>leapSecFileExpired</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>internalErrorDetected</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>taiReadError</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>7</value>
+                            <newvalue>leaSecInserted</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>8</value>
+                            <newvalue>leapSecDeleted</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>e0e39d7a1a524b11b8500bb0154e43b0</uuid>
+                    <name>wrsPortStatusSfpError</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>sfpOk</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>sfpError</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>portDown</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>6cd3a8543e8c45a6980e02297a943f40</uuid>
+                    <name>wrsPtpPhaseTracking</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>notTracking</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>tracking</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>e18494ab4e3244c4a0db8e881a9ce369</uuid>
+                    <name>wrsPtpServoStateN</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>uninitialized</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>syncNsec</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>syncSec</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>syncPhase</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>trackPhase</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>waitOffsetStable</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>77f4834389bf45d487726db3e1b7d95d</uuid>
+                    <name>wrsRestartReason</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>generalReset</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>wakeUpReset</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>watchdogReset</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>softwareReset</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>userReset</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>7</value>
+                            <newvalue>restartByMonit</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>e56c62f928bf422cb1a6709fedb9ac4b</uuid>
+                    <name>wrsStatusMapping</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>ok</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>warning</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>warningNA</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>bug</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>firstRead</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>96171d67cdd843558540cea0fd59d9a5</uuid>
+                    <name>wrsSystemClockStatus</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>ok</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>warning</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>warningNA</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>4dbeb24f47df4ab9b796c77a76c744c0</uuid>
+                    <name>wrsSystemClockStatusDetails</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>ok</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>thresholdExceeded</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>ntpError</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>ioError</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>unknownStatus</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>843c80dad4ac4e05b3ee8d2c4af3513d</uuid>
+                    <name>wrsTemperatureWarning</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>thresholdNotSet</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>temperatureOK</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>temperatureTooHigh</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>04110eef68b34087a85417fc9fb97442</uuid>
+                    <name>wrsVlansSetStatus</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>na</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>ok</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>failed</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>disabled</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>errorMinor</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+            </valuemaps>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <uuid>2a038964e3ef43bf8ffd23fc925b2f63</uuid>
+            <name>CPU Load</name>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>BB0000</color>
+                    <calc_fnc>MAX</calc_fnc>
+                    <item>
+                        <host>Template_WRS_v6_common</host>
+                        <key>hrProcessorLoad.768</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>384a83652b1641b7837246e54499bf67</uuid>
+            <name>PTP clock offset</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template_WRS_v6_common</host>
+                        <key>wrsPtpClockOffsetPs</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>ed850d9d741444d19ab746aec1f1f255</uuid>
+            <name>PTP link length</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template_WRS_v6_common</host>
+                        <key>wrsPtpLinkLength</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>0b585def25744c769fe5ac8296bf35a8</uuid>
+            <name>PTP master to slave delay change</name>
+            <graph_items>
+                <graph_item>
+                    <color>F63100</color>
+                    <item>
+                        <host>Template_WRS_v6_common</host>
+                        <key>wrsPtpSkew</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>3dc5bf6a7dd34dcbbd018f9636317c2d</uuid>
+            <name>PTP RTT</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template_WRS_v6_common</host>
+                        <key>wrsPtpRTT</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>19268cff45554888bc26d1120fd1a99f</uuid>
+            <name>PTP Servo Errors</name>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <color>AA0000</color>
+                    <item>
+                        <host>Template_WRS_v6_common</host>
+                        <key>wrsPtpServoStateErrCnt</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>F63100</color>
+                    <item>
+                        <host>Template_WRS_v6_common</host>
+                        <key>wrsPtpClockOffsetErrCnt</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <color>BB00BB</color>
+                    <item>
+                        <host>Template_WRS_v6_common</host>
+                        <key>wrsPtpRTTErrCnt</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>3a68ef122c914805935a16af23f3e473</uuid>
+            <name>PTP Servo Updates</name>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template_WRS_v6_common</host>
+                        <key>wrsPtpServoUpdates</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>5dcbec690fab4c0fbfcf35643ef99ba2</uuid>
+            <name>Temperature</name>
+            <yaxismin>20</yaxismin>
+            <yaxismax>70</yaxismax>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <ymax_type_1>FIXED</ymax_type_1>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>EE0000</color>
+                    <item>
+                        <host>Template_WRS_v6_common</host>
+                        <key>HAL.temp.fpga</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <color>DD00DD</color>
+                    <item>
+                        <host>Template_WRS_v6_common</host>
+                        <key>HAL.temp.pll</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>3</sortorder>
+                    <color>0000EE</color>
+                    <item>
+                        <host>Template_WRS_v6_common</host>
+                        <key>HAL.temp.psl</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>4</sortorder>
+                    <color>008800</color>
+                    <item>
+                        <host>Template_WRS_v6_common</host>
+                        <key>HAL.temp.psr</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>849e7c657ba74c2d8c3f2f7ace6e16c0</uuid>
+            <name>wrsDateTAI zabbix sampling delay</name>
+            <yaxismin>5</yaxismin>
+            <yaxismax>25</yaxismax>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <ymax_type_1>FIXED</ymax_type_1>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template_WRS_v6_common</host>
+                        <key>wrsDateTAIOffset</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
