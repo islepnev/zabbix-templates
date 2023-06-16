@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.4</version>
+    <date>2023-06-16T17:25:38Z</date>
+    <groups>
+        <group>
+            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>45c6702f66714f5e825e4b1e1b651573</uuid>
+            <template>Template_DHCP_Probe</template>
+            <name>Template_DHCP_Probe</name>
+            <description>https://github.com/remijouannet/dhcpdiscover.git
+
+1) Скомпилировать и установить в /usr/local/bin
+2) поставить бит setuid root
+chown 0.0 /usr/local/bin/dhcpdiscover
+chmod 04755 /usr/local/bin/dhcpdiscover</description>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>982620876240467a803b8891549ed4a0</uuid>
+                    <name>DHCPDISCOVER probe</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>system.run[/usr/local/bin/dhcpdiscover -i {$DHCP_INTERFACE}]</key>
+                    <delay>5m</delay>
+                    <preprocessing>
+                        <step>
+                            <type>CHECK_NOT_SUPPORTED</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                            <error_handler>CUSTOM_ERROR</error_handler>
+                            <error_handler_params>not supported</error_handler_params>
+                        </step>
+                        <step>
+                            <type>REGEX</type>
+                            <parameters>
+                                <parameter>Received ([0-9]+) DHCPOFFER</parameter>
+                                <parameter>\1</parameter>
+                            </parameters>
+                            <error_handler>CUSTOM_VALUE</error_handler>
+                            <error_handler_params>0</error_handler_params>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCPDISCOVER</value>
+                        </tag>
+                    </tags>
+                </item>
+            </items>
+            <macros>
+                <macro>
+                    <macro>{$DHCP_INTERFACE}</macro>
+                    <value>eth0</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>
