@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.4</version>
+    <date>2023-07-27T16:05:44Z</date>
+    <groups>
+        <group>
+            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>d5f52f15219f44b590e2e8d27ea29e4e</uuid>
+            <template>Template_timedatectl_status</template>
+            <name>Template_timedatectl_status</name>
+            <description>Check system time and date using 'timedatectl status'.</description>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>dbb0072f2b52489ca8f303a5b462f8ca</uuid>
+                    <name>timedatectl status</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>system.run[&quot;/usr/bin/timedatectl status&quot;]</key>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>var lines = value.split('\n');
+var data = {};
+
+while(lines.length) {
+    var hstr = lines.shift();
+    var h = hstr.split(':');
+    if (!h) continue;
+    var key = h.shift();
+    if (key) key = key.trim().toLowerCase();
+    if (key.length &lt; 1) continue;
+    key = key.replace(/[\W_]+/g,&quot;_&quot;);
+    var value = h.join(':');
+    if (value) value = value.trim();
+    data[key] = value;
+}
+return JSON.stringify(data, null, 2);
+</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>timedatectl</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>83f9d06150174d578f54cdd2bc030dc3</uuid>
+                    <name>NTP service status</name>
+                    <type>DEPENDENT</type>
+                    <key>timedatectl.status.ntp_service</key>
+                    <delay>0</delay>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.ntp_service</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>STR_REPLACE</type>
+                            <parameters>
+                                <parameter>active</parameter>
+                                <parameter>1</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>STR_REPLACE</type>
+                            <parameters>
+                                <parameter>inactive</parameter>
+                                <parameter>0</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>IN_RANGE</type>
+                            <parameters>
+                                <parameter>0</parameter>
+                                <parameter>1</parameter>
+                            </parameters>
+                            <error_handler>CUSTOM_ERROR</error_handler>
+                            <error_handler_params>not supported</error_handler_params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>system.run[&quot;/usr/bin/timedatectl status&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>timedatectl</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>04a44f43885c4e19bb23a236cd93be49</uuid>
+                            <expression>last(/Template_timedatectl_status/timedatectl.status.ntp_service)&lt;&gt;1</expression>
+                            <name>NTP service is not active</name>
+                            <priority>INFO</priority>
+                            <tags>
+                                <tag>
+                                    <tag>NTP</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>cb95294a98704961934b3d6ac5b21c53</uuid>
+                    <name>System clock synchronized</name>
+                    <type>DEPENDENT</type>
+                    <key>timedatectl.status.synchronized</key>
+                    <delay>0</delay>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.system_clock_synchronized</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>STR_REPLACE</type>
+                            <parameters>
+                                <parameter>yes</parameter>
+                                <parameter>1</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>STR_REPLACE</type>
+                            <parameters>
+                                <parameter>no</parameter>
+                                <parameter>0</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>IN_RANGE</type>
+                            <parameters>
+                                <parameter>0</parameter>
+                                <parameter>1</parameter>
+                            </parameters>
+                            <error_handler>CUSTOM_ERROR</error_handler>
+                            <error_handler_params>not supported</error_handler_params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>system.run[&quot;/usr/bin/timedatectl status&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>timedatectl</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>3ef7d3e833bd4d3ebb0a27fced3905ab</uuid>
+                            <expression>last(/Template_timedatectl_status/timedatectl.status.synchronized)&lt;&gt;1</expression>
+                            <name>System clock is not synchronized</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>NTP</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>5f2bab9e088f4bb89d47d6e5a2a0b0c0</uuid>
+                    <name>Time zone</name>
+                    <type>DEPENDENT</type>
+                    <key>timedatectl.status.time_zone</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.time_zone</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>system.run[&quot;/usr/bin/timedatectl status&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>timedatectl</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>bb12eda131894a1291ef3f6b6e4dd87d</uuid>
+                            <expression>find(/Template_timedatectl_status/timedatectl.status.time_zone,,&quot;like&quot;,&quot;+0300&quot;)&lt;&gt;1</expression>
+                            <name>Time zone is not +0300</name>
+                            <priority>INFO</priority>
+                            <tags>
+                                <tag>
+                                    <tag>NTP</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+</zabbix_export>
