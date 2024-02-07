@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.4</version>
+    <date>2024-02-07T15:54:03Z</date>
+    <groups>
+        <group>
+            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>2fdc6669c060454aaf1aea9a89b02041</uuid>
+            <template>Template WB-Serial MQTT</template>
+            <name>Template WB-Serial MQTT</name>
+            <description>Add crontab entry (replace broker ip address):
+
+*/5 * * * * mosquitto_pub -h BROKER_IP -t '/config/serial' -f /etc/wb-mqtt-serial.conf -r</description>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>66800a656b7a4863999b655f9006325b</uuid>
+                    <name>wb-serial config ({$MQTT_BROKER})</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>mqtt.get[&quot;{$MQTT_BROKER}&quot;,&quot;/config/serial&quot;]</key>
+                    <delay>0</delay>
+                    <history>1h</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>wb-mqtt</value>
+                        </tag>
+                    </tags>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>de1d7c1e209444ef94b6c075f0889599</uuid>
+                    <name>Serial ports</name>
+                    <type>DEPENDENT</type>
+                    <key>discovery.serial.ports</key>
+                    <delay>0</delay>
+                    <master_item>
+                        <key>mqtt.get[&quot;{$MQTT_BROKER}&quot;,&quot;/config/serial&quot;]</key>
+                    </master_item>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#PATH}</lld_macro>
+                            <path>$.path</path>
+                        </lld_macro_path>
+                        <lld_macro_path>
+                            <lld_macro>{#ENABLED}</lld_macro>
+                            <path>$.enabled</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.ports</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>STR_REPLACE</type>
+                            <parameters>
+                                <parameter>/dev/tty</parameter>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>7502339c81744a649b9b81f93e040313</uuid>
+                    <name>Serial devices</name>
+                    <type>DEPENDENT</type>
+                    <key>discovery.wb-serial.devices</key>
+                    <delay>0</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>8e22993d82474d1aa2d7fff23ea61ce9</uuid>
+                            <name>{#TYPE} ({#PORT}, {#ID}) supply voltage</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>mqtt.get[&quot;{$MQTT_BROKER}&quot;,&quot;/devices/{#TOPIC}/controls/Supply voltage&quot;]</key>
+                            <delay>0</delay>
+                            <value_type>FLOAT</value_type>
+                            <units>V</units>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>wb-mqtt-serial</value>
+                                </tag>
+                                <tag>
+                                    <tag>Type</tag>
+                                    <value>{#TYPE}</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>164a5697ad0e45b789303a997faae396</uuid>
+                            <name>{#TYPE} ({#PORT}, {#ID}) uptime</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>mqtt.get[&quot;{$MQTT_BROKER}&quot;,&quot;/devices/{#TOPIC}/controls/Uptime&quot;]</key>
+                            <delay>0</delay>
+                            <units>s</units>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>wb-mqtt-serial</value>
+                                </tag>
+                                <tag>
+                                    <tag>Type</tag>
+                                    <value>{#TYPE}</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>8aa1c3d2096b4cacad6c370933fdbc5e</uuid>
+                                    <expression>last(/Template WB-Serial MQTT/mqtt.get[&quot;{$MQTT_BROKER}&quot;,&quot;/devices/{#TOPIC}/controls/Uptime&quot;])&lt;600</expression>
+                                    <name>{#TYPE} ({#PORT}, {#ID}) restarted</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <uuid>a64ebfdd295e40fda4cb9efbe11c5e81</uuid>
+                            <expression>nodata(/Template WB-Serial MQTT/mqtt.get[&quot;{$MQTT_BROKER}&quot;,&quot;/devices/{#TOPIC}/controls/Uptime&quot;],600)=1 and nodata(/Template WB-Serial MQTT/mqtt.get[&quot;{$MQTT_BROKER}&quot;,&quot;/devices/{#TOPIC}/controls/Supply voltage&quot;],600)=1</expression>
+                            <name>{#TYPE} ({#PORT}, {#ID}) no data for 10 min</name>
+                            <priority>AVERAGE</priority>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <master_item>
+                        <key>mqtt.get[&quot;{$MQTT_BROKER}&quot;,&quot;/config/serial&quot;]</key>
+                    </master_item>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#PORT}</lld_macro>
+                            <path>$.port</path>
+                        </lld_macro_path>
+                        <lld_macro_path>
+                            <lld_macro>{#TYPE}</lld_macro>
+                            <path>$.type</path>
+                        </lld_macro_path>
+                        <lld_macro_path>
+                            <lld_macro>{#ID}</lld_macro>
+                            <path>$.id</path>
+                        </lld_macro_path>
+                        <lld_macro_path>
+                            <lld_macro>{#TOPIC}</lld_macro>
+                            <path>$.topic</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>var obj = JSON.parse(value);
+var devices = []
+for (var p in obj.ports) {
+    var port = obj.ports[p]
+    for (var d in port.devices) {
+        var dev = port.devices[d]
+        var en = (port.hasOwnProperty('enabled') ? port.enabled : true) &amp;&amp; (dev.hasOwnProperty('enabled') ? dev.enabled : true);
+        if (!en)
+            continue;
+        var topic = ('' + dev.device_type).toLowerCase();
+        topic = topic.replace(&quot;wb-msw v.3 base&quot;, &quot;wb-msw-v3&quot;); // hack
+        topic = topic.replace(&quot;wb-mwwww&quot;, &quot;wb-mrgbw&quot;); // hack
+        topic = topic.replace(/ /g, &quot;-&quot;);
+        topic = topic.replace(/[^a-z0-9-].*/, &quot;&quot;);
+        topic += '_' + dev.slave_id;
+        var item = {
+            &quot;port&quot;: port.path.replace('/dev/tty', ''),
+            &quot;type&quot;: dev.device_type,
+            &quot;id&quot;: dev.slave_id,
+            &quot;topic&quot;: topic,
+        }
+        devices.push(item);
+    }
+}
+// console.log(JSON.stringify(devices, null, 2));
+return JSON.stringify(devices, null, 2);
+</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$MQTT_BROKER}</macro>
+                    <value>tcp://127.0.0.1:1883</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>
