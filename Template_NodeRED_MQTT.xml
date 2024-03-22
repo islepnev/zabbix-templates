@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.4</version>
+    <date>2024-03-22T11:04:37Z</date>
+    <groups>
+        <group>
+            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>4570a37fc0a54297982eb884049930a1</uuid>
+            <template>Template Node-RED MQTT</template>
+            <name>Template Node-RED MQTT</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>dbf474dba62443168656e9c01d6ce5e9</uuid>
+                    <name>Node-RED last seen ($1)</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>mqtt.get[&quot;{$MQTT_BROKER}&quot;,&quot;/devices/nodered/controls/last_seen&quot;]</key>
+                    <delay>0</delay>
+                    <history>1h</history>
+                    <value_type>FLOAT</value_type>
+                    <units>s</units>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>return (Date.now() - value) / 1000;</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <uuid>e69fd6cab7694cf88cdd9af1950e1f7a</uuid>
+                            <expression>last(/Template Node-RED MQTT/mqtt.get[&quot;{$MQTT_BROKER}&quot;,&quot;/devices/nodered/controls/last_seen&quot;])&gt;300</expression>
+                            <name>Node-RED down or time not synchronized</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>d988e7cd357b4025bcc7440243d25c1f</uuid>
+                    <name>Node-RED flows uptime ($1)</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>mqtt.get[&quot;{$MQTT_BROKER}&quot;,&quot;/devices/nodered/controls/uptime&quot;]</key>
+                    <delay>0</delay>
+                    <history>1h</history>
+                    <units>s</units>
+                    <triggers>
+                        <trigger>
+                            <uuid>69a8322f703c4b0e8aefea0565d2e79d</uuid>
+                            <expression>last(/Template Node-RED MQTT/mqtt.get[&quot;{$MQTT_BROKER}&quot;,&quot;/devices/nodered/controls/uptime&quot;])&lt;600</expression>
+                            <name>Node-RED restarted</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <macros>
+                <macro>
+                    <macro>{$MQTT_BROKER}</macro>
+                    <value>tcp://127.0.0.1:1883</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>
