@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.4</version>
-    <date>2024-02-07T15:54:03Z</date>
+    <date>2024-03-22T12:16:34Z</date>
     <groups>
         <group>
             <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
@@ -171,8 +171,12 @@ for (var p in obj.ports) {
         if (!en)
             continue;
         var topic = ('' + dev.device_type).toLowerCase();
+        
         topic = topic.replace(&quot;wb-msw v.3 base&quot;, &quot;wb-msw-v3&quot;); // hack
         topic = topic.replace(&quot;wb-mwwww&quot;, &quot;wb-mrgbw&quot;); // hack
+        topic = topic.replace(&quot;wb-map3e fw2&quot;, &quot;wb-map3e&quot;);
+        topic = topic.replace(&quot;wb-ms v&quot;, &quot;wb-ms&quot;);
+
         topic = topic.replace(/ /g, &quot;-&quot;);
         topic = topic.replace(/[^a-z0-9-].*/, &quot;&quot;);
         topic += '_' + dev.slave_id;
