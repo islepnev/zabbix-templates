@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.4</version>
-    <date>2023-06-16T17:25:38Z</date>
+    <date>2024-09-23T08:50:41Z</date>
     <groups>
         <group>
             <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
@@ -30,7 +30,8 @@ chmod 04755 /usr/local/bin/dhcpdiscover</description>
                     <name>DHCPDISCOVER probe</name>
                     <type>ZABBIX_ACTIVE</type>
                     <key>system.run[/usr/local/bin/dhcpdiscover -i {$DHCP_INTERFACE}]</key>
-                    <delay>5m</delay>
+                    <delay>{$DHCP_PROBE_INTERVAL}</delay>
+                    <value_type>FLOAT</value_type>
                     <preprocessing>
                         <step>
                             <type>CHECK_NOT_SUPPORTED</type>
@@ -56,12 +57,26 @@ chmod 04755 /usr/local/bin/dhcpdiscover</description>
                             <value>DHCPDISCOVER</value>
                         </tag>
                     </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>91d438e6c9c0450d9bb6adcc0c3d2593</uuid>
+                            <expression>max(/Template_DHCP_Probe/system.run[/usr/local/bin/dhcpdiscover -i {$DHCP_INTERFACE}],5m)=0</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>min(/Template_DHCP_Probe/system.run[/usr/local/bin/dhcpdiscover -i {$DHCP_INTERFACE}],15m)&gt;=1</recovery_expression>
+                            <name>No response for DHCP DISCOVER</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
                 </item>
             </items>
             <macros>
                 <macro>
                     <macro>{$DHCP_INTERFACE}</macro>
                     <value>eth0</value>
+                </macro>
+                <macro>
+                    <macro>{$DHCP_PROBE_INTERVAL}</macro>
+                    <value>5m</value>
                 </macro>
             </macros>
         </template>
