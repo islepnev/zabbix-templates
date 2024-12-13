@@ -1,0 +1,3172 @@
+zabbix_export:
+  version: '5.4'
+  date: '2024-12-13T09:33:29Z'
+  groups:
+    -
+      uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    -
+      uuid: dfe73963a65841a19158165d688e6457
+      template: Template_UPS_APC_Symmetra_PX_48
+      name: 'Template UPS APC Symmetra PX 48kW'
+      groups:
+        -
+          name: Templates
+      items:
+        -
+          uuid: 2a244fd52f5b44709479142e23d71151
+          name: 'PDU-1 Current L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.1.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerCurrent.1.phaseL1
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 801b1db8f17c4694a7905f719908e293
+          name: 'PDU-1 Current L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.1.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerCurrent.1.phaseL2
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 9794d10d94e24f588f7b0bd75a6ada5c
+          name: 'PDU-1 Current L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.1.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerCurrent.1.phaseL3
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: a107c91d00d541b998c669e4aa3fc56d
+          name: 'PDU-2 Current L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.2.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerCurrent.2.phaseL1
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 7c694f31097d4e4ea5d517451348cd7a
+          name: 'PDU-2 Current L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.2.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerCurrent.2.phaseL2
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 3b671e65055e4b7b821d570addc91361
+          name: 'PDU-2 Current L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.2.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerCurrent.2.phaseL3
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 2fcfe5fc8f044b90968cec1b38a51ee5
+          name: 'PDU-3 Current L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.3.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerCurrent.3.phaseL1
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 3fac4f5d9ded456e8db546d5c3d08680
+          name: 'PDU-3 Current L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.3.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerCurrent.3.phaseL2
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: d65c5b7c28b84a0eaef8195b3fe714eb
+          name: 'PDU-3 Current L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.3.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerCurrent.3.phaseL3
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 866189bbfffc446789f50c19e91677a6
+          name: 'PDU-4 Current L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.4.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerCurrent.4.phaseL1
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 4b2dbeb44f324f9185430cb89e5ded8b
+          name: 'PDU-4 Current L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.4.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerCurrent.4.phaseL2
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 871f2445a5e549848925458c279adc6b
+          name: 'PDU-4 Current L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.4.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerCurrent.4.phaseL3
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: bbc0de5ce74b47a58cc6d0a2268c11f5
+          name: 'PDU-5 Current L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.5.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerCurrent.5.phaseL1
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 9a32d436e2ea4fb9b4857b8895978c72
+          name: 'PDU-5 Current L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.5.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerCurrent.5.phaseL2
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 93e208d3c6d0448189d2cc23682cb51e
+          name: 'PDU-5 Current L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.5.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerCurrent.5.phaseL3
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 790f857761544a19a66f4406da3259fa
+          name: 'PDU-6 Current L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.6.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerCurrent.6.phaseL1
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 8446ac9de3a04c729e16637a748dc3b7
+          name: 'PDU-6 Current L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.6.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerCurrent.6.phaseL2
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: fc4a305144654d99b91a97e574de26ee
+          name: 'PDU-6 Current L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerCurrent.6.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerCurrent.6.phaseL3
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Current'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 5dbd15e98a9947779e80683bb37d484a
+          name: 'PDU-1 Breaker 1 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.1.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerPosition.1.phaseL1
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 3d8536ae45eb46ba948e7d4e841b8d65
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.1.phaseL1)=1
+              name: 'PDU-1 Breaker 1 open'
+              priority: WARNING
+        -
+          uuid: 32f444921b854fcc8f1d066c0ca80630
+          name: 'PDU-1 Breaker 2 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.1.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerPosition.1.phaseL2
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 26170ec8f32d48ab92327777130d51ce
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.1.phaseL2)=1
+              name: 'PDU-1 Breaker 2 open'
+              priority: WARNING
+        -
+          uuid: b31df763d86c47d781e73b99a6dd6dfd
+          name: 'PDU-1 Breaker 3 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.1.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerPosition.1.phaseL3
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 88904c46bd2e46e4a0d82589426b1093
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.1.phaseL3)=1
+              name: 'PDU-1 Breaker 3 open'
+              priority: WARNING
+        -
+          uuid: b3ac4e8737d14e1b90704ff5ceb104bd
+          name: 'PDU-2 Breaker 1 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.2.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerPosition.2.phaseL1
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 9331e75d2a6f47e2a7622a92267ad36e
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.2.phaseL1)=1
+              name: 'PDU-2 Breaker 1 open'
+              priority: WARNING
+        -
+          uuid: 3bc8a556909d4f09a7fa59ae03c18166
+          name: 'PDU-2 Breaker 2 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.2.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerPosition.2.phaseL2
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 8206184a0a9d41c896cd70dd20c64fbe
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.2.phaseL2)=1
+              name: 'PDU-2 Breaker 2 open'
+              priority: WARNING
+        -
+          uuid: 6c4f1f03b1e84d14a5b29d7d516fbb64
+          name: 'PDU-2 Breaker 3 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.2.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerPosition.2.phaseL3
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 7b8cb89fad91497a9ba3ecd4b34f672a
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.2.phaseL3)=1
+              name: 'PDU-2 Breaker 3 open'
+              priority: WARNING
+        -
+          uuid: 9ebe05723b02427881041e1a151ee498
+          name: 'PDU-3 Breaker 1 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.3.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerPosition.3.phaseL1
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: a8c60a189f904122ba4110f2b066f454
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.3.phaseL1)=1
+              name: 'PDU-3 Breaker 1 open'
+              priority: WARNING
+        -
+          uuid: cf9d09f806b640f98620a36336b72b61
+          name: 'PDU-3 Breaker 2 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.3.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerPosition.3.phaseL2
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: b5da2dbfc1e94c74a5217366cbfcc67f
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.3.phaseL2)=1
+              name: 'PDU-3 Breaker 2 open'
+              priority: WARNING
+        -
+          uuid: 1907b30fedc6484391e9d2c904e9b6b7
+          name: 'PDU-3 Breaker 3 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.3.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerPosition.3.phaseL3
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 9ba714dda08845c2a22bea719631b07c
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.3.phaseL3)=1
+              name: 'PDU-3 Breaker 3 open'
+              priority: WARNING
+        -
+          uuid: a2ceb44252974e1baa76c4850484a6d7
+          name: 'PDU-4 Breaker 1 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.4.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerPosition.4.phaseL1
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 09fe3c2f298c4b609f0157fa99ed8c84
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.4.phaseL1)=1
+              name: 'PDU-4 Breaker 1 open'
+              priority: WARNING
+        -
+          uuid: be3be96c3913476f979bb1ac43a4ebc0
+          name: 'PDU-4 Breaker 2 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.4.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerPosition.4.phaseL2
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 03529a948fb6451cb81f8ae3169f79d3
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.4.phaseL2)=1
+              name: 'PDU-4 Breaker 2 open'
+              priority: WARNING
+        -
+          uuid: 1fd12116167d4b67a6cd0559f6bdd413
+          name: 'PDU-4 Breaker 3 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.4.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerPosition.4.phaseL3
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 94269046a4d84f019daf2b85888f6a1c
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.4.phaseL3)=1
+              name: 'PDU-4 Breaker 3 open'
+              priority: WARNING
+        -
+          uuid: 195004849eec49f0be9e17b00b51fa5d
+          name: 'PDU-5 Breaker 1 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.5.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerPosition.5.phaseL1
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 1642359c5eea4f51a9f9df79fae9d624
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.5.phaseL1)=1
+              name: 'PDU-5 Breaker 1 open'
+              priority: WARNING
+        -
+          uuid: ea601b2ad0f648f2bc51fe24b6d7d803
+          name: 'PDU-5 Breaker 2 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.5.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerPosition.5.phaseL2
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: c386c3dfc4914631bda6b97d91d436e2
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.5.phaseL2)=1
+              name: 'PDU-5 Breaker 2 open'
+              priority: WARNING
+        -
+          uuid: d9603090a9aa4339b13683e6aafdcd23
+          name: 'PDU-5 Breaker 3 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.5.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerPosition.5.phaseL3
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: eda896293d9244faa3d7de6ee8cc52dc
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.5.phaseL3)=1
+              name: 'PDU-5 Breaker 3 open'
+              priority: WARNING
+        -
+          uuid: a0e081bf993c4bc4939e60cc008db1e6
+          name: 'PDU-6 Breaker 1 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.6.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerPosition.6.phaseL1
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 14f5020199f54618a912a244184aa28e
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.6.phaseL1)=1
+              name: 'PDU-6 Breaker 1 open'
+              priority: WARNING
+        -
+          uuid: 7b3c0c33b92244989804df1077c08332
+          name: 'PDU-6 Breaker 2 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.6.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerPosition.6.phaseL2
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 80bd48df02ba4d9daeeb1c184778fc61
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.6.phaseL2)=1
+              name: 'PDU-6 Breaker 2 open'
+              priority: WARNING
+        -
+          uuid: 6626608d4e014e1ca83be441adef30cb
+          name: 'PDU-6 Breaker 3 Position'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPosition.6.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerPosition.6.phaseL3
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Breaker'
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: a5ea868683354404882bba9f8e5c079c
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.isxModularDistModuleBreakerPosition.6.phaseL3)=1
+              name: 'PDU-6 Breaker 3 open'
+              priority: WARNING
+        -
+          uuid: a7ebc938b10f425e9c82f09ed4aae354
+          name: 'PDU-1 Power L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.1.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerPower.1.phaseL1
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: ee8aafbff76748988356146fff2caf4c
+          name: 'PDU-1 Power L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.1.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerPower.1.phaseL2
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 9c69ca7e2b884cf5aa172dd70cb58793
+          name: 'PDU-1 Power L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.1.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerPower.1.phaseL3
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 5c776babbbc74e1a8c1c1956dd30d1cd
+          name: 'PDU-2 Power L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.2.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerPower.2.phaseL1
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 5ba3ccf676ed412fbc410efd51803b6e
+          name: 'PDU-2 Power L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.2.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerPower.2.phaseL2
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: ce9d81f314ed4194bffe06007853bcfa
+          name: 'PDU-2 Power L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.2.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerPower.2.phaseL3
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: f58d4e8bebc14c6290cb18738c9a2e94
+          name: 'PDU-3 Power L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.3.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerPower.3.phaseL1
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 2668500bcf9a4478ac61bd8c687988af
+          name: 'PDU-3 Power L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.3.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerPower.3.phaseL2
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 439bb61e2e574634b4936afe3510623b
+          name: 'PDU-3 Power L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.3.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerPower.3.phaseL3
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 092aad6223ac4b4bbd5cf90e964af2e5
+          name: 'PDU-4 Power L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.4.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerPower.4.phaseL1
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: b712b06a83074f36bf2bc179e2a73f40
+          name: 'PDU-4 Power L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.4.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerPower.4.phaseL2
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: f85d85fa912b42c99b25b6d562d232cb
+          name: 'PDU-4 Power L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.4.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerPower.4.phaseL3
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: b1d4198b701f4d178170e981e7d7d625
+          name: 'PDU-5 Power L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.5.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerPower.5.phaseL1
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: fee1d92b57e14d56bd12093855a2a134
+          name: 'PDU-5 Power L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.5.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerPower.5.phaseL2
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: fc625d03449a4de2acb79277627b6ad6
+          name: 'PDU-5 Power L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.5.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerPower.5.phaseL3
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: f2def13e15234d1e8de40c8b8cddf80f
+          name: 'PDU-6 Power L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.6.phaseL1'
+          key: symmetra.isxModularDistModuleBreakerPower.6.phaseL1
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: d79d2b02c7f9418fb4acb418ab2924d0
+          name: 'PDU-6 Power L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.6.phaseL2'
+          key: symmetra.isxModularDistModuleBreakerPower.6.phaseL2
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 734d53a44ab5461d9b2e07027256daee
+          name: 'PDU-6 Power L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistModuleBreakerPower.6.phaseL3'
+          key: symmetra.isxModularDistModuleBreakerPower.6.phaseL3
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 3049259f28504f6997c27fbfca43b4b6
+          name: 'PDU Total Power L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistSysPowerKw.phase1'
+          key: symmetra.isxModularDistSysPowerKw.phase1
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: abe2fbf6bea94232a4be19756c2d5941
+          name: 'PDU Total Power L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistSysPowerKw.phase2'
+          key: symmetra.isxModularDistSysPowerKw.phase2
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 6e083e140dd24d46a35aa145a92d8c54
+          name: 'PDU Total Power L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistSysPowerKw.phase3'
+          key: symmetra.isxModularDistSysPowerKw.phase3
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 997384c761164e6b91b3df5b4d8affba
+          name: 'PDU Total Power'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistSysPowerTotal.0'
+          key: symmetra.isxModularDistSysPowerTotal.0
+          value_type: FLOAT
+          units: kW
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Power'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: d6b72712207e45cd832bb8f1efef4526
+          name: 'PDU Voltage L1-L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistSysVoltageLtoL.phase1'
+          key: symmetra.isxModularDistSysVoltageLtoL.phase1
+          value_type: FLOAT
+          units: V
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Voltage'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 9bfdfccefe7441659d6e89d7e69acf83
+          name: 'PDU Voltage L2-L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistSysVoltageLtoL.phase2'
+          key: symmetra.isxModularDistSysVoltageLtoL.phase2
+          value_type: FLOAT
+          units: V
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Voltage'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 5ef48e92a7c64476b0744a59e530d867
+          name: 'PDU Voltage L3-L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistSysVoltageLtoL.phase3'
+          key: symmetra.isxModularDistSysVoltageLtoL.phase3
+          value_type: FLOAT
+          units: V
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Voltage'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 513c67bb0ac44ab49aa1147041f2091c
+          name: 'PDU Voltage L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistSysVoltageLtoN.phase1'
+          key: symmetra.isxModularDistSysVoltageLtoN.phase1
+          value_type: FLOAT
+          units: V
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Voltage'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 5de3b701065a43d1b09fe77582b0748e
+          name: 'PDU Voltage L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistSysVoltageLtoN.phase2'
+          key: symmetra.isxModularDistSysVoltageLtoN.phase2
+          value_type: FLOAT
+          units: V
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Voltage'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: e8c72550e35745fca251264edde55634
+          name: 'PDU Voltage L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::isxModularDistSysVoltageLtoN.phase3'
+          key: symmetra.isxModularDistSysVoltageLtoN.phase3
+          value_type: FLOAT
+          units: V
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: 'PDU Voltage'
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: a066181674e042f1b92fc575b7306086
+          name: 'Run Time Remaining'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsAdvBatteryRunTimeRemaining.0'
+          key: symmetra.upsAdvBatteryRunTimeRemaining.0
+          units: s
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.01'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: e615a645d2774b279dd17d48fc7e7e33
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsAdvBatteryRunTimeRemaining.0)<300
+              name: '{HOST.NAME} Run Time Remaining < 5 min'
+              priority: HIGH
+            -
+              uuid: 8426ff71321b43e1824c315ad9aff30d
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsAdvBatteryRunTimeRemaining.0)<600
+              name: '{HOST.NAME} Run Time Remaining < 10 min'
+              priority: AVERAGE
+              dependencies:
+                -
+                  name: '{HOST.NAME} Run Time Remaining < 5 min'
+                  expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsAdvBatteryRunTimeRemaining.0)<300
+            -
+              uuid: 81eb9d968d0d41c7bca1deb0851cb9ac
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsAdvBatteryRunTimeRemaining.0)<900
+              name: '{HOST.NAME} Run Time Remaining < 15 min'
+              priority: INFO
+              dependencies:
+                -
+                  name: '{HOST.NAME} Run Time Remaining < 10 min'
+                  expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsAdvBatteryRunTimeRemaining.0)<600
+        -
+          uuid: d46b0a9a9d454890866bbc8cd71c51d2
+          name: 'Output Redundancy'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsAdvOutputRedundancy.0'
+          key: symmetra.upsAdvOutputRedundancy.0
+          description: 'The number of power modules which can fail or be removed without causing the UPS to generate a Minimum Redundancy Lost event.'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: a66697f33b6f47048d3e18028d8e0efd
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsAdvOutputRedundancy.0)<1
+              name: 'Redundancy not provided'
+              priority: AVERAGE
+        -
+          uuid: 3378d8a0368542b38b5e75d77ef2dd19
+          name: 'Battery Voltage'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsHighPrecBatteryActualVoltage.0'
+          key: symmetra.upsHighPrecBatteryActualVoltage.0
+          value_type: FLOAT
+          units: V
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 64aafbe7c5a14b588dfa0c637b15a936
+          name: 'Battery Charge'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsHighPrecBatteryCapacity.0'
+          key: symmetra.upsHighPrecBatteryCapacity.0
+          value_type: FLOAT
+          units: '%'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: a646b4faeb1c404fb9d15e363c6569d0
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecBatteryCapacity.0)<30
+              name: '{HOST.NAME} Battery Capacity < 30%'
+              priority: HIGH
+            -
+              uuid: 45c5ce240cd547368647819c6e5bbf2b
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecBatteryCapacity.0)<50
+              name: '{HOST.NAME} Battery Capacity < 50%'
+              priority: AVERAGE
+              dependencies:
+                -
+                  name: '{HOST.NAME} Battery Capacity < 30%'
+                  expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecBatteryCapacity.0)<30
+            -
+              uuid: b40589fe9f754470aee29099d485c990
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecBatteryCapacity.0)<70
+              name: '{HOST.NAME} Battery Capacity < 70%'
+              priority: WARNING
+              dependencies:
+                -
+                  name: '{HOST.NAME} Battery Capacity < 50%'
+                  expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecBatteryCapacity.0)<50
+            -
+              uuid: fb409ee1f4424faf90b76e18342962fc
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecBatteryCapacity.0)<95
+              name: '{HOST.NAME} Battery Charge < 95%'
+              priority: INFO
+              dependencies:
+                -
+                  name: '{HOST.NAME} Battery Capacity < 70%'
+                  expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecBatteryCapacity.0)<70
+        -
+          uuid: 395f9789b3ed4db6b624ceaed351d272
+          name: 'Battery Current'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsHighPrecBatteryCurrent.0'
+          key: symmetra.upsHighPrecBatteryCurrent
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 7e9a64c1d4f64070b6943a49e8b38a48
+          name: 'Nominal Battery Voltage'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsHighPrecBatteryNominalVoltage.0'
+          key: symmetra.upsHighPrecBatteryNominalVoltage.0
+          value_type: FLOAT
+          units: VDC
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: a5ad0163b5b2435e9b046a32fa7fb661
+          name: 'Battery Temperature'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsHighPrecBatteryTemperature.0'
+          key: symmetra.upsHighPrecBatteryTemperature.0
+          value_type: FLOAT
+          units: °C
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 39980711d785473590133b799ac0339f
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecBatteryTemperature.0)>45
+              name: '{HOST.NAME} Internal Temperature > 45 °C'
+              priority: WARNING
+              dependencies:
+                -
+                  name: '{HOST.NAME} Internal Temperature > 55 °C'
+                  expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecBatteryTemperature.0)>55
+            -
+              uuid: f9a4b4b5dc864d53b42ffd2175be0fcf
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecBatteryTemperature.0)>55
+              name: '{HOST.NAME} Internal Temperature > 55 °C'
+              priority: HIGH
+              dependencies:
+                -
+                  name: '{HOST.NAME} Internal Temperature > 65 °C'
+                  expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecBatteryTemperature.0)>65
+            -
+              uuid: 44137e474bce4b9fb7f7a5efdf3604ba
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecBatteryTemperature.0)>65
+              name: '{HOST.NAME} Internal Temperature > 65 °C'
+              priority: DISASTER
+        -
+          uuid: cbea135ea44a4291b50c94a74ca41a83
+          name: 'Input Frequency'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsHighPrecInputFrequency.0'
+          key: symmetra.upsHighPrecInputFrequency.0
+          value_type: FLOAT
+          units: Hz
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 0db45454ab4047fe820beedd0391acb8
+              expression: 'last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecInputFrequency.0)<49 and last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecInputFrequency.0)>0'
+              name: '{HOST.NAME} Input Line Frequency < 49 Hz'
+              priority: WARNING
+            -
+              uuid: 01d0b749b0ee46cbb177cad0e09a6a0b
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecInputFrequency.0)>51
+              name: '{HOST.NAME} Input Line Frequency > 51 Hz'
+              priority: WARNING
+        -
+          uuid: 3d2e0c23e1954dde80e295994ecb284b
+          name: 'Input Voltage (Average)'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsHighPrecInputLineVoltage.0'
+          key: symmetra.upsHighPrecInputLineVoltage.0
+          value_type: FLOAT
+          units: VAC
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 78b33d660f644250be00e802ad9be0c7
+              expression: 'last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecInputLineVoltage.0) < 198'
+              name: '{HOST.NAME} Input Line Voltage < 198 V'
+              priority: AVERAGE
+            -
+              uuid: 8d29994e8a2d406dbfabb6710c87332b
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecInputLineVoltage.0)>253
+              name: '{HOST.NAME} Input Line Voltage > 253 V'
+              priority: AVERAGE
+        -
+          uuid: 5a2d4fca24014a7482ca242804e72ef5
+          name: 'Input Voltage (Max)'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsHighPrecInputMaxLineVoltage.0'
+          key: symmetra.upsHighPrecInputMaxLineVoltage.0
+          value_type: FLOAT
+          units: VAC
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: be72aef5402347a0aef15985f0cb0281
+          name: 'Input Voltage (Min)'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsHighPrecInputMinLineVoltage.0'
+          key: symmetra.upsHighPrecInputMinLineVoltage.0
+          value_type: FLOAT
+          units: VAC
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: a6f1d0bcaba3497191d1c442b85ec09c
+          name: 'Output Current'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsHighPrecOutputCurrent.0'
+          key: symmetra.upsHighPrecOutputCurrent.0
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: e913cd9ac3834d8ca1b6978e4a4b5f09
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecOutputCurrent.0)>70
+              name: '{HOST.NAME} Output Current > 70 A'
+              priority: WARNING
+        -
+          uuid: cb7da175e2a249809ff6a7328b10bcd7
+          name: 'Output Frequency'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsHighPrecOutputFrequency.0'
+          key: symmetra.upsHighPrecOutputFrequency.0
+          value_type: FLOAT
+          units: Hz
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: a91476acd83a4b2a857cc450a031afd2
+          name: 'Output Load'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsHighPrecOutputLoad.0'
+          key: symmetra.upsHighPrecOutputLoad.0
+          value_type: FLOAT
+          units: kVA
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.01'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: bd8573ac12b9479bbe822e8e6e223d0d
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecOutputLoad.0)>32
+              name: '{HOST.NAME} Output Load > 32 kVA'
+              priority: WARNING
+        -
+          uuid: 23a477915afa43b3abe944af26067984
+          name: 'Output Voltage'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsHighPrecOutputVoltage.0'
+          key: symmetra.upsHighPrecOutputVoltage.0
+          value_type: FLOAT
+          units: VAC
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+          triggers:
+            -
+              uuid: 59ddc674d1d2483eb3e6c844e46edb93
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecOutputVoltage.0)<218
+              name: '{HOST.NAME} Output Voltage < 218 V'
+              priority: AVERAGE
+            -
+              uuid: 91fe5be493cf4c9e8dc1a1851214dccb
+              expression: last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsHighPrecOutputVoltage.0)>242
+              name: '{HOST.NAME} Output Voltage > 242 V'
+              priority: AVERAGE
+        -
+          uuid: a3bb1197856b4e309c52ab46d3d859c8
+          name: 'Bypass Input Current L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseInputCurrent.2.1.1'
+          key: symmetra.upsPhaseInputCurrent.bypass.L1
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 1deb87df2ac640719553067e1250bd9d
+          name: 'Bypass Input Current L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseInputCurrent.2.1.2'
+          key: symmetra.upsPhaseInputCurrent.bypass.L2
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 30db6d2b83a3487e9ab78ed042949812
+          name: 'Bypass Input Current L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseInputCurrent.2.1.3'
+          key: symmetra.upsPhaseInputCurrent.bypass.L3
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 6c1a1fe6971e41b8a774145334422b92
+          name: 'Main Input Current L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseInputCurrent.1.1.1'
+          key: symmetra.upsPhaseInputCurrent.main.L1
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 71ed006a801543919f503ba96667cc70
+          name: 'Main Input Current L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseInputCurrent.1.1.2'
+          key: symmetra.upsPhaseInputCurrent.main.L2
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 87ec0e3dfd44447f96b0f94c8cf7867e
+          name: 'Main Input Current L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseInputCurrent.1.1.3'
+          key: symmetra.upsPhaseInputCurrent.main.L3
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: bc2c6e7d0c6840359224a8e29c79765a
+          name: 'Bypass Input Voltage L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseInputVoltage.2.1.1'
+          key: symmetra.upsPhaseInputVoltage.bypass.L1
+          value_type: FLOAT
+          units: V
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 501a2a44705544eba5a1c4649537b6f6
+          name: 'Bypass Input Voltage L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseInputVoltage.2.1.2'
+          key: symmetra.upsPhaseInputVoltage.bypass.L2
+          value_type: FLOAT
+          units: V
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: d3bb530f6a7b4b16b63a2ae8628eaffa
+          name: 'Bypass Input Voltage L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseInputVoltage.2.1.3'
+          key: symmetra.upsPhaseInputVoltage.bypass.L3
+          value_type: FLOAT
+          units: V
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 8bcb9821e8f14b6ba47c7b45426e3ef4
+          name: 'Main Input Voltage L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseInputVoltage.1.1.1'
+          key: symmetra.upsPhaseInputVoltage.main.L1
+          value_type: FLOAT
+          units: V
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 628509639ec74ef7aede2929bfbbb84e
+          name: 'Main Input Voltage L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseInputVoltage.1.1.2'
+          key: symmetra.upsPhaseInputVoltage.main.L2
+          value_type: FLOAT
+          units: V
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: dfc9d82e0dce489aafdc253caf553e49
+          name: 'Main Input Voltage L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseInputVoltage.1.1.3'
+          key: symmetra.upsPhaseInputVoltage.main.L3
+          value_type: FLOAT
+          units: V
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: cce2f8ec706f46b6b55570ea256b9ec0
+          name: 'Output Current L1'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseOutputCurrent.1.1.1'
+          key: symmetra.upsPhaseOutputCurrent.L1
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 88cd9bbab42a4f4b84a433ce3f69f74d
+          name: 'Output Current L2'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseOutputCurrent.1.1.2'
+          key: symmetra.upsPhaseOutputCurrent.L2
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+        -
+          uuid: 86fbec27c8354ab9b50586d05a90b5bd
+          name: 'Output Current L3'
+          type: SNMP_AGENT
+          snmp_oid: 'PowerNet-MIB::upsPhaseOutputCurrent.1.1.3'
+          key: symmetra.upsPhaseOutputCurrent.L3
+          value_type: FLOAT
+          units: A
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.1'
+          request_method: POST
+          tags:
+            -
+              tag: Application
+              value: Symmetra
+      discovery_rules:
+        -
+          uuid: 4750e5fd27db49a1a820d4a1e8d11fea
+          name: upsDiagBattery
+          type: SNMP_AGENT
+          snmp_oid: 'discovery[{#BATFRAMEINDEX},upsDiagBatteryFrameIndex,{#BATINDEX},upsDiagBatteryIndex]'
+          key: symmetra.discovery.batteries
+          delay: 30s
+          item_prototypes:
+            -
+              uuid: 4b24f73aabcd41e98e3cc14766d800b3
+              name: 'Battery $1 Status'
+              type: SNMP_AGENT
+              snmp_oid: 'upsDiagBatteryStatus.{#BATINDEX}'
+              key: 'symmetra.upsDiagBatteryStatus[{#BATINDEX}]'
+              delay: 30s
+              valuemap:
+                name: upsDiagBatteryStatus
+              request_method: POST
+              tags:
+                -
+                  tag: Application
+                  value: Symmetra
+                -
+                  tag: Application
+                  value: 'UPS Battery'
+              trigger_prototypes:
+                -
+                  uuid: 992fabd510fa4c8ea1b96b94feea485f
+                  expression: 'last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsDiagBatteryStatus[{#BATINDEX}])<>2 and last(/Template_UPS_APC_Symmetra_PX_48/symmetra.upsDiagBatteryStatus[{#BATINDEX}])<>3'
+                  name: 'Battery $1 problem'
+                  priority: WARNING
+          request_method: POST
+      dashboards:
+        -
+          uuid: e30aafa61a734c458fde5df4a35b41ec
+          name: 'Symmetra Battery'
+          pages:
+            -
+              widgets:
+                -
+                  type: GRAPH_CLASSIC
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra Battery Charge'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  x: '12'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra Battery Temperature'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  'y': '5'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra Battery Voltage'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  x: '12'
+                  'y': '5'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra Battery Current'
+                        host: Template_UPS_APC_Symmetra_PX_48
+        -
+          uuid: 19a23441110e40919cd66ee2d1b70a34
+          name: 'Symmetra PDU Current'
+          pages:
+            -
+              widgets:
+                -
+                  type: GRAPH_CLASSIC
+                  width: '8'
+                  height: '8'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra PDU-1 Current'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  x: '8'
+                  width: '8'
+                  height: '8'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra PDU-2 Current'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  x: '16'
+                  width: '8'
+                  height: '8'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra PDU-3 Current'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  'y': '8'
+                  width: '8'
+                  height: '8'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra PDU-4 Current'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  x: '8'
+                  'y': '8'
+                  width: '8'
+                  height: '8'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra PDU-5 Current'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  x: '16'
+                  'y': '8'
+                  width: '8'
+                  height: '8'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra PDU-6 Current'
+                        host: Template_UPS_APC_Symmetra_PX_48
+        -
+          uuid: 430d81d0e9644ce093dc8736649d2004
+          name: 'Symmetra PDU Power'
+          pages:
+            -
+              widgets:
+                -
+                  type: GRAPH_CLASSIC
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra PDU-1 Power'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  x: '12'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra PDU-2 Power'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  'y': '5'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra PDU-3 Power'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  x: '12'
+                  'y': '5'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra PDU-4 Power'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  'y': '10'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra PDU-5 Power'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  x: '12'
+                  'y': '10'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra PDU-6 Power'
+                        host: Template_UPS_APC_Symmetra_PX_48
+        -
+          uuid: 9727336ed8724e8d8d5cfb74c993559e
+          name: 'Symmetra Status'
+          pages:
+            -
+              widgets:
+                -
+                  type: GRAPH_CLASSIC
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra Input Line Voltage'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  x: '12'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra Input Line Current'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  'y': '5'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra Battery Temperature'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  x: '12'
+                  'y': '5'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra Output Current'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  'y': '10'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra Battery Current'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  x: '12'
+                  'y': '10'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra PDU Total Power by phase'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  'y': '15'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra Battery Charge'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  x: '12'
+                  'y': '15'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra Run Time Remaining'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  'y': '20'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra Battery Voltage'
+                        host: Template_UPS_APC_Symmetra_PX_48
+                -
+                  type: GRAPH_CLASSIC
+                  x: '12'
+                  'y': '20'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        name: 'Symmetra PDU Total Power'
+                        host: Template_UPS_APC_Symmetra_PX_48
+      valuemaps:
+        -
+          uuid: 88ea77c0dac64809b904ebd476b21a60
+          name: upsDiagBatteryStatus
+          mappings:
+            -
+              value: '1'
+              newvalue: unknown
+            -
+              value: '2'
+              newvalue: notInstalled
+            -
+              value: '3'
+              newvalue: ok
+            -
+              value: '4'
+              newvalue: failed
+            -
+              value: '5'
+              newvalue: highTemperature
+            -
+              value: '6'
+              newvalue: replaceImmediately
+            -
+              value: '7'
+              newvalue: lowCapacity
+  graphs:
+    -
+      uuid: 1078f184675c4c5a8a5b91c43ef334fc
+      name: 'Symmetra Battery Charge'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: FILLED_REGION
+          color: 0000BB
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsHighPrecBatteryCapacity.0
+    -
+      uuid: 152c700829a74fda925fb6a863891bd6
+      name: 'Symmetra Battery Current'
+      graph_items:
+        -
+          color: 0000BB
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsHighPrecBatteryCurrent
+    -
+      uuid: 1386ccded6db4efcb6dec8266d7f8e35
+      name: 'Symmetra Battery Temperature'
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: EE0000
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsHighPrecBatteryTemperature.0
+    -
+      uuid: d1dc5da9e8774d8f8d197a5162989b6a
+      name: 'Symmetra Battery Voltage'
+      yaxismin: '180'
+      yaxismax: '220'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          color: 0000BB
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsHighPrecBatteryActualVoltage.0
+    -
+      uuid: 03494f2150fd4597a5eb7f10846858d5
+      name: 'Symmetra Input Line Current'
+      ymin_type_1: FIXED
+      graph_items:
+        -
+          color: E0A000
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseInputCurrent.bypass.L1
+        -
+          sortorder: '1'
+          color: 00C000
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseInputCurrent.bypass.L2
+        -
+          sortorder: '2'
+          color: FF0000
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseInputCurrent.bypass.L3
+        -
+          sortorder: '3'
+          drawtype: BOLD_LINE
+          color: E0A000
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseInputCurrent.main.L1
+        -
+          sortorder: '4'
+          drawtype: BOLD_LINE
+          color: 00C000
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseInputCurrent.main.L2
+        -
+          sortorder: '5'
+          drawtype: BOLD_LINE
+          color: FF0000
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseInputCurrent.main.L3
+    -
+      uuid: e1c3b98b61084e5b85d2d21f35d8363c
+      name: 'Symmetra Input Line Voltage'
+      yaxismin: '190'
+      yaxismax: '250'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: D08000
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseInputVoltage.main.L1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: '999999'
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseInputVoltage.main.L2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: '555555'
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseInputVoltage.main.L3
+        -
+          sortorder: '3'
+          color: D08000
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseInputVoltage.bypass.L1
+        -
+          sortorder: '4'
+          color: '999999'
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseInputVoltage.bypass.L2
+        -
+          sortorder: '5'
+          color: '555555'
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseInputVoltage.bypass.L3
+    -
+      uuid: 325890cb40dd4e1b962640d4d2f61b3b
+      name: 'Symmetra Output Current'
+      ymin_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseOutputCurrent.L1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseOutputCurrent.L2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsPhaseOutputCurrent.L3
+    -
+      uuid: 4a929cfcd33a418d8db02cbcdc874d32
+      name: 'Symmetra PDU-1 Current'
+      yaxismax: '16'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.1.phaseL1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.1.phaseL2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.1.phaseL3
+    -
+      uuid: 3af0879cbe694faa9f3076fff63ff355
+      name: 'Symmetra PDU-1 Power'
+      yaxismax: '3.7'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.1.phaseL1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.1.phaseL2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.1.phaseL3
+    -
+      uuid: 4088d37e15674392a37c9744034c3e2e
+      name: 'Symmetra PDU-2 Current'
+      yaxismax: '16'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.2.phaseL1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.2.phaseL2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.2.phaseL3
+    -
+      uuid: c353a01b0e284c7b810518eb055927bf
+      name: 'Symmetra PDU-2 Power'
+      yaxismax: '3.7'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.2.phaseL1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.2.phaseL2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.2.phaseL3
+    -
+      uuid: 4363bd1274f6419f8a1f3a35bbd9814d
+      name: 'Symmetra PDU-3 Current'
+      yaxismax: '16'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.3.phaseL1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.3.phaseL2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.3.phaseL3
+    -
+      uuid: 7153ccbd4ac7428f9745e40a1be6efe5
+      name: 'Symmetra PDU-3 Power'
+      yaxismax: '3.7'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.3.phaseL1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.3.phaseL2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.3.phaseL3
+    -
+      uuid: a58e4e4d24934522aab0064ce5fff791
+      name: 'Symmetra PDU-4 Current'
+      yaxismax: '16'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.4.phaseL1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.4.phaseL2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.4.phaseL3
+    -
+      uuid: ed8017ee986e4297a601fc1b8032ecd0
+      name: 'Symmetra PDU-4 Power'
+      yaxismax: '3.7'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.4.phaseL1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.4.phaseL2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.4.phaseL3
+    -
+      uuid: 63c09cd6d7714547b2c404a6177a6074
+      name: 'Symmetra PDU-5 Current'
+      yaxismax: '16'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.5.phaseL1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.5.phaseL2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.5.phaseL3
+    -
+      uuid: 5484f19267624af9b3bc68e3dd2d2d41
+      name: 'Symmetra PDU-5 Power'
+      yaxismax: '3.7'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.5.phaseL1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.5.phaseL2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.5.phaseL3
+    -
+      uuid: 4d5032f156cf4c5c87026f4e3af53095
+      name: 'Symmetra PDU-6 Current'
+      ymin_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.6.phaseL1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.6.phaseL2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          calc_fnc: MAX
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.6.phaseL3
+    -
+      uuid: 4b1b891b00404e1ca78ecf167da00c96
+      name: 'Symmetra PDU-6 Power'
+      yaxismax: '3.7'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.6.phaseL1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.6.phaseL2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.6.phaseL3
+    -
+      uuid: 98a19c6c23f94436af2a5fc9df1ce490
+      name: 'Symmetra PDU 1-4 Power'
+      type: STACKED
+      ymin_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.1.phaseL1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.1.phaseL2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.1.phaseL3
+        -
+          sortorder: '3'
+          color: A54F10
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.2.phaseL1
+        -
+          sortorder: '4'
+          color: FC6EA3
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.2.phaseL2
+        -
+          sortorder: '5'
+          color: 6C59DC
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.2.phaseL3
+        -
+          sortorder: '6'
+          color: AC8C14
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.3.phaseL1
+        -
+          sortorder: '7'
+          color: 611F27
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.3.phaseL2
+        -
+          sortorder: '8'
+          color: F230E0
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.3.phaseL3
+        -
+          sortorder: '9'
+          color: 5CCD18
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.4.phaseL1
+        -
+          sortorder: '10'
+          color: BB2A02
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.4.phaseL2
+        -
+          sortorder: '11'
+          color: 5A2B57
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerPower.4.phaseL3
+    -
+      uuid: b1b92c8a03034c1fb48482506e8ee635
+      name: 'Symmetra PDU Current (all in one)'
+      ymin_type_1: FIXED
+      graph_items:
+        -
+          color: A54F10
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.1.phaseL1
+        -
+          sortorder: '1'
+          color: FC6EA3
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.1.phaseL2
+        -
+          sortorder: '2'
+          color: 6C59DC
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.1.phaseL3
+        -
+          sortorder: '3'
+          color: AC8C14
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.2.phaseL1
+        -
+          sortorder: '4'
+          color: 611F27
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.2.phaseL2
+        -
+          sortorder: '5'
+          color: F230E0
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.2.phaseL3
+        -
+          sortorder: '6'
+          color: 5CCD18
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.3.phaseL1
+        -
+          sortorder: '7'
+          color: BB2A02
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.3.phaseL2
+        -
+          sortorder: '8'
+          color: 5A2B57
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.3.phaseL3
+        -
+          sortorder: '9'
+          color: 89ABF8
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.4.phaseL1
+        -
+          sortorder: '10'
+          color: 7EC25C
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.4.phaseL2
+        -
+          sortorder: '11'
+          color: '274482'
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.4.phaseL3
+        -
+          sortorder: '12'
+          color: 2B5429
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.5.phaseL1
+        -
+          sortorder: '13'
+          color: 8048B4
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.5.phaseL2
+        -
+          sortorder: '14'
+          color: FD5434
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.5.phaseL3
+        -
+          sortorder: '15'
+          color: 790E1F
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.6.phaseL1
+        -
+          sortorder: '16'
+          color: 87AC4D
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.6.phaseL2
+        -
+          sortorder: '17'
+          color: E89DF4
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistModuleBreakerCurrent.6.phaseL3
+    -
+      uuid: 7075e6f305294bdfaf1eec7484de138b
+      name: 'Symmetra PDU Total Power'
+      ymin_type_1: FIXED
+      graph_items:
+        -
+          drawtype: GRADIENT_LINE
+          color: 0000DD
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistSysPowerTotal.0
+    -
+      uuid: 2966a184121d4ecdabbb3318f12faf9b
+      name: 'Symmetra PDU Total Power by phase'
+      ymin_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: F0C020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistSysPowerKw.phase1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: 20B020
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistSysPowerKw.phase2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: F04040
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistSysPowerKw.phase3
+    -
+      uuid: 3f236828a3ad40239c2ef5a2350931fb
+      name: 'Symmetra PDU Voltage'
+      yaxismin: '220'
+      yaxismax: '240'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: D08000
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistSysVoltageLtoN.phase1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: '999999'
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistSysVoltageLtoN.phase2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: '555555'
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistSysVoltageLtoN.phase3
+    -
+      uuid: 2f696c6e3e6e4facbd435ff1bf72db03
+      name: 'Symmetra PDU Voltage Line-Line'
+      yaxismin: '375'
+      yaxismax: '415'
+      ymin_type_1: FIXED
+      ymax_type_1: FIXED
+      graph_items:
+        -
+          drawtype: BOLD_LINE
+          color: D08000
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistSysVoltageLtoL.phase1
+        -
+          sortorder: '1'
+          drawtype: BOLD_LINE
+          color: '999999'
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistSysVoltageLtoL.phase2
+        -
+          sortorder: '2'
+          drawtype: BOLD_LINE
+          color: '555555'
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.isxModularDistSysVoltageLtoL.phase3
+    -
+      uuid: 9dff8a7ea536490ebd510f7fc950b9ff
+      name: 'Symmetra Run Time Remaining'
+      ymin_type_1: FIXED
+      graph_items:
+        -
+          drawtype: FILLED_REGION
+          color: '008800'
+          item:
+            host: Template_UPS_APC_Symmetra_PX_48
+            key: symmetra.upsAdvBatteryRunTimeRemaining.0
