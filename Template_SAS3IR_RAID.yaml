@@ -1,0 +1,397 @@
+zabbix_export:
+  version: '5.4'
+  date: '2024-12-23T16:23:00Z'
+  groups:
+    -
+      uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    -
+      uuid: fb64baca77b641719f6f324b0525596e
+      template: Template_SAS3IR_RAID
+      name: Template_SAS3IR_RAID
+      description: |
+        Usage:
+        Install sas3ircu binary, make it setuid root.
+        cp sas3ircu /usr/local/bin/
+        chown 0:0 /usr/local/bin/sas3ircu
+        chmod 04755 /usr/local/bin/sas3ircu
+      groups:
+        -
+          name: Templates
+      items:
+        -
+          uuid: 7fd96f74753848cd9846781e868bba78
+          name: 'SAS3IR status JSON'
+          type: DEPENDENT
+          key: sas3ir.status.json
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JAVASCRIPT
+              parameters:
+                - |
+                  var lines = value.split('\n');
+                  var data = {};
+                  var volume = {};
+                  var obj = {};
+                  
+                  while(lines.length) {
+                      var hstr = lines.shift();
+                  
+                      const volarr = hstr.split('IR Volume ');
+                      if (volarr.length == 2) {
+                          if (volume.length > 0) {
+                              obj[volume] = data;
+                              data = {};
+                          }
+                          volume = volarr[1];
+                          continue;
+                      }
+                      if (! hstr.startsWith('  ')) continue;
+                      var h = hstr.split(':');
+                      if (h.length < 1) continue;
+                      var key = h.shift();
+                      if (key) key = key.trim();
+                      if (key.length < 1) continue;
+                      var value = h.join(':');
+                      if (value) value = value.trim();
+                      if (value.length < 1) continue;
+                      key = key.toLowerCase();
+                      key = key.replace(/ /g, '_');
+                      key = key.replace(/[^a-z0-9_]/g, '');
+                      data[key] = value;
+                  }
+                  obj[volume] = data;
+                  return JSON.stringify(obj, null, 2);
+                  //console.log(JSON.stringify(obj, null, 2));
+                  
+          master_item:
+            key: 'system.run[/usr/local/bin/sas3ircu 0 status,]'
+          tags:
+            -
+              tag: Application
+              value: RAID
+        -
+          uuid: 404d30abddfa4daeb9e3a6c40b706cc9
+          name: sas3ir.volume_state
+          type: DEPENDENT
+          key: sas3ir.volume_state
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.1.volume_state
+          master_item:
+            key: sas3ir.status.json
+          tags:
+            -
+              tag: Application
+              value: RAID
+          triggers:
+            -
+              uuid: 67a1d3d63d8443f288cdf4cc2fd35477
+              expression: 'last(/Template_SAS3IR_RAID/sas3ir.volume_state)="Degraded"'
+              name: 'RAID volume degraded'
+              priority: AVERAGE
+            -
+              uuid: cfa2c32596ff4cb986776ffa81a7d463
+              expression: 'last(/Template_SAS3IR_RAID/sas3ir.volume_state)<>"Optimal"'
+              name: 'RAID Volume not optimal'
+              priority: WARNING
+              dependencies:
+                -
+                  name: 'RAID volume degraded'
+                  expression: 'last(/Template_SAS3IR_RAID/sas3ir.volume_state)="Degraded"'
+        -
+          uuid: af61c4a9c05b4b0d8a4241274b42da95
+          name: 'SAS3IR display (JSON)'
+          type: ZABBIX_ACTIVE
+          key: 'system.run[/usr/local/bin/sas3ircu 0 display,]'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JAVASCRIPT
+              parameters:
+                - |
+                  function parseSas3ircuOutput(input) {
+                      var lines = input.split('\n');
+                      var result = {};
+                      var currentSection = null;
+                      var currentSubSection = null;
+                  
+                      for (var i = 0; i < lines.length; i++) {
+                          var line = lines[i].trim();
+                  
+                          // Skip empty lines or lines with only dashes
+                          if (!line || /^-+$/.test(line)) {
+                              continue;
+                          }
+                  
+                          // Identify Main Sections
+                          if (/^controller information$/i.test(line)) {
+                              currentSection = 'controller_information';
+                              result[currentSection] = {};
+                              currentSubSection = null;
+                              continue;
+                          } else if (/^ir volume information$/i.test(line)) {
+                              currentSection = 'ir_volume_information';
+                              result[currentSection] = [];
+                              currentSubSection = null;
+                              continue;
+                          } else if (/^physical device information$/i.test(line)) {
+                              currentSection = 'physical_device_information';
+                              result[currentSection] = [];
+                              currentSubSection = null;
+                              continue;
+                          } else if (/^enclosure information$/i.test(line)) {
+                              currentSection = 'enclosure_information';
+                              result[currentSection] = {};
+                              currentSubSection = null;
+                              continue;
+                          }
+                  
+                          // Handle Sub-Sections within IR Volume Information
+                          if (currentSection === 'ir_volume_information') {
+                              var irVolumeMatch = line.match(/^IR volume\s+(\d+)$/i);
+                              if (irVolumeMatch) {
+                                  currentSubSection = {};
+                                  currentSubSection['volume_id'] = irVolumeMatch[1];
+                                  result[currentSection].push(currentSubSection);
+                                  continue;
+                              }
+                          }
+                  
+                          // Handle Sub-Sections within Physical Device Information
+                          if (currentSection === 'physical_device_information') {
+                              var deviceMatch = line.match(/^Device is a (.+)$/i);
+                              if (deviceMatch) {
+                                  currentSubSection = { type: deviceMatch[1].toLowerCase().replace(/\s+/g, '_') };
+                                  result[currentSection].push(currentSubSection);
+                                  continue;
+                              }
+                          }
+                  
+                          // Handle Initiator Information
+                          if (currentSection === 'physical_device_information') {
+                              var initiatorMatch = line.match(/^Initiator at ID #(\d+)$/i);
+                              if (initiatorMatch) {
+                                  result['initiator_at_id_' + initiatorMatch[1]] = { id: initiatorMatch[1] };
+                                  continue;
+                              }
+                          }
+                  
+                          // Handle Key-Value Pairs
+                          var kvMatch = line.match(/^(.+?)\s*:\s*(.+)$/);
+                          if (kvMatch) {
+                              var key = kvMatch[1].toLowerCase().replace(/\s+/g, '_');
+                              var value = kvMatch[2].trim();
+                  
+                              if (currentSubSection) {
+                                  // Assign to Sub-Section
+                                  currentSubSection[key] = value;
+                              } else if (currentSection) {
+                                  // Assign to Main Section
+                                  result[currentSection][key] = value;
+                              } else {
+                                  // Assign to Root (if applicable)
+                                  result[key] = value;
+                              }
+                              continue;
+                          }
+                      }
+                  
+                      return result;
+                  }
+                  
+                  const parsedResult = parseSas3ircuOutput(value);
+                  result = JSON.stringify(parsedResult, null, 4);
+                  // console.log();
+                  return result;
+                  
+          tags:
+            -
+              tag: Application
+              value: RAID
+        -
+          uuid: a84c8616c6a54ee1963c61e01d50607e
+          name: 'SAS3IR status text'
+          type: ZABBIX_ACTIVE
+          key: 'system.run[/usr/local/bin/sas3ircu 0 status,]'
+          trends: '0'
+          value_type: TEXT
+          tags:
+            -
+              tag: Application
+              value: RAID
+      discovery_rules:
+        -
+          uuid: b2be327022124618a882d0d5059060d3
+          name: 'IR volume discovery'
+          type: DEPENDENT
+          key: sas3ircu.ir_volume.discovery
+          delay: '0'
+          item_prototypes:
+            -
+              uuid: 4fb9faec9fa747438bc7b4d81fee21c5
+              name: 'IR Volume {#RAIDLEVEL} {#VOLUMEID} Status'
+              type: DEPENDENT
+              key: 'sas3ircu.volume.status[{#VOLUMEID}]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$..ir_volume_information[?(@.volume_id=="{#VOLUMEID}")].status_of_volume'
+                -
+                  type: JAVASCRIPT
+                  parameters:
+                    - |
+                      var statusArray = JSON.parse(value); // Parse input JSON array
+                      if (statusArray.length === 0) {
+                          return null; // Return null if array is empty
+                      }
+                      
+                      var firstElement = statusArray[0]; // Get the first element of the array
+                      var match = firstElement.match(/\(([^)]+)\)/); // Match text inside parentheses
+                      
+                      if (match) {
+                          return match[1]; // Return the value inside parentheses
+                      }
+                      
+                      return firstElement; // Return the first element if no parentheses are found
+              master_item:
+                key: 'system.run[/usr/local/bin/sas3ircu 0 display,]'
+              tags:
+                -
+                  tag: Application
+                  value: RAID
+              trigger_prototypes:
+                -
+                  uuid: 1606530f95af43acbcaec3d895d01e18
+                  expression: 'find(/Template_SAS3IR_RAID/sas3ircu.volume.status[{#VOLUMEID}],,,"OKY")<>1'
+                  name: 'IR Volume {#RAIDLEVEL} {#VOLUMEID} is not Ok'
+                  priority: AVERAGE
+                  tags:
+                    -
+                      tag: Application
+                      value: RAID
+          master_item:
+            key: 'system.run[/usr/local/bin/sas3ircu 0 display,]'
+          preprocessing:
+            -
+              type: JAVASCRIPT
+              parameters:
+                - |
+                  var inputData = JSON.parse(value); // Parse the JSON input
+                  var discoveryData = [];
+                  
+                  if (inputData.ir_volume_information) {
+                      var volumes = inputData.ir_volume_information;
+                  
+                      for (var i = 0; i < volumes.length; i++) {
+                          var volume = volumes[i];
+                          discoveryData.push({
+                              "{#VOLUMEID}": volume["volume_id"],
+                              // "{#STATUS}": volume["status_of_volume"],
+                              "{#RAIDLEVEL}": volume["raid_level"],
+                              // "{#SIZE_MB}": volume["size_(in_mb)"],
+                              // "{#VOLUMEWWID}": volume["volume_wwid"]
+                          });
+                      }
+                  }
+                  
+                  return JSON.stringify(discoveryData, null, 4); // Return formatted JSON string
+                  
+        -
+          uuid: 064c8449fc5742bcb75054bbfc2c1fde
+          name: 'physical disk discovery'
+          type: DEPENDENT
+          key: sas3ircu.physical_disk.discovery
+          delay: '0'
+          item_prototypes:
+            -
+              uuid: f239e30d651f4a859ad76c89607bcea0
+              name: 'Disk {#ENCLOSURE}:{#SLOT} State'
+              type: DEPENDENT
+              key: 'sas3ircu.physical_disk.state["{#ENCLOSURE}:{#SLOT}"]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.physical_device_information[?(@[''enclosure_#''] == ''{#ENCLOSURE}'' && @[''slot_#''] == ''{#SLOT}'')].state'
+                -
+                  type: JAVASCRIPT
+                  parameters:
+                    - |
+                      var statusArray = JSON.parse(value); // Parse input JSON array
+                      if (statusArray.length === 0) {
+                          return null; // Return null if array is empty
+                      }
+                      
+                      var firstElement = statusArray[0]; // Get the first element of the array
+                      var match = firstElement.match(/\(([^)]+)\)/); // Match text inside parentheses
+                      
+                      if (match) {
+                          return match[1]; // Return the value inside parentheses
+                      }
+                      
+                      return firstElement; // Return the first element if no parentheses are found
+              master_item:
+                key: 'system.run[/usr/local/bin/sas3ircu 0 display,]'
+              tags:
+                -
+                  tag: Application
+                  value: RAID
+              trigger_prototypes:
+                -
+                  uuid: 5ff28c0540154aec8dedb7e813959b4e
+                  expression: 'find(/Template_SAS3IR_RAID/sas3ircu.physical_disk.state["{#ENCLOSURE}:{#SLOT}"],,,"OPT")<>1'
+                  name: 'Disk {#ENCLOSURE}:{#SLOT} state is not Optimal'
+                  priority: AVERAGE
+                  tags:
+                    -
+                      tag: Application
+                      value: RAID
+          master_item:
+            key: 'system.run[/usr/local/bin/sas3ircu 0 display,]'
+          preprocessing:
+            -
+              type: JAVASCRIPT
+              parameters:
+                - |
+                  
+                      var inputData = JSON.parse(value); // Parse the JSON input
+                      var discoveryData = [];
+                  
+                      if (inputData.physical_device_information) {
+                          var devices = inputData.physical_device_information;
+                  
+                          for (var i = 0; i < devices.length; i++) {
+                              var device = devices[i];
+                              discoveryData.push({
+                                  "{#ENCLOSURE}": device["enclosure_#"], // Enclose keys with special characters
+                                  "{#SLOT}": device["slot_#"],
+                                  // "{#DRIVETYPE}": device["drive_type"],
+                                  // "{#STATE}": device["state"],
+                                  // "{#SIZE_MB}": device["size_(in_mb)/(in_sectors)"].split('/')[0], // Extract size in MB
+                                  // "{#SASADDRESS}": device["sas_address"],
+                                  // "{#SERIAL}": device["serial_no"]
+                              });
+                          }
+                      }
+                  
+                      return JSON.stringify(discoveryData, null, 4); // Return formatted JSON string
+                  
+                  
