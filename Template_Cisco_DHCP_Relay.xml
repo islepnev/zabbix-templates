@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.4</version>
+    <date>2025-01-15T15:53:00Z</date>
+    <groups>
+        <group>
+            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>1741c129d77f43c7af63a9bc149000a5</uuid>
+            <template>Template Cisco DHCP Relay</template>
+            <name>Template Cisco DHCP Relay</name>
+            <description>Template created using CISCO-DHCP-RELAY-MIB
+OID 1.3.6.1.4.1.9.9.833
+
+https://github.com/islepnev/zabbix-templates</description>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>5875e2e4891b4360a5ea3a6ee839b485</uuid>
+                    <name>DHCP dropped packets (interface error)</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.2.1.4.0</snmp_oid>
+                    <key>cdrDropStatsInterfaceError.0</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The number of DHCP packets dropped by the RELAY agent, as there was an interface related error</description>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>0d5f2f4972e7425d8c041f8d7e219af1</uuid>
+                            <expression>last(/Template Cisco DHCP Relay/cdrDropStatsInterfaceError.0)&gt;0</expression>
+                            <name>DHCP Relay dropped packets (interface error)</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>96101376391340718ec798fff57f353f</uuid>
+                    <name>DHCP dropped packets (invalid opt 82)</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.2.1.10.0</snmp_oid>
+                    <key>cdrDropStatsOpt82ValidationFailure.0</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The number of DHCP packets dropped by the RELAY agent, as the Option 82 validation was failed</description>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>75efef13583e47b38fe928c395e5d69a</uuid>
+                            <expression>last(/Template Cisco DHCP Relay/cdrDropStatsOpt82ValidationFailure.0)&gt;0</expression>
+                            <name>DHCP Relay dropped packets (invalid opt 82)</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>ed5b9cfe11d2404099249216b3544cbb</uuid>
+                    <name>DHCP dropped packets (relay not enabled)</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.2.1.2.0</snmp_oid>
+                    <key>cdrDropStatsRelayNotEnabled.0</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The number of DHCP packets dropped by the RELAY agent as the relay feature was not enabled</description>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>1db291d466dd42c9965659206ed2a33d</uuid>
+                            <expression>last(/Template Cisco DHCP Relay/cdrDropStatsRelayNotEnabled.0)&gt;0</expression>
+                            <name>DHCP Relay dropped packets (relay not enabled)</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>fa002e69c5ab470aa535bccbdc8fb65b</uuid>
+                    <name>DHCP dropped packets (untrusted port)</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.2.1.12.0</snmp_oid>
+                    <key>cdrDropStatsUntrustablePort.0</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The number of DHCP packets dropped by the RELAY agent, as the trusted port is not configured</description>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>87526be567944be781ad36fd24be8c5f</uuid>
+                            <expression>last(/Template Cisco DHCP Relay/cdrDropStatsUntrustablePort.0)&gt;0</expression>
+                            <name>DHCP Relay dropped packets (untrusted port)</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>0630ffb8f54a40dea07d4c301dca800d</uuid>
+                    <name>DHCP ACK packets dropped</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.5.0.4</snmp_oid>
+                    <key>cdrStatsPktsDropped.0.ack</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>685f6d9310984d3abd6f0c3645b8d4c4</uuid>
+                    <name>DHCP DECLINE packets dropped</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.5.0.6</snmp_oid>
+                    <key>cdrStatsPktsDropped.0.decline</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>d5bfefa7902d4c8fbcf8bf8ed494f0fa</uuid>
+                    <name>DHCP dhcpL3Fwd packets dropped</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.5.0.9</snmp_oid>
+                    <key>cdrStatsPktsDropped.0.dhcpL3Fwd</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>bba74266e3da438cb038934d636274db</uuid>
+                    <name>DHCP DISCOVER packets dropped</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.5.0.1</snmp_oid>
+                    <key>cdrStatsPktsDropped.0.discover</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>e70bde648f64477099cb66dde01b5e69</uuid>
+                    <name>DHCP INFORM packets dropped</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.5.0.7</snmp_oid>
+                    <key>cdrStatsPktsDropped.0.inform</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>22ebdb6e875a4d13994afcb6278d1de0</uuid>
+                    <name>DHCP NACK packets dropped</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.5.0.8</snmp_oid>
+                    <key>cdrStatsPktsDropped.0.nack</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>aca279cae9c64d07a4a727cb6d1afcbd</uuid>
+                    <name>DHCP nonDhcp packets dropped</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.5.0.10</snmp_oid>
+                    <key>cdrStatsPktsDropped.0.nonDhcp</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>5ed140aeac094b5b968ba35a7590b258</uuid>
+                    <name>DHCP OFFER packets dropped</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.5.0.2</snmp_oid>
+                    <key>cdrStatsPktsDropped.0.offer</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>0c32c3fdb19d4830a3dfef3e818dc3f0</uuid>
+                    <name>DHCP RELEASE packets dropped</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.5.0.5</snmp_oid>
+                    <key>cdrStatsPktsDropped.0.release</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>f2fd598e9fa54723adb3d776b585fbaa</uuid>
+                    <name>DHCP REQUEST packets dropped</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.5.0.3</snmp_oid>
+                    <key>cdrStatsPktsDropped.0.request</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>7cd9416086774a36b73c7950af045cb8</uuid>
+                    <name>DHCP ACK packets received</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.3.0.4</snmp_oid>
+                    <key>cdrStatsPktsReceived.0.ack</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>6743eed85cd343c4965ebd2bb807e31d</uuid>
+                    <name>DHCP DECLINE packets received</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.3.0.6</snmp_oid>
+                    <key>cdrStatsPktsReceived.0.decline</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>95450a2d16804b358dbf80b5195fdabc</uuid>
+                    <name>DHCP dhcpL3Fwd packets received</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.3.0.9</snmp_oid>
+                    <key>cdrStatsPktsReceived.0.dhcpL3Fwd</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>e00275e1a5ee4b46b90b349c24174ac8</uuid>
+                    <name>DHCP DISCOVER packets received</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.3.0.1</snmp_oid>
+                    <key>cdrStatsPktsReceived.0.discover</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>b75998ec99c74f8093b82e44bcfa3235</uuid>
+                    <name>DHCP INFORM packets received</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.3.0.7</snmp_oid>
+                    <key>cdrStatsPktsReceived.0.inform</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>042b94ef3fc24cc8a20cd3acc97b128c</uuid>
+                    <name>DHCP NACK packets received</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.3.0.8</snmp_oid>
+                    <key>cdrStatsPktsReceived.0.nack</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>79f51126ea4a4c9496fe7c5feed43951</uuid>
+                    <name>DHCP nonDhcp packets received</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.3.0.10</snmp_oid>
+                    <key>cdrStatsPktsReceived.0.nonDhcp</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>c961cfd92e3c48daabc89e944ed3edce</uuid>
+                    <name>DHCP OFFER packets received</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.3.0.2</snmp_oid>
+                    <key>cdrStatsPktsReceived.0.offer</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>ee24fdcbc3fe4e2fb1c59bc8ba7ec51f</uuid>
+                    <name>DHCP RELEASE packets received</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.3.0.5</snmp_oid>
+                    <key>cdrStatsPktsReceived.0.release</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>4ecfd6c26aaa43e89b54cfa0d25b5b81</uuid>
+                    <name>DHCP REQUEST packets received</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.833.1.1.1.1.3.0.3</snmp_oid>
+                    <key>cdrStatsPktsReceived.0.request</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DHCP Relay</value>
+                        </tag>
+                    </tags>
+                </item>
+            </items>
+        </template>
+    </templates>
+</zabbix_export>
