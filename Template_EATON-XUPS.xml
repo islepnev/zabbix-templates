@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.4</version>
-    <date>2025-02-17T20:20:40Z</date>
+    <date>2025-02-18T09:06:57Z</date>
     <groups>
         <group>
             <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
@@ -19,7 +19,7 @@
             <name>Template_EATON-XUPS</name>
             <description>Updated version of https://github.com/bradpeczka/zabbix/tree/master/Eaton/ZBX-EATON-XUPS
 
-2025-02-17 islepnev</description>
+2025-02-17  https://git.jinr.ru/islepnev/zabbix-templates</description>
             <groups>
                 <group>
                     <name>Templates</name>
@@ -467,156 +467,6 @@
                         <tag>
                             <tag>Application</tag>
                             <value>Input</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>ff0b0beaffd2436792c1e159fd72b580</uuid>
-                    <name>Environment - Ambient Humidity</name>
-                    <type>SNMP_AGENT</type>
-                    <snmp_oid>1.3.6.1.4.1.534.1.6.4.0</snmp_oid>
-                    <key>xupsEnvAmbientHumidity</key>
-                    <status>DISABLED</status>
-                    <units>%</units>
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>Environment</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>686b5319d6f448d986abe8bdc3ef29db</uuid>
-                    <name>Environment - Ambient Temperature Lower Limit</name>
-                    <type>SNMP_AGENT</type>
-                    <snmp_oid>1.3.6.1.4.1.534.1.6.2.0</snmp_oid>
-                    <key>xupsEnvAmbientLowerLimit</key>
-                    <status>DISABLED</status>
-                    <units>C</units>
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>Environment</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>6e3452999d284a3bb18abfa048a895dc</uuid>
-                    <name>Environment - Ambient Temperature</name>
-                    <type>SNMP_AGENT</type>
-                    <snmp_oid>1.3.6.1.4.1.534.1.6.1.0</snmp_oid>
-                    <key>xupsEnvAmbientTemp</key>
-                    <status>DISABLED</status>
-                    <units>C</units>
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>Environment</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>0de444a5f27147b697864e7ce42cb2ed</uuid>
-                    <name>Environment - Ambient Temperature Upper Limit</name>
-                    <type>SNMP_AGENT</type>
-                    <snmp_oid>1.3.6.1.4.1.534.1.6.3.0</snmp_oid>
-                    <key>xupsEnvAmbientUpperLimit</key>
-                    <status>DISABLED</status>
-                    <units>C</units>
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>Environment</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>db8e5a7f4f3c4b759016ef6bf5d93086</uuid>
-                    <name>Environment - Remote Humidity</name>
-                    <type>SNMP_AGENT</type>
-                    <snmp_oid>1.3.6.1.4.1.534.1.6.6.0</snmp_oid>
-                    <key>xupsEnvRemoteHumidity</key>
-                    <status>DISABLED</status>
-                    <units>%</units>
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>Environment</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>751d734298ac4c8c886b60c6c6b9ec2e</uuid>
-                    <name>Environment - Remote Humidity Lower Limit</name>
-                    <type>SNMP_AGENT</type>
-                    <snmp_oid>1.3.6.1.4.1.534.1.6.11.0</snmp_oid>
-                    <key>xupsEnvRemoteHumidityLowerLimit</key>
-                    <status>DISABLED</status>
-                    <units>%</units>
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>Environment</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>f455d4ed35fc44f9b45f69a6c2650a3e</uuid>
-                    <name>Environment - Remote Humidity Upper Limit</name>
-                    <type>SNMP_AGENT</type>
-                    <snmp_oid>1.3.6.1.4.1.534.1.6.12.0</snmp_oid>
-                    <key>xupsEnvRemoteHumidityUpperLimit</key>
-                    <status>DISABLED</status>
-                    <units>%</units>
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>Environment</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>5f4c1fc6b9ca47578467db3f62a150f3</uuid>
-                    <name>Environment - Remote Temperature</name>
-                    <type>SNMP_AGENT</type>
-                    <snmp_oid>1.3.6.1.4.1.534.1.6.5.0</snmp_oid>
-                    <key>xupsEnvRemoteTemp</key>
-                    <status>DISABLED</status>
-                    <units>C</units>
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>Environment</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>b2d3d560fd1840d8899d4ef24412c563</uuid>
-                    <name>Environment - Remote Temperature Lower Limit</name>
-                    <type>SNMP_AGENT</type>
-                    <snmp_oid>1.3.6.1.4.1.534.1.6.9.0</snmp_oid>
-                    <key>xupsEnvRemoteTempLowerLimit</key>
-                    <status>DISABLED</status>
-                    <units>C</units>
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>Environment</value>
-                        </tag>
-                    </tags>
-                </item>
-                <item>
-                    <uuid>442d7cbc55854b75ac499c45e1adb92d</uuid>
-                    <name>Environment - Remote Temperature Upper Limit</name>
-                    <type>SNMP_AGENT</type>
-                    <snmp_oid>1.3.6.1.4.1.534.1.6.10.0</snmp_oid>
-                    <key>xupsEnvRemoteTempUpperLimit</key>
-                    <status>DISABLED</status>
-                    <units>C</units>
-                    <tags>
-                        <tag>
-                            <tag>Application</tag>
-                            <value>Environment</value>
                         </tag>
                     </tags>
                 </item>
@@ -1190,6 +1040,12 @@
                     </item_prototypes>
                 </discovery_rule>
             </discovery_rules>
+            <tags>
+                <tag>
+                    <tag>class</tag>
+                    <value>power</value>
+                </tag>
+            </tags>
             <valuemaps>
                 <valuemap>
                     <uuid>97dc2e45ef1547a3b172cd291c0537e6</uuid>
@@ -1380,32 +1236,6 @@
             </valuemaps>
         </template>
     </templates>
-    <triggers>
-        <trigger>
-            <uuid>ca01eb2e27c54a158a3d98c32a332d41</uuid>
-            <expression>last(/Template_EATON-XUPS/xupsEnvAmbientUpperLimit)&lt;last(/Template_EATON-XUPS/xupsEnvAmbientTemp)</expression>
-            <name>{HOST.NAME}: Ambient Temperature is HIGH ({ITEM.VALUE2})</name>
-            <priority>WARNING</priority>
-        </trigger>
-        <trigger>
-            <uuid>73ba35417fd04ba3aadb1fbd3d0ce4cb</uuid>
-            <expression>last(/Template_EATON-XUPS/xupsEnvAmbientLowerLimit)&gt;last(/Template_EATON-XUPS/xupsEnvAmbientTemp)</expression>
-            <name>{HOST.NAME}: Ambient Temperature is LOW: ({ITEM.VALUE2})</name>
-            <priority>WARNING</priority>
-        </trigger>
-        <trigger>
-            <uuid>1c6f99139f974b3295aa47a5d8fb8c1e</uuid>
-            <expression>last(/Template_EATON-XUPS/xupsEnvRemoteTempUpperLimit)&lt;last(/Template_EATON-XUPS/xupsEnvRemoteTemp)</expression>
-            <name>{HOST.NAME}: Remote Temperature is HIGH ({ITEM.VALUE2})</name>
-            <priority>WARNING</priority>
-        </trigger>
-        <trigger>
-            <uuid>5e186138106d423aaa0b8d9cb423b093</uuid>
-            <expression>last(/Template_EATON-XUPS/xupsEnvRemoteTempLowerLimit)&gt;last(/Template_EATON-XUPS/xupsEnvRemoteTemp)</expression>
-            <name>{HOST.NAME}: Remote Temperature is LOW: ({ITEM.VALUE2})</name>
-            <priority>WARNING</priority>
-        </trigger>
-    </triggers>
     <graphs>
         <graph>
             <uuid>33bfae14ea0f455f8c79f4ec55cb86b9</uuid>
@@ -1468,106 +1298,6 @@
                     <item>
                         <host>Template_EATON-XUPS</host>
                         <key>xupsBatVoltage</key>
-                    </item>
-                </graph_item>
-            </graph_items>
-        </graph>
-        <graph>
-            <uuid>72285bc8a16f42f285c42c3c43a47af0</uuid>
-            <name>Environment - Ambient Temperature/Humidity</name>
-            <graph_items>
-                <graph_item>
-                    <color>00C800</color>
-                    <item>
-                        <host>Template_EATON-XUPS</host>
-                        <key>xupsEnvAmbientTemp</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>1</sortorder>
-                    <color>C800C8</color>
-                    <yaxisside>RIGHT</yaxisside>
-                    <item>
-                        <host>Template_EATON-XUPS</host>
-                        <key>xupsEnvAmbientHumidity</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>2</sortorder>
-                    <drawtype>DASHED_LINE</drawtype>
-                    <color>C80000</color>
-                    <item>
-                        <host>Template_EATON-XUPS</host>
-                        <key>xupsEnvAmbientLowerLimit</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>3</sortorder>
-                    <drawtype>DASHED_LINE</drawtype>
-                    <color>0000C8</color>
-                    <item>
-                        <host>Template_EATON-XUPS</host>
-                        <key>xupsEnvAmbientUpperLimit</key>
-                    </item>
-                </graph_item>
-            </graph_items>
-        </graph>
-        <graph>
-            <uuid>21e3768fc61a443ebee255ff8a4c2b0b</uuid>
-            <name>Environment - Remote Temperature/Humidity</name>
-            <graph_items>
-                <graph_item>
-                    <color>00C800</color>
-                    <item>
-                        <host>Template_EATON-XUPS</host>
-                        <key>xupsEnvRemoteTemp</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>1</sortorder>
-                    <drawtype>DASHED_LINE</drawtype>
-                    <color>C80000</color>
-                    <item>
-                        <host>Template_EATON-XUPS</host>
-                        <key>xupsEnvRemoteTempLowerLimit</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>2</sortorder>
-                    <drawtype>DASHED_LINE</drawtype>
-                    <color>0000C8</color>
-                    <item>
-                        <host>Template_EATON-XUPS</host>
-                        <key>xupsEnvRemoteTempUpperLimit</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>3</sortorder>
-                    <color>C800C8</color>
-                    <yaxisside>RIGHT</yaxisside>
-                    <item>
-                        <host>Template_EATON-XUPS</host>
-                        <key>xupsEnvRemoteHumidity</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>4</sortorder>
-                    <drawtype>DASHED_LINE</drawtype>
-                    <color>00C8C8</color>
-                    <yaxisside>RIGHT</yaxisside>
-                    <item>
-                        <host>Template_EATON-XUPS</host>
-                        <key>xupsEnvRemoteHumidityLowerLimit</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>5</sortorder>
-                    <drawtype>DASHED_LINE</drawtype>
-                    <color>C8C800</color>
-                    <yaxisside>RIGHT</yaxisside>
-                    <item>
-                        <host>Template_EATON-XUPS</host>
-                        <key>xupsEnvRemoteHumidityUpperLimit</key>
                     </item>
                 </graph_item>
             </graph_items>
