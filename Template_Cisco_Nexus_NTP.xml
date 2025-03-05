@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.4</version>
+    <date>2025-03-05T16:19:57Z</date>
+    <groups>
+        <group>
+            <uuid>cf23b17383074fc696f8df3cf475cad2</uuid>
+            <name>Templates/Switches/Cisco</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>80206d8d0e4d4d51849ef6cdd1db8339</uuid>
+            <template>Template_Cisco_Nexus_NTP</template>
+            <name>Template_Cisco_Nexus_NTP</name>
+            <description>CISCO-NTP-MIB
+
+git@git.jinr.ru:islepnev/zabbix-templates.git</description>
+            <groups>
+                <group>
+                    <name>Templates/Switches/Cisco</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>f4816d593aef498b9b7b25dd23be38c5</uuid>
+                    <name>cntpSysLeap</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.168.1.1.1.0</snmp_oid>
+                    <key>cntpSysLeap.0</key>
+                    <description>This is a two-bit code warning of an impending leap
+second to be inserted in the NTP timescale.  The bits
+are set before 23:59 on the day of insertion and reset
+after 00:00 on the following day.  This causes the
+number of seconds (rollover interval) in the day of
+insertion to be increased or decreased by one.  The two
+bits are coded as below,
+00, no warning
+01, last minute has 61 seconds
+10, last minute has 59 seconds
+11, alarm condition (clock not synchronized)</description>
+                    <valuemap>
+                        <name>ntp_leap_indicator</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>NTP</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>3ed24004eaaf40dca596ad7d91316e8c</uuid>
+                            <expression>last(/Template_Cisco_Nexus_NTP/cntpSysLeap.0)=3</expression>
+                            <name>Time synchronization lost</name>
+                            <priority>WARNING</priority>
+                            <tags>
+                                <tag>
+                                    <tag>NTP</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>f9c7a76e993c4de6bdfe680787408f5c</uuid>
+                    <name>cntpSysRootDelay</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.168.1.1.4.0</snmp_oid>
+                    <key>cntpSysRootDelay.0</key>
+                    <value_type>FLOAT</value_type>
+                    <units>ms</units>
+                    <description>A signed fixed-point number indicating the total round-trip delay in seconds, to the primary reference source at the root of the synchronization subnet.</description>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <parameters>
+                                <parameter>([0-9A-F]*) ([0-9A-F]*) ([0-9A-F]*) ([0-9A-F]*)</parameter>
+                                <parameter>\1\2\3\4</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>HEX_TO_DECIMAL</type>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>return (value &amp; 0xFFFFFFFF) / 65536.0;</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>NTP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>077794726da248b7bb86820abf3c80dd</uuid>
+                    <name>cntpSysStratum</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.168.1.1.2.0</snmp_oid>
+                    <key>cntpSysStratum.0</key>
+                    <description>Indicates the stratum of the clock.  The stratum
+defines the accuracy of a time server.  Higher the
+stratum, lower the accuracy.
+ 0, unspecified
+ 1, primary reference (e.g., calibrated atomic clock, radio clock)
+ 2-255, secondary reference (via NTP)</description>
+                    <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>NTP</value>
+                        </tag>
+                    </tags>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>ecedeb1f75af4d75b5a83ab50ba0cdbc</uuid>
+                    <name>cntpPeers</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#ADDRESS},1.3.6.1.4.1.9.9.168.1.2.1.1.3]</snmp_oid>
+                    <key>discovery.cntpPeers</key>
+                    <delay>30s</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>d39134b6fcba43fb81e60ccd75e180a5</uuid>
+                            <name>NTP peer {#ADDRESS} delay</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.9.9.168.1.2.1.1.24.{#SNMPINDEX}</snmp_oid>
+                            <key>cntpPeersDelay[{#ADDRESS}]</key>
+                            <delay>60s</delay>
+                            <value_type>FLOAT</value_type>
+                            <units>ms</units>
+                            <description>The estimated round-trip delay of the peer clock relative to the local clock over the network path between them, in seconds.  The host determines the value of this object using the NTP clock-filter algorithm.</description>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <parameters>
+                                        <parameter>([0-9A-F]*) ([0-9A-F]*) ([0-9A-F]*) ([0-9A-F]*)</parameter>
+                                        <parameter>\1\2\3\4</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>HEX_TO_DECIMAL</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>JAVASCRIPT</type>
+                                    <parameters>
+                                        <parameter>return (value &amp; 0xFFFFFFFF) / 65.536;</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>address</tag>
+                                    <value>{#ADDRESS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>NTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>NTP peer</value>
+                                </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>838a2f01b6c748028efabc4d13f33bc0</uuid>
+                            <name>NTP peer {#ADDRESS} dispersion</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.9.9.168.1.2.1.1.25.{#SNMPINDEX}</snmp_oid>
+                            <key>cntpPeersDispersion[{#ADDRESS}]</key>
+                            <delay>60s</delay>
+                            <value_type>FLOAT</value_type>
+                            <units>s</units>
+                            <description>The estimated maximum error of the peer clock relative to the local clock over the network path between them, in seconds.  The host determines the value of this object using the NTP clock-filter algorithm</description>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <parameters>
+                                        <parameter>([0-9A-F]*) ([0-9A-F]*) ([0-9A-F]*) ([0-9A-F]*)</parameter>
+                                        <parameter>\1\2\3\4</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>HEX_TO_DECIMAL</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>JAVASCRIPT</type>
+                                    <parameters>
+                                        <parameter>return (value &amp; 0xFFFFFFFF) / 65536.0;</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>address</tag>
+                                    <value>{#ADDRESS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>NTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>NTP peer</value>
+                                </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>6e02cb4e1a284f70acd52246ff341611</uuid>
+                                    <expression>abs(last(/Template_Cisco_Nexus_NTP/cntpPeersDispersion[{#ADDRESS}]))&gt;{$NTP_DISPERSION_WARNING}</expression>
+                                    <name>NTP peer {#ADDRESS} high dispersion</name>
+                                    <priority>WARNING</priority>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>NTP peer {#ADDRESS} unreachable</name>
+                                            <expression>last(/Template_Cisco_Nexus_NTP/cntpPeersReach[{#ADDRESS}])=0</expression>
+                                        </dependency>
+                                    </dependencies>
+                                    <tags>
+                                        <tag>
+                                            <tag>NTP</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>performance</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>312cd9b589ec44f7ab4c66ded82addb1</uuid>
+                            <name>NTP peer {#ADDRESS} leap status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.9.9.168.1.2.1.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>cntpPeersLeap[{#ADDRESS}]</key>
+                            <delay>60s</delay>
+                            <value_type>FLOAT</value_type>
+                            <description>Two-bit code warning of an impending leap second to be inserted in the NTP timescale of the peer.</description>
+                            <valuemap>
+                                <name>ntp_leap_indicator</name>
+                            </valuemap>
+                            <tags>
+                                <tag>
+                                    <tag>address</tag>
+                                    <value>{#ADDRESS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>NTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>NTP peer</value>
+                                </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>48054923226a4582bb95e64b388afdee</uuid>
+                                    <expression>last(/Template_Cisco_Nexus_NTP/cntpPeersLeap[{#ADDRESS}])=3</expression>
+                                    <name>NTP peer {#ADDRESS} not synchronized</name>
+                                    <priority>INFO</priority>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>NTP peer {#ADDRESS} unreachable</name>
+                                            <expression>last(/Template_Cisco_Nexus_NTP/cntpPeersReach[{#ADDRESS}])=0</expression>
+                                        </dependency>
+                                    </dependencies>
+                                    <tags>
+                                        <tag>
+                                            <tag>NTP</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>availability</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>7a63337b5d4f4eeb9c6a8d45c8ec822e</uuid>
+                            <name>NTP peer {#ADDRESS} offset</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.9.9.168.1.2.1.1.23.{#SNMPINDEX}</snmp_oid>
+                            <key>cntpPeersOffset[{#ADDRESS}]</key>
+                            <delay>60s</delay>
+                            <value_type>FLOAT</value_type>
+                            <units>ms</units>
+                            <description>The estimated offset of the peer clock relative to the local clock, in seconds.  The host determines the value of this object using the NTP clock-filter algorithm.</description>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <parameters>
+                                        <parameter>([0-9A-F]*) ([0-9A-F]*) ([0-9A-F]*) ([0-9A-F]*)</parameter>
+                                        <parameter>\1\2\3\4</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>HEX_TO_DECIMAL</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>JAVASCRIPT</type>
+                                    <parameters>
+                                        <parameter>return (value &amp; 0xFFFFFFFF) / 65.536;</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>address</tag>
+                                    <value>{#ADDRESS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>NTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>NTP peer</value>
+                                </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>bdd24a494a264686b6ba49e6c18d86be</uuid>
+                                    <expression>abs(last(/Template_Cisco_Nexus_NTP/cntpPeersOffset[{#ADDRESS}]))&gt;0.05</expression>
+                                    <name>NTP peer {#ADDRESS} offset</name>
+                                    <priority>INFO</priority>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>NTP peer {#ADDRESS} offset</name>
+                                            <expression>abs(last(/Template_Cisco_Nexus_NTP/cntpPeersOffset[{#ADDRESS}]))&gt;0.5</expression>
+                                        </dependency>
+                                    </dependencies>
+                                    <tags>
+                                        <tag>
+                                            <tag>NTP</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>performance</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>66b86f6d43d044c584a6d2ab7e6181bc</uuid>
+                                    <expression>abs(last(/Template_Cisco_Nexus_NTP/cntpPeersOffset[{#ADDRESS}]))&gt;0.5</expression>
+                                    <name>NTP peer {#ADDRESS} offset</name>
+                                    <priority>WARNING</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>NTP</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>performance</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>1ec53b46c4e04866b3c24953dacf06bc</uuid>
+                            <name>NTP peer {#ADDRESS} reachability</name>
+                            <type>DEPENDENT</type>
+                            <key>cntpPeersReachCount[{#ADDRESS}]</key>
+                            <delay>0</delay>
+                            <description>A number (0 to 8) used to determine the reachability status of the peer.  A peer is considered reachable if the value of this object is non-zero.
+The data would be populated by the NTP protocol procedures.</description>
+                            <preprocessing>
+                                <step>
+                                    <type>JAVASCRIPT</type>
+                                    <parameters>
+                                        <parameter>return (value &amp; 0xFF).toString(2).split('0').join('').length;</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>cntpPeersReach[{#ADDRESS}]</key>
+                            </master_item>
+                            <tags>
+                                <tag>
+                                    <tag>address</tag>
+                                    <value>{#ADDRESS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>NTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>NTP peer</value>
+                                </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>f53681c639ec443ea644aa249062b46d</uuid>
+                                    <expression>max(/Template_Cisco_Nexus_NTP/cntpPeersReachCount[{#ADDRESS}],15m)&lt;5</expression>
+                                    <name>NTP peer {#ADDRESS} reachability problem</name>
+                                    <priority>WARNING</priority>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>NTP peer {#ADDRESS} unreachable</name>
+                                            <expression>last(/Template_Cisco_Nexus_NTP/cntpPeersReach[{#ADDRESS}])=0</expression>
+                                        </dependency>
+                                    </dependencies>
+                                    <tags>
+                                        <tag>
+                                            <tag>NTP</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>availability</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>03704f9784b34e77b54c0312d4da7a9d</uuid>
+                                    <expression>max(/Template_Cisco_Nexus_NTP/cntpPeersReachCount[{#ADDRESS}],15m)&lt;7</expression>
+                                    <name>NTP peer {#ADDRESS} reachability problem</name>
+                                    <priority>INFO</priority>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>NTP peer {#ADDRESS} unreachable</name>
+                                            <expression>last(/Template_Cisco_Nexus_NTP/cntpPeersReach[{#ADDRESS}])=0</expression>
+                                        </dependency>
+                                    </dependencies>
+                                    <tags>
+                                        <tag>
+                                            <tag>NTP</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>availability</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>c21ad4bed1a94467bdba4b46af48add6</uuid>
+                            <name>NTP peer {#ADDRESS} reachability bitmask</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.9.9.168.1.2.1.1.21.{#SNMPINDEX}</snmp_oid>
+                            <key>cntpPeersReach[{#ADDRESS}]</key>
+                            <delay>60s</delay>
+                            <description>A shift register of used to determine the reachability status of the peer, with bits entering from the least significant (rightmost) end.  A peer is considered reachable if at least one bit in this register is set to one i.e, if the value of this object is non-zero.
+The data in the shift register would be populated by the NTP protocol procedures.</description>
+                            <tags>
+                                <tag>
+                                    <tag>address</tag>
+                                    <value>{#ADDRESS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>NTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>NTP peer</value>
+                                </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>9b2c1974edbd4ed38a210cf2d3661281</uuid>
+                                    <expression>last(/Template_Cisco_Nexus_NTP/cntpPeersReach[{#ADDRESS}])=0</expression>
+                                    <name>NTP peer {#ADDRESS} unreachable</name>
+                                    <priority>WARNING</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>NTP</tag>
+                                        </tag>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>availability</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <uuid>6a8f7ab05b0a49819c8b446e9c401eb9</uuid>
+                            <name>NTP peer {#ADDRESS} delay</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Template_Cisco_Nexus_NTP</host>
+                                        <key>cntpPeersDelay[{#ADDRESS}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <uuid>18cc49c9e8e344218555a353c854124f</uuid>
+                            <name>NTP peer {#ADDRESS} dispersion</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Template_Cisco_Nexus_NTP</host>
+                                        <key>cntpPeersDispersion[{#ADDRESS}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <uuid>f89b344ffcda4f70b4fe149250745f32</uuid>
+                            <name>NTP peer {#ADDRESS} offset</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Template_Cisco_Nexus_NTP</host>
+                                        <key>cntpPeersOffset[{#ADDRESS}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <tags>
+                <tag>
+                    <tag>class</tag>
+                    <value>network</value>
+                </tag>
+                <tag>
+                    <tag>target</tag>
+                    <value>cisco</value>
+                </tag>
+                <tag>
+                    <tag>target</tag>
+                    <value>cisco-nexus</value>
+                </tag>
+                <tag>
+                    <tag>target</tag>
+                    <value>n9000</value>
+                </tag>
+            </tags>
+            <macros>
+                <macro>
+                    <macro>{$NTP_DISPERSION_WARNING}</macro>
+                    <value>0.1</value>
+                </macro>
+            </macros>
+            <valuemaps>
+                <valuemap>
+                    <uuid>b834f2a913d74d1483a32a6fb0234658</uuid>
+                    <name>ntp_leap_indicator</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>Normal</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>addSecond</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>subtractSecond</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>Not Synchronized</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+            </valuemaps>
+        </template>
+    </templates>
+</zabbix_export>
