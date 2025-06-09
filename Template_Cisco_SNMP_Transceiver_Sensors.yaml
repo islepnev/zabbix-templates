@@ -1,0 +1,177 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: cf23b17383074fc696f8df3cf475cad2
+      name: Templates/Switches/Cisco
+  templates:
+    - uuid: c176e90eb65643f4989bd8784f074414
+      template: Template_Cisco_SNMP_Transceiver_Sensors
+      name: Template_Cisco_SNMP_Transceiver_Sensors
+      description: |
+        CISCO-ENTITY-SENSOR-MIB
+        
+        Filtered by SensorDataType = dBm(14)
+      groups:
+        - name: Templates/Switches/Cisco
+      discovery_rules:
+        - uuid: c2079f3d400c4f6089ba744e7da76cde
+          name: 'Transceiver RX/TX Power Sensor'
+          type: SNMP_AGENT
+          snmp_oid: 'discovery[{#SENSOR_TYPE},1.3.6.1.4.1.9.9.91.1.1.1.1.1,{#SENSOR_SCALE},1.3.6.1.4.1.9.9.91.1.1.1.1.2,{#SNMPVALUE},1.3.6.1.2.1.47.1.1.1.1.7]'
+          key: snmp.discovery.entPhysicalTRXPower
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 74cb8e2555874ece82d800b85deb0172
+              name: 'Sensor value {#SNMPVALUE}'
+              type: SNMP_AGENT
+              snmp_oid: 'CISCO-ENTITY-SENSOR-MIB::entSensorValue.{#SNMPINDEX}'
+              key: 'entPhysicalTRXPower.[{#SNMPINDEX}]'
+              delay: 30s
+              history: 90d
+              value_type: FLOAT
+              trends: 1000d
+              units: '!dBm'
+              preprocessing:
+                - type: MULTIPLIER
+                  parameters:
+                    - '{#SENSOR_SCALE}'
+              tags:
+                - tag: Application
+                  value: 'Transceiver DDM values'
+                - tag: component
+                  value: transceiver
+                - tag: measurement
+                  value: power
+                - tag: sensor
+                  value: '{#SNMPVALUE}'
+              trigger_prototypes:
+                - uuid: 6bb5d64eb7274a0aa75afdb8dbea1b39
+                  expression: 'last(/Template_Cisco_SNMP_Transceiver_Sensors/entPhysicalTRXPower.[{#SNMPINDEX}])<{$TRANSCEIVER_RX_WARN} and last(/Template_Cisco_SNMP_Transceiver_Sensors/entPhysicalTRXPower.[{#SNMPINDEX}])>-40'
+                  name: '{#SNMPVALUE}: Signal level low'
+                  priority: WARNING
+                  tags:
+                    - tag: scope
+                      value: performance
+            - uuid: f824c64d8e874e1483d4c28cb3228a5a
+              name: 'Sensor status {#SNMPVALUE}'
+              type: SNMP_AGENT
+              snmp_oid: 'CISCO-ENTITY-SENSOR-MIB::entSensorStatus.{#SNMPINDEX}'
+              key: 'entPhysicalTRXPowerStatus.[{#SNMPINDEX}]'
+              history: 90d
+              trends: 1000d
+              description: |
+                Indicates the operational status of the sensor.
+                
+                ok(1) means the agent can read the sensor value.
+                
+                unavailable(2) means that the agent presently can not report the sensor value.
+                
+                nonoperational(3) means that the agent believes the sensor is broken.  The sensor could have a hard failure (disconnected wire), or a soft failure such as out-of-range, jittery, or wildly fluctuating readings.
+              valuemap:
+                name: SensorStatus
+              tags:
+                - tag: component
+                  value: transceiver
+                - tag: measurement
+                  value: status
+                - tag: sensor
+                  value: '{#SNMPVALUE}'
+              trigger_prototypes:
+                - uuid: 32e3617b88634065bcc1a83d77cf36f1
+                  expression: 'last(/Template_Cisco_SNMP_Transceiver_Sensors/entPhysicalTRXPowerStatus.[{#SNMPINDEX}])=2'
+                  name: '{#SNMPVALUE}: sensor is not available'
+                  priority: INFO
+                  tags:
+                    - tag: scope
+                      value: availability
+                    - tag: scope
+                      value: performance
+          graph_prototypes:
+            - uuid: 33648a422d2545bba85bfb1b24ca64e5
+              name: 'Transceiver {#SNMPVALUE}'
+              graph_items:
+                - drawtype: BOLD_LINE
+                  color: FF0000
+                  calc_fnc: ALL
+                  item:
+                    host: Template_Cisco_SNMP_Transceiver_Sensors
+                    key: 'entPhysicalTRXPower.[{#SNMPINDEX}]'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  try {
+                  	var sensors = JSON.parse(value);
+                  } catch (e) {
+                  	throw "Failed to parse JSON discovery.";
+                  }
+                  
+                  var scales = { '9': 1, '8': 0.001, '7': 0.000001 };
+                  var result = sensors.filter(function (sensor) {
+                  	if (typeof (scales[sensor['{#SENSOR_SCALE}']]) === 'undefined') {
+                  		return false;
+                  	}
+                  	if (sensor['{#SENSOR_TYPE}'] !== '14') {
+                  		return false;
+                  	}
+                  	sensor['{#SENSOR_SCALE}'] = scales[sensor['{#SENSOR_SCALE}']];
+                  	return true;
+                  });
+                  
+                  return JSON.stringify(result);
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 4h
+      tags:
+        - tag: class
+          value: network
+        - tag: target
+          value: cisco
+      macros:
+        - macro: '{$TRANSCEIVER_RX_WARN}'
+          value: '-8.326'
+      dashboards:
+        - uuid: 30607d1204414265ae7d0605e5120a33
+          name: 'Temperature Sensors'
+          pages:
+            - widgets:
+                - type: graphprototype
+                  width: '72'
+                  height: '5'
+                  fields:
+                    - type: INTEGER
+                      name: columns
+                      value: '1'
+                    - type: STRING
+                      name: reference
+                      value: AAAAV
+        - uuid: f775a7acf5104ee289b9955846dee56a
+          name: 'Transceiver Power'
+          pages:
+            - widgets:
+                - type: graphprototype
+                  width: '72'
+                  height: '5'
+                  fields:
+                    - type: INTEGER
+                      name: columns
+                      value: '1'
+                    - type: GRAPH_PROTOTYPE
+                      name: graphid
+                      value:
+                        host: Template_Cisco_SNMP_Transceiver_Sensors
+                        name: 'Transceiver {#SNMPVALUE}'
+                    - type: STRING
+                      name: reference
+                      value: AAAAW
+      valuemaps:
+        - uuid: 80cd253c615b4ce3986d51b527c8459f
+          name: SensorStatus
+          mappings:
+            - value: '1'
+              newvalue: ok
+            - value: '2'
+              newvalue: unavailable
+            - value: '3'
+              newvalue: nonoperational
