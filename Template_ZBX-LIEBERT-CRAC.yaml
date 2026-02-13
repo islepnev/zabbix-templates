@@ -1,0 +1,1352 @@
+zabbix_export:
+  version: '7.2'
+  template_groups:
+    - uuid: cba4f4cee5c643e698be8da68fa1234e
+      name: Infrastructure
+    - uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    - uuid: e4f676d5bda34a2ba24e51bec8bfcf62
+      template: ZBX-LIEBERT-CRAC
+      name: ZBX-LIEBERT-CRAC
+      groups:
+        - name: Infrastructure
+        - name: Templates
+      items:
+        - uuid: 2ddd6fa0da794b5fab61edf78ad903d2
+          name: 'Agent - FW Version'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.2.1.3.0
+          key: lgpAgentIdentFirmwareVersion
+          delay: '600'
+          history: 90d
+          value_type: TEXT
+          inventory_link: SOFTWARE
+          tags:
+            - tag: Application
+              value: Agent
+        - uuid: 656647ec20b1436cbcfcc2b03ee81da4
+          name: 'Agent - Manufacturer'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.2.1.1.0
+          key: lgpAgentIdentManufacturer
+          delay: '600'
+          history: 90d
+          value_type: TEXT
+          inventory_link: VENDOR
+          tags:
+            - tag: Application
+              value: Agent
+        - uuid: 191c331bcae44e789b39e4fee3f4d5ee
+          name: 'Agent - Model'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.2.1.2.0
+          key: lgpAgentIdentModel
+          delay: '600'
+          history: 90d
+          value_type: TEXT
+          inventory_link: HARDWARE
+          tags:
+            - tag: Application
+              value: Agent
+        - uuid: d9e3d9a313d945d8ac1695970289cd85
+          name: 'Agent - Part Number'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.2.1.5.0
+          key: lgpAgentIdentPartNumber
+          delay: '600'
+          history: 90d
+          value_type: TEXT
+          inventory_link: MODEL
+          tags:
+            - tag: Application
+              value: Agent
+        - uuid: f2762029715b4e6a8c369d2b58cad1f5
+          name: 'Agent - Serial Number'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.2.1.4.0
+          key: lgpAgentIdentSerialNumber
+          delay: '600'
+          history: 90d
+          value_type: TEXT
+          inventory_link: SERIALNO_A
+          tags:
+            - tag: Application
+              value: Agent
+        - uuid: 1a6935f70d2f43528eaf3605fe8e1876
+          name: 'Config - Auto Configuration'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.25.0
+          key: lgpEnvConfigAutoConfiguration
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigDisabledEnabled
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 3646609bb5eb4906bcdd5d78e07e813b
+          name: 'Config - BMS Reset Timer'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.36.0
+          key: lgpEnvConfigBmsResetTimer
+          delay: '60'
+          history: 90d
+          units: m
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 99700c32c2aa46e89d4f59aa485208bb
+          name: 'Config - Cabinet Sensor Alarms'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.39.0
+          key: lgpEnvConfigCabinetSensorAlarms
+          delay: '60'
+          history: 90d
+          units: m
+          valuemap:
+            name: lgpEnvConfigDisabledEnabled
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: edb15e365ea745dabaf77c4574863aae
+          name: 'Config - Chilled Water Control'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.27.0
+          key: lgpEnvConfigChillWaterControl
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigDisabledEnabled
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 4d63da9240c84020b4c41336a328ecdb
+          name: 'Config - Compressor Lockout'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.30.0
+          key: lgpEnvConfigCompressorLockout
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigLockout
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 025d49f531cc442ca64b04d6d45ba234
+          name: 'Config - Cooling Service Interval'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.8.0
+          key: lgpEnvConfigCoolingServiceInterval
+          delay: '60'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 9c70579548484cb1b483ec2aaf010561
+          name: 'Config - Sensor Offset'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.37.0
+          key: lgpEnvConfigDisableSensorOffsetDegC
+          delay: '60'
+          history: 90d
+          units: C
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: edb4caf3d9e54783a77fdd382a5d1dc0
+          name: 'Config - Fan Speed Capacity'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.35.0
+          key: lgpEnvConfigFanSpeedCapacity
+          delay: '60'
+          history: 90d
+          units: '%'
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 65424bc77b5a4a5daf6c6941cee65330
+          name: 'Config - Fan Speed Mode'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.34.0
+          key: lgpEnvConfigFanSpeedMode
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigManualAuto
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 706a7fc7fbe54f6491092afd9b2027f8
+          name: 'Config - Filter Service Interval'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.10.0
+          key: lgpEnvConfigFilterServiceInterval
+          delay: '60'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 8ed830981711454e810ad8b1506fa9eb
+          name: 'Config - Humidifier Service Interval'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.9.0
+          key: lgpEnvConfigHumidifierServiceInterval
+          delay: '60'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: a58139ce55a84fa488d197a6b15e5634
+          name: 'Config - Humidity Control'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.29.0
+          key: lgpEnvConfigHumidityControl
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigHumidityControl
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: a8e6e61a34784b91bd9b20c37db7fbfd
+          name: 'Config - Humidifier Lockout'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.2.0
+          key: lgpEnvConfigHumLockout
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigLockout
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: f07932e235604e1c8b742dcdd63dd177
+          name: 'Config - Infrared Flush Rate'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.28.0
+          key: lgpEnvConfigInfaredFlushRate
+          delay: '60'
+          history: 90d
+          units: '%'
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: c92edabcbca741d99e12417206dafd1e
+          name: 'Config - Local Temperature Unit'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.16.0
+          key: lgpEnvConfigLocalTemperatureUnit
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigLocalTemperatureUnit
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: e27d6cd62c564bae9e78195ccb0264fa
+          name: 'Config - Reheat & Humidifier Lockout'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.31.0
+          key: lgpEnvConfigReheatAndHumidifierLockout
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigLockout
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 8d1cbbbb222d4829b206adfb1bd3e3ff
+          name: 'Config - Reheat Lockout'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.1.0
+          key: lgpEnvConfigReheatLockout
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigLockout
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 78ec5b779b5047a985d0290139c47905
+          name: 'Config - Remote Shutdown'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.7.0
+          key: lgpEnvConfigRemoteShutdown
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigDisabledEnabled
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 892d4ecdd0fc45d084195d955043a290
+          name: 'Config - Restart Delay'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.4.0
+          key: lgpEnvConfigRestartDelay
+          delay: '60'
+          history: 90d
+          units: s
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 85a70fc49c9948c2991727a38918205b
+          name: 'Config - Sensor #1 Events'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.23.0
+          key: lgpEnvConfigSensorEvents1
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigDisabledEnabled
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 3f562a050ecb494d8b53116521219fb8
+          name: 'Config - Standard Sensor Events'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.22.0
+          key: lgpEnvConfigSensorEventsStandard
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigDisabledEnabled
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: da888305154247b686b1b12ebbbadd60
+          name: 'Config - Sleep Mode'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.17.0
+          key: lgpEnvConfigSleepMode
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigSleepMode
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 2466837e1849489598740529deb0d576
+          name: 'Config - Sleep Mode Deadband Range'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.24.0
+          key: lgpEnvConfigSleepModeDeadbandRangeDegC
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigDisabledEnabled
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 79cbc80abdc94791a81972762807f792
+          name: 'Config - Supply Temperature Low Limit'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.21.0
+          key: lgpEnvConfigSupplyTempLowLimit
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigDisabledEnabled
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: ea7862a7f32f4704bed8b6e23a078b02
+          name: 'Config - Supply Temperature Low Setpoint'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.14.0
+          key: lgpEnvConfigSupplyTempLowLimitDegC
+          delay: '60'
+          history: 90d
+          units: C
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 4f55834f593b430991fd43c98cbdba4b
+          name: 'Config - Temperature Control Algorithm'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.4.33.0
+          key: lgpEnvConfigTempControlAlgorithm
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvConfigTempControlAlgorithm
+          tags:
+            - tag: Application
+              value: Configuration
+        - uuid: 470f0bbab2a94ef4877a9e28d79405a4
+          name: 'Temperature - Control Measurement'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.1.3.3.1.3.1
+          key: lgpEnvControlTemperatureMeasurementDegC
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          units: C
+          tags:
+            - tag: Application
+              value: Temperature
+        - uuid: ef4e0cc51d8c4223a9855702a2007a64
+          name: 'Temperature - Digital Scroll Compressor #1'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.1.3.3.1.3.7
+          key: lgpEnvDigitalScrollCompressor1TemperatureMeasurementDegC
+          delay: '60'
+          history: 90d
+          units: C
+          tags:
+            - tag: Application
+              value: Temperature
+        - uuid: 53551770a93a4ae3b2613ba72e7cc65c
+          name: 'Temperature - Digital Scroll Compressor #2'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.1.3.3.1.3.8
+          key: lgpEnvDigitalScrollCompressor2TemperatureMeasurementDegC
+          delay: '60'
+          history: 90d
+          units: C
+          tags:
+            - tag: Application
+              value: Temperature
+        - uuid: 1978f0b572c14b0eb54b12b965e1ce9a
+          name: 'Humidity - High Threshold'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.2.2.3.1.4.1
+          key: lgpEnvHumidityHighThresholdRel
+          delay: '60'
+          history: 90d
+          units: '%'
+          tags:
+            - tag: Application
+              value: Humidity
+        - uuid: 9a4f814751e94feba869162b0fb34fb1
+          name: 'Humidity - Low Threshold'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.2.2.3.1.5.1
+          key: lgpEnvHumidityLowThresholdRel
+          delay: '60'
+          history: 90d
+          units: '%'
+          tags:
+            - tag: Application
+              value: Humidity
+        - uuid: 161aed13d8474e85810c5d6cee139ae8
+          name: 'Humidity - Measurement'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.2.2.3.1.3.1
+          key: lgpEnvHumidityMeasurementRel
+          delay: '60'
+          history: 90d
+          units: '%'
+          tags:
+            - tag: Application
+              value: Humidity
+        - uuid: 1b075e951f634dadb7ae9927cc26df43
+          name: 'Humidity - Setpoint'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.2.2.1.0
+          key: lgpEnvHumiditySettingRel
+          delay: '60'
+          history: 90d
+          units: '%'
+          tags:
+            - tag: Application
+              value: Humidity
+        - uuid: 5fa2f4d739bb45b6b2d3b7604b847d27
+          name: 'Humidity - Tolerance'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.2.2.2.0
+          key: lgpEnvHumidityToleranceRel
+          delay: '60'
+          history: 90d
+          units: '%'
+          tags:
+            - tag: Application
+              value: Humidity
+        - uuid: cbcb731f11644970bf9274755f247c15
+          name: 'Temperature - Return Air'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.1.3.3.1.3.3
+          key: lgpEnvReturnAirTemperatureMeasurementDegC
+          delay: '60'
+          history: 90d
+          units: C
+          tags:
+            - tag: Application
+              value: Temperature
+        - uuid: 987ebd04d119426993501fc1d3c72c36
+          name: 'Status - Audible Alarm Output'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.11.0
+          key: lgpEnvStateAudibleAlarm
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvStateOnOffStby
+          tags:
+            - tag: Application
+              value: Status
+          triggers:
+            - uuid: c8fee6f683c74473b865b7c81df04c38
+              expression: last(/ZBX-LIEBERT-CRAC/lgpEnvStateAudibleAlarm)=1
+              name: '{HOST.NAME} Audible Alarm Output is ({ITEM.VALUE1})'
+              priority: WARNING
+        - uuid: 781737831de949699fa2491a144ad7e0
+          name: 'Status - Cooling'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.2.0
+          key: lgpEnvStateCooling
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvStateOnOffStby
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: 4e25bec28a1f4f8091f77aac2dfa7b40
+          name: 'Status - Utilised Cooling Capacity'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.9.0
+          key: lgpEnvStateCoolingCapacity
+          delay: '60'
+          history: 90d
+          units: '%'
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: 48b387368faa41da99d6d3f7affbda87
+          name: 'Status - Dehumidifying'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.5.0
+          key: lgpEnvStateDehumidifying
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvStateOnOffStby
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: 240dba931430442e92cf85a4b5245434
+          name: 'Status - Utilised Dehumidifying Capacity'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.18.0
+          key: lgpEnvStateDehumidifyingCapacity
+          delay: '60'
+          history: 90d
+          units: '%'
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: 06809d183a6c4e97b4ee5f492081a08e
+          name: 'Status - Econocycle'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.6.0
+          key: lgpEnvStateEconoCycle
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvStateOnOffStby
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: ba538faa8c064a93af1461803684515a
+          name: 'Status - Electric Heater'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.21.0
+          key: lgpEnvStateElectricHeater
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvStateOnOffStby
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: de874736116d432482c994d6656e1ea6
+          name: 'Status - Fan'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.7.0
+          key: lgpEnvStateFan
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvStateOnOffStby
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: ff56828f547540269d9f3b0ca321d2a8
+          name: 'Status - Utilised Fan Capacity'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.16.0
+          key: lgpEnvStateFanCapacity
+          delay: '60'
+          history: 90d
+          units: '%'
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: ba2f7d18a39746ec8fd1cf69d91df191
+          name: 'Status - Free Cooling'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.20.0
+          key: lgpEnvStateFreeCooling
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvStateFreeCooling
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: d587e501df794d6aa204833b8a5fd2c5
+          name: 'Status - Utilised Free Cooling Capacity'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.17.0
+          key: lgpEnvStateFreeCoolingCapacity
+          delay: '60'
+          history: 90d
+          units: '%'
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: 402758f061c541c5af90fc58156f90f9
+          name: 'Status - General Alarm Output'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.8.0
+          key: lgpEnvStateGeneralAlarmOutput
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvStateOnOffStby
+          tags:
+            - tag: Application
+              value: Status
+          triggers:
+            - uuid: 44be8dd4a6fb4187ace2ca9e2837d923
+              expression: last(/ZBX-LIEBERT-CRAC/lgpEnvStateGeneralAlarmOutput)=1
+              name: '{HOST.NAME} General Alarm Output is ({ITEM.VALUE1})'
+              priority: DISASTER
+        - uuid: c9d7fb5326ae41eb91beaf6447bedc00
+          name: 'Status - Heating'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.3.0
+          key: lgpEnvStateHeating
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvStateOnOffStby
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: c85b10358dd04ffcaa4d865796eca650
+          name: 'Status - Utilised Heating Capacity'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.10.0
+          key: lgpEnvStateHeatingCapacity
+          delay: '60'
+          history: 90d
+          units: '%'
+          preprocessing:
+            - type: IN_RANGE
+              parameters:
+                - '0'
+                - '1000'
+              error_handler: CUSTOM_ERROR
+              error_handler_params: unavailable
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: 6704e882f2714c9cb09f36f53a994bdb
+          name: 'Status - Hot Water'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.22.0
+          key: lgpEnvStateHotWater
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvStateOnOffStby
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: df8e0df756d64b1aaf2475817b22cc21
+          name: 'Status - Humidifying'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.4.0
+          key: lgpEnvStateHumidifying
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvStateOnOffStby
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: 22c101aacc014e40afc144df4ef2285a
+          name: 'Status - Utilised Humidifying Capacity'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.19.0
+          key: lgpEnvStateHumidifyingCapacity
+          delay: '60'
+          history: 90d
+          units: '%'
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: 66b8aa4db4534287ae7b3f22321d9120
+          name: 'Status - Operating Mode'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.15.0
+          key: lgpEnvStateOperatingMode
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvStateOperatingMode
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: 7e76394273b74ae08032ff6f95374fa1
+          name: 'Status - Operating Reason'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.14.0
+          key: lgpEnvStateOperatingReason
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvStateOperatingReason
+          tags:
+            - tag: Application
+              value: Status
+        - uuid: 0c98cf32eee24de2a88c002131771e5c
+          name: 'Status - System'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.3.1.0
+          key: lgpEnvStateSystem
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: lgpEnvStateOnOffStby
+          tags:
+            - tag: Application
+              value: Status
+          triggers:
+            - uuid: 193bae6545714ba4a31bfb3b431048bc
+              expression: '(last(/ZBX-LIEBERT-CRAC/lgpEnvStateSystem,#1)<>last(/ZBX-LIEBERT-CRAC/lgpEnvStateSystem,#2))>0'
+              name: '{HOST.NAME} power changed to {ITEM.VALUE1}'
+              priority: INFO
+        - uuid: 09b63b72ad2c40ffa309892ed19b0331
+          name: 'Statistics - Compressor #1 Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.1.0
+          key: lgpEnvStatisticsComp1RunHr
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: f627bc31dc42462a9e2d80d91f22604d
+          name: 'Statistics - Compressor #2 Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.2.0
+          key: lgpEnvStatisticsComp2RunHr
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: 3df484b995f04d8e980e87c51a3c8f0c
+          name: 'Statistics - Compressor #3 Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.17.0
+          key: lgpEnvStatisticsComp3RunHr
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: d053c46ffb60478998db0b7629cb0f55
+          name: 'Statistics - Compressor #4 Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.18.0
+          key: lgpEnvStatisticsComp4RunHr
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: 419b680de1204acb96cc99c5c0d9c1be
+          name: 'Statistics - Cooling Mode Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.10.0
+          key: lgpEnvStatisticsCoolingModeHrs
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: ce2e325826b245d19b7da38bba6ec392
+          name: 'Statistics - Dehumidify Mode Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.13.0
+          key: lgpEnvStatisticsDehumidifyModeHrs
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: 443ca2a824ec45afbbd8087de5b147fc
+          name: 'Statistics - Fan Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.3.0
+          key: lgpEnvStatisticsFanRunHr
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: 431b4484e4b14640bcbc456a190b0559
+          name: 'Statistics - Free Cooling Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.16.0
+          key: lgpEnvStatisticsFreeCoolRunHr
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: 1db8ef8e473d4489a4a892bb26ba9eff
+          name: 'Statistics - Heating Mode Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.11.0
+          key: lgpEnvStatisticsHeatingModeHrs
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: ecb0aef248834057a131868946caf09f
+          name: 'Statistics - Hot Gas Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.14.0
+          key: lgpEnvStatisticsHotGasRunHr
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: ca37d677c2344d7d9db4286261960324
+          name: 'Statistics - Hot Water Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.15.0
+          key: lgpEnvStatisticsHotWaterRunHr
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: 4e169b162e70448d9304308cff76a39b
+          name: 'Statistics - Humidify Mode Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.12.0
+          key: lgpEnvStatisticsHumidifyModeHrs
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: 4037d5aca2db411cabfb150c58b69533
+          name: 'Statistics - Humidifier Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.4.0
+          key: lgpEnvStatisticsHumRunHrs
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: ee145b2335584b4a95a9d09896f8cad3
+          name: 'Statistics - Reheat #1 Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.7.0
+          key: lgpEnvStatisticsReheat1RunHr
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: b8ad92ecc6b34c68b6df5406c9457ffb
+          name: 'Statistics - Reheat #2 Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.8.0
+          key: lgpEnvStatisticsReheat2RunHr
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: 2bd35c0ba16240918e653ce222c4b60d
+          name: 'Statistics - Reheat #3 Run Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.6.9.0
+          key: lgpEnvStatisticsReheat3RunHr
+          delay: '600'
+          history: 90d
+          units: h
+          tags:
+            - tag: Application
+              value: Statistics
+        - uuid: 3e9c184f94cb41649fbe9a1e1f6827ec
+          name: 'Temperature - Supply Air'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.1.3.3.1.3.2
+          key: lgpEnvSupplyAirTemperatureMeasurementDegC
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          units: C
+          tags:
+            - tag: Application
+              value: Temperature
+        - uuid: b27c214af2bd4507ba50af8f2b39b872
+          name: 'Temperature - High Threshold'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.1.3.3.1.4.1
+          key: lgpEnvTemperatureHighThresholdDegC
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          units: C
+          tags:
+            - tag: Application
+              value: Temperature
+        - uuid: 38950456f83a42498a68eb5dffef512b
+          name: 'Temperature - Low Threshold'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.1.3.3.1.5.1
+          key: lgpEnvTemperatureLowThresholdDegC
+          delay: '60'
+          history: 90d
+          value_type: FLOAT
+          units: C
+          tags:
+            - tag: Application
+              value: Temperature
+        - uuid: e4ef9c61535c421c94ee4325acd5d26d
+          name: 'Temperature - Setpoint'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.1.3.1.0
+          key: lgpEnvTemperatureSettingDegC
+          delay: '60'
+          history: 90d
+          units: C
+          tags:
+            - tag: Application
+              value: Temperature
+        - uuid: 5e37e841cbea41f9b4f115748fb4669e
+          name: 'Temperature - Tolerance'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.476.1.42.3.4.1.3.2.0
+          key: lgpEnvTemperatureToleranceDegC
+          delay: '60'
+          history: 90d
+          units: C
+          preprocessing:
+            - type: MULTIPLIER
+              parameters:
+                - '0.1'
+          tags:
+            - tag: Application
+              value: Temperature
+      discovery_rules:
+        - uuid: c703da9790fe4bb1a626590d8d2eb4ab
+          name: 'Managed Device Table'
+          type: SNMP_AGENT
+          snmp_oid: 'discovery[{#SNMPVALUE},1.3.6.1.4.1.476.1.42.2.4.2.1.1]'
+          key: lgpAgentDeviceIndex
+          delay: '600'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: d4340eb7fcb74d29be9321158f91aef9
+              name: 'Managed Device $1 - FW Version'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.2.4.2.1.5.{#SNMPINDEX}'
+              key: 'lgpAgentDeviceFirmwareVersion[{#SNMPINDEX}]'
+              delay: '600'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: Agent
+            - uuid: 7a8cbecdf50b4761997b3972798e858a
+              name: 'Managed Device $1 - Manufacturing Date'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.2.4.2.1.8.{#SNMPINDEX}'
+              key: 'lgpAgentDeviceManufactureDate[{#SNMPINDEX}]'
+              delay: '600'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: Agent
+            - uuid: 6b1027980df5458196558561cbe3932b
+              name: 'Managed Device $1 - Manufacturer'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.2.4.2.1.3.{#SNMPINDEX}'
+              key: 'lgpAgentDeviceManufacturer[{#SNMPINDEX}]'
+              delay: '600'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: Agent
+            - uuid: 627fb36408394a5a893f619707bdba27
+              name: 'Managed Device $1 - Model'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.2.4.2.1.4.{#SNMPINDEX}'
+              key: 'lgpAgentDeviceModel[{#SNMPINDEX}]'
+              delay: '600'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: Agent
+            - uuid: 877c4d43df1e49478a6dbcaf051e0496
+              name: 'Managed Device $1 - Serial Number'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.2.4.2.1.7.{#SNMPINDEX}'
+              key: 'lgpAgentDeviceSerialNumber[{#SNMPINDEX}]'
+              delay: '600'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: Agent
+            - uuid: c8d638cc4ee44a8ea6502b6f9e2ea64a
+              name: 'Managed Device $1 - Service Address #1'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.2.4.2.1.11.{#SNMPINDEX}'
+              key: 'lgpAgentDeviceServiceAddrLine1[{#SNMPINDEX}]'
+              delay: '600'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: Agent
+            - uuid: 9039664b93d94a48a4a0e3a03dd3bbfb
+              name: 'Managed Device $1 - Service Address #2'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.2.4.2.1.12.{#SNMPINDEX}'
+              key: 'lgpAgentDeviceServiceAddrLine2[{#SNMPINDEX}]'
+              delay: '600'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: Agent
+            - uuid: f4dad6a9f1ed4b2192556929f608b94d
+              name: 'Managed Device $1 - Service Address #3'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.2.4.2.1.13.{#SNMPINDEX}'
+              key: 'lgpAgentDeviceServiceAddrLine3[{#SNMPINDEX}]'
+              delay: '600'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: Agent
+            - uuid: e11c6020618e4345973517aed8aae8d0
+              name: 'Managed Device $1 - Service Address #4'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.2.4.2.1.14.{#SNMPINDEX}'
+              key: 'lgpAgentDeviceServiceAddrLine4[{#SNMPINDEX}]'
+              delay: '600'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: Agent
+            - uuid: 338f2ae851674d0198df8fe6ef03fbff
+              name: 'Managed Device $1 - Service Phone Number'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.2.4.2.1.10.{#SNMPINDEX}'
+              key: 'lgpAgentDeviceServicePhoneNumber[{#SNMPINDEX}]'
+              delay: '600'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: Agent
+            - uuid: 1cf5280ac26f44f2b6bd5d7380162f5b
+              name: 'Managed Device $1 - Site'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.2.4.2.1.16.{#SNMPINDEX}'
+              key: 'lgpAgentDeviceSiteIdentifier[{#SNMPINDEX}]'
+              delay: '600'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: Agent
+            - uuid: 22301bdefa5b42eca2f5aaa4bd5b1b29
+              name: 'Managed Device $1 - Tag Number'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.2.4.2.1.17.{#SNMPINDEX}'
+              key: 'lgpAgentDeviceTagNumber[{#SNMPINDEX}]'
+              delay: '600'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: Agent
+            - uuid: 95ae1f0929cd418696eeb9ec89d42d2d
+              name: 'Managed Device $1 - Name'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.2.4.2.1.15.{#SNMPINDEX}'
+              key: 'lgpAgentDeviceUnitName[{#SNMPINDEX}]'
+              delay: '600'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: Agent
+        - uuid: 7c1871aa52f1443bb7c2362bfb26bc30
+          name: 'Flexible Device Table'
+          type: SNMP_AGENT
+          snmp_oid: 'discovery[{#SNMPVALUE},1.3.6.1.4.1.476.1.42.3.9.20.1.10.1.2.1]'
+          key: lgpFlexibleEntryDataLabel
+          delay: '600'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 301c1d1bf3b643a3b25d2e0dc3318c5d
+              name: '$1 Units of Measure'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.3.9.20.1.30.1.2.1.{#SNMPINDEX}'
+              key: 'lgpFlexibleEntryUnitsOfMeasure[{#SNMPVALUE}]'
+              delay: '600'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: 'Flexible Modules'
+            - uuid: 2513a902819641518e75cd7578627fe6
+              name: $1
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.476.1.42.3.9.20.1.20.1.2.1.{#SNMPINDEX}'
+              key: 'lgpFlexibleEntryValue[{#SNMPVALUE}]'
+              delay: '60'
+              value_type: TEXT
+              tags:
+                - tag: Application
+                  value: 'Flexible Modules'
+      valuemaps:
+        - uuid: 4b9cd6c047ca448b9a0649204d491562
+          name: lgpEnvConfigDisabledEnabled
+          mappings:
+            - value: '1'
+              newvalue: enabled
+            - value: '2'
+              newvalue: disabled
+        - uuid: a58139ce55a84fa488d197a6b15e5634
+          name: lgpEnvConfigHumidityControl
+          mappings:
+            - value: '1'
+              newvalue: relative
+            - value: '2'
+              newvalue: compensated
+            - value: '3'
+              newvalue: predictive
+        - uuid: c92edabcbca741d99e12417206dafd1e
+          name: lgpEnvConfigLocalTemperatureUnit
+          mappings:
+            - value: '1'
+              newvalue: celsius
+            - value: '2'
+              newvalue: farenheit
+        - uuid: c73edc0d7fba4b9d956455c5f673ecc8
+          name: lgpEnvConfigLockout
+          mappings:
+            - value: '1'
+              newvalue: lockedOut
+            - value: '2'
+              newvalue: notLockedOut
+        - uuid: b8107115ac264502b84561b67c0a6e33
+          name: lgpEnvConfigManualAuto
+          mappings:
+            - value: '1'
+              newvalue: manual
+            - value: '2'
+              newvalue: auto
+        - uuid: da888305154247b686b1b12ebbbadd60
+          name: lgpEnvConfigSleepMode
+          mappings:
+            - value: '1'
+              newvalue: enabled
+            - value: '2'
+              newvalue: disabled
+            - value: '3'
+              newvalue: auto
+        - uuid: 4f55834f593b430991fd43c98cbdba4b
+          name: lgpEnvConfigTempControlAlgorithm
+          mappings:
+            - value: '1'
+              newvalue: pi
+            - value: '2'
+              newvalue: pid
+            - value: '3'
+              newvalue: intelligent
+            - value: '4'
+              newvalue: proportional
+        - uuid: ba2f7d18a39746ec8fd1cf69d91df191
+          name: lgpEnvStateFreeCooling
+          mappings:
+            - value: '1'
+              newvalue: 'on'
+            - value: '2'
+              newvalue: 'off'
+            - value: '3'
+              newvalue: start
+            - value: '4'
+              newvalue: unavailable
+        - uuid: a8ad98c055114153a989f2d112223977
+          name: lgpEnvStateOnOffStby
+          mappings:
+            - value: '1'
+              newvalue: 'on'
+            - value: '2'
+              newvalue: 'off'
+            - value: '3'
+              newvalue: standby
+        - uuid: 66b8aa4db4534287ae7b3f22321d9120
+          name: lgpEnvStateOperatingMode
+          mappings:
+            - value: '1'
+              newvalue: manual
+            - value: '2'
+              newvalue: auto
+        - uuid: 7e76394273b74ae08032ff6f95374fa1
+          name: lgpEnvStateOperatingReason
+          mappings:
+            - value: '1'
+              newvalue: none
+            - value: '2'
+              newvalue: localUser
+            - value: '3'
+              newvalue: alarm
+            - value: '4'
+              newvalue: schedule
+            - value: '5'
+              newvalue: remoteUser
+            - value: '6'
+              newvalue: externalDevice
+            - value: '7'
+              newvalue: localDisplay
+  triggers:
+    - uuid: 68f08e579221495ab7dadfdb394da1e5
+      expression: last(/ZBX-LIEBERT-CRAC/lgpEnvHumidityHighThresholdRel)<last(/ZBX-LIEBERT-CRAC/lgpEnvHumidityMeasurementRel)
+      name: '{HOST.NAME} High Humidity Alarm: ({ITEM.VALUE2})'
+      priority: AVERAGE
+      dependencies:
+        - name: '{HOST.NAME} power changed to {ITEM.VALUE1}'
+          expression: '(last(/ZBX-LIEBERT-CRAC/lgpEnvStateSystem,#1)<>last(/ZBX-LIEBERT-CRAC/lgpEnvStateSystem,#2))>0'
+    - uuid: c30cd87d47d142cca72acedcdadb1544
+      expression: last(/ZBX-LIEBERT-CRAC/lgpEnvTemperatureHighThresholdDegC)<last(/ZBX-LIEBERT-CRAC/lgpEnvControlTemperatureMeasurementDegC)
+      name: '{HOST.NAME} High Temperature Alarm: ({ITEM.VALUE2})'
+      priority: HIGH
+      dependencies:
+        - name: '{HOST.NAME} power changed to {ITEM.VALUE1}'
+          expression: '(last(/ZBX-LIEBERT-CRAC/lgpEnvStateSystem,#1)<>last(/ZBX-LIEBERT-CRAC/lgpEnvStateSystem,#2))>0'
+    - uuid: 634adfcf58ef4f2eab0165ba75b38687
+      expression: last(/ZBX-LIEBERT-CRAC/lgpEnvHumidityLowThresholdRel)>last(/ZBX-LIEBERT-CRAC/lgpEnvHumidityMeasurementRel)
+      name: '{HOST.NAME} Low Humidity Alarm: ({ITEM.VALUE2})'
+      priority: AVERAGE
+      dependencies:
+        - name: '{HOST.NAME} power changed to {ITEM.VALUE1}'
+          expression: '(last(/ZBX-LIEBERT-CRAC/lgpEnvStateSystem,#1)<>last(/ZBX-LIEBERT-CRAC/lgpEnvStateSystem,#2))>0'
+    - uuid: 231bbaf124b44099bfeb0ff8ab3b3a58
+      expression: last(/ZBX-LIEBERT-CRAC/lgpEnvTemperatureLowThresholdDegC)>last(/ZBX-LIEBERT-CRAC/lgpEnvControlTemperatureMeasurementDegC)
+      name: '{HOST.NAME} Low Temperature Alarm: ({ITEM.VALUE2})'
+      priority: AVERAGE
+      dependencies:
+        - name: '{HOST.NAME} power changed to {ITEM.VALUE1}'
+          expression: '(last(/ZBX-LIEBERT-CRAC/lgpEnvStateSystem,#1)<>last(/ZBX-LIEBERT-CRAC/lgpEnvStateSystem,#2))>0'
+    - uuid: 7428ab2718334ac9b2e3537d5f6ce7fb
+      expression: 'last(/ZBX-LIEBERT-CRAC/lgpEnvStateSystem)=2 and last(/ZBX-LIEBERT-CRAC/lgpEnvStateOperatingReason)=3'
+      name: '{HOST.NAME} status changed to {ITEM.VALUE1} due to {ITEM.VALUE2}'
+      priority: HIGH
+  graphs:
+    - uuid: 179fb86470c346da9b1d983b3e9462e1
+      name: Humidity
+      graph_items:
+        - color: 00C800
+          item:
+            host: ZBX-LIEBERT-CRAC
+            key: lgpEnvHumidityHighThresholdRel
+        - sortorder: '1'
+          color: C80000
+          item:
+            host: ZBX-LIEBERT-CRAC
+            key: lgpEnvHumidityLowThresholdRel
+        - sortorder: '2'
+          color: 0000C8
+          item:
+            host: ZBX-LIEBERT-CRAC
+            key: lgpEnvHumidityMeasurementRel
+        - sortorder: '3'
+          color: C800C8
+          item:
+            host: ZBX-LIEBERT-CRAC
+            key: lgpEnvHumiditySettingRel
+    - uuid: 11aa7375076040a8be45eeb11d98f213
+      name: Temperature
+      graph_items:
+        - color: 00C800
+          item:
+            host: ZBX-LIEBERT-CRAC
+            key: lgpEnvControlTemperatureMeasurementDegC
+        - sortorder: '1'
+          color: C80000
+          item:
+            host: ZBX-LIEBERT-CRAC
+            key: lgpEnvTemperatureSettingDegC
+        - sortorder: '2'
+          color: 0000C8
+          item:
+            host: ZBX-LIEBERT-CRAC
+            key: lgpEnvTemperatureHighThresholdDegC
+        - sortorder: '3'
+          color: C800C8
+          item:
+            host: ZBX-LIEBERT-CRAC
+            key: lgpEnvTemperatureLowThresholdDegC
