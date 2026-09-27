@@ -1,0 +1,1419 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: 4918b88734c54bd094cff7585b5d71fc
+      name: 'Templates/Network Devices'
+  templates:
+    - uuid: 651fe869b8f14045a95bf9a57706563c
+      template: 'Device - MEINBERG LANTIME'
+      name: 'Device - MEINBERG LANTIME'
+      groups:
+        - name: 'Templates/Network Devices'
+      items:
+        - uuid: 256fd007022c48e6b4f97a358205a6f2
+          name: 'Firmware Version'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.0.2.0
+          key: mbgLtNgFirmwareVersion
+          delay: 1h
+          history: 1d
+          value_type: TEXT
+          trends: '0'
+          description: 'Installed LANTIME firmware version.'
+          tags:
+            - tag: Application
+              value: Information
+          triggers:
+            - uuid: 74fdbeb64e5148828447635bc2a4c1a5
+              expression: '(last(/Device - MEINBERG LANTIME/mbgLtNgFirmwareVersion,#1)<>last(/Device - MEINBERG LANTIME/mbgLtNgFirmwareVersion,#2))>0'
+              name: 'Firmware Version Changed'
+              priority: WARNING
+              description: 'Firmware version has changed'
+        - uuid: 944ea3541c5f498e94f9ca81b6b6bd35
+          name: 'Total Clients'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.2.8.3.0
+          key: mbgLtNgNtpCCNumberOfClients
+          delay: 1h
+          history: 1w
+          trends: '0'
+          units: Clients
+          description: 'Total number of different clients requesting time.'
+          tags:
+            - tag: Application
+              value: 'NTP Statistic'
+        - uuid: b9f829dacac84aec9099c94c97cf897d
+          name: 'Statistic Start Time'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.2.8.1.0
+          key: mbgLtNgNtpCCStartedAt
+          delay: 1h
+          history: 1w
+          trends: '0'
+          units: unixtime
+          description: 'Start time of current NTP client counter session as timestamp.'
+          tags:
+            - tag: Application
+              value: 'NTP Statistic'
+        - uuid: 600db99158f14c638f2afa885f10100d
+          name: 'Total Today''s Clients'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.2.8.8.0
+          key: mbgLtNgNtpCCTodaysClients
+          delay: 1h
+          history: 1w
+          trends: '0'
+          units: Clients
+          description: 'Today''s number of different clients requesting time.'
+          tags:
+            - tag: Application
+              value: 'NTP Statistic'
+        - uuid: 02a568d60c9541888c63e8aed60c12ad
+          name: 'Total Requests'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.2.8.4.0
+          key: mbgLtNgNtpCCTotalRequests
+          delay: 1h
+          history: 1w
+          trends: '0'
+          units: Requests
+          description: 'Total requests since starting of the daemon.'
+          tags:
+            - tag: Application
+              value: 'NTP Statistic'
+        - uuid: 52c688527e914590b1f3a380d5545cae
+          name: 'Total Requests Today'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.2.8.5.0
+          key: mbgLtNgNtpCCTotalRequestsCurrentDay
+          delay: 1h
+          history: 1w
+          trends: 90d
+          units: Requests
+          description: 'Today''s total requests'
+          tags:
+            - tag: Application
+              value: 'NTP Statistic'
+        - uuid: 284a4a44e3c74a418489a148413b9748
+          name: 'Total Requests Last Hour'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.2.8.6.0
+          key: mbgLtNgNtpCCTotalRequestsLastHour
+          delay: 1h
+          history: 1w
+          trends: '0'
+          units: Requests
+          description: 'Today''s requests within the last completed hour.'
+          tags:
+            - tag: Application
+              value: 'NTP Statistic'
+        - uuid: af2a78593b514983b30f784af1524771
+          name: 'Total Requests Last Minute'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.2.8.7.0
+          key: mbgLtNgNtpCCTotalRequestsLastMinute
+          history: 1w
+          trends: '0'
+          units: Requests
+          description: 'Today''s requests within the last completed minute.'
+          tags:
+            - tag: Application
+              value: 'NTP Statistic'
+        - uuid: cd404ea1cc7a4c45822c5f950197bbc6
+          name: 'NTP Status'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.2.1.0
+          key: mbgLtNgNtpCurrentState
+          history: 1w
+          trends: 90d
+          description: 'Current NTP''s synchronization status.'
+          valuemap:
+            name: 'MBG-LANTIME-NG-MIB::mbgLtNgNtpCurrentState'
+          tags:
+            - tag: Application
+              value: NTP
+          triggers:
+            - uuid: ccb200e75a224175a584350b763075e2
+              expression: 'last(/Device - MEINBERG LANTIME/mbgLtNgNtpCurrentState)=1'
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: 'min(/Device - MEINBERG LANTIME/mbgLtNgNtpCurrentState, {$SENSOR_RECOVERY_TIME})=2'
+              name: 'NTP not synchronized'
+              priority: AVERAGE
+        - uuid: 25b0fb511dcf4e848506947dcf305d09
+          name: 'NTP Reference Clock'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.2.3.0
+          key: mbgLtNgNtpRefclockName
+          delay: 1h
+          history: 1d
+          value_type: CHAR
+          trends: '0'
+          description: 'Name of the current refclock by the NTP.'
+          tags:
+            - tag: Application
+              value: NTP
+        - uuid: a7c5b90ee5384d2d8efe780fe8f9af39
+          name: 'NTP Reference Clock Offset'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.2.4.0
+          key: mbgLtNgNtpRefclockOffset
+          history: 1w
+          value_type: FLOAT
+          trends: 90d
+          units: ms
+          description: 'Time offset between the current selected refclock and time of NTP as string in milliseconds'
+          preprocessing:
+            - type: RTRIM
+              parameters:
+                - ' ms'
+          tags:
+            - tag: Application
+              value: ReferenceClock
+        - uuid: 0441f568231b4dfca52163d2c16b2934
+          name: 'NTP Stratum'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.2.2.0
+          key: mbgLtNgNtpStratum
+          delay: 1h
+          history: 1d
+          trends: '0'
+          description: 'Stratum value of the NTP.'
+          tags:
+            - tag: Application
+              value: NTP
+          triggers:
+            - uuid: 65338126556c4093b394f9a57529d78a
+              expression: 'avg(/Device - MEINBERG LANTIME/mbgLtNgNtpStratum,#5)>4'
+              name: 'Clock Stratum unreliable'
+              priority: WARNING
+              description: |
+                Trigger on stratum higher than 4 for the last 5 checks.
+                
+                By default Stratum when unsynced is 12. The trigger will fire in 2 cases:
+                
+                 * First start (full cold boot) - no ephemeridis and no sync
+                 * Severe degradation of sync and/or severe faults
+        - uuid: ce2f85a418b240768e2cda2565540bfc
+          name: 'Number of RefClocks'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.1.1.0
+          key: mbgLtNgNumberOfRefclocks
+          delay: 1h
+          history: 90d
+          description: 'Number of reference clocks Available. Includes all possible ones (e.g. gps + irig)'
+          tags:
+            - tag: Application
+              value: ReferenceClock
+        - uuid: 925fee1cf54445948357edc64e3ce690
+          name: 'Serial Number'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.0.3.0
+          key: mbgLtNgSerialNumber
+          delay: 1h
+          history: 1d
+          value_type: TEXT
+          trends: '0'
+          description: 'LANTIME serial number.'
+          inventory_link: SERIALNO_A
+          tags:
+            - tag: Application
+              value: Information
+        - uuid: d5149816259549b3ae0de615044e8741
+          name: Temperature
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5597.30.0.5.2.1.0
+          key: mbgLtNgSysTempCelsius
+          history: 30d
+          trends: 90d
+          units: °C
+          description: 'Temperature in degree Celsius'
+          tags:
+            - tag: Application
+              value: Environmental
+          triggers:
+            - uuid: 182a26e37d1548ad8c1ed84e55247d45
+              expression: 'last(/Device - MEINBERG LANTIME/mbgLtNgSysTempCelsius)>={$MBG_INTERNAL_TEMP_CRITICAL}'
+              name: 'Temperature too high > {$MBG_INTERNAL_TEMP_CRITICAL}'
+              priority: HIGH
+            - uuid: adf8b656f75f40079b7cf9b8932cb839
+              expression: 'last(/Device - MEINBERG LANTIME/mbgLtNgSysTempCelsius)>={$MBG_INTERNAL_TEMP_HIGH}'
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: 'last(/Device - MEINBERG LANTIME/mbgLtNgSysTempCelsius)<{$MBG_INTERNAL_TEMP_HIGH}-3'
+              name: 'Temperature too high > {$MBG_INTERNAL_TEMP_HIGH}'
+              priority: AVERAGE
+              dependencies:
+                - name: 'Temperature too high > {$MBG_INTERNAL_TEMP_CRITICAL}'
+                  expression: 'last(/Device - MEINBERG LANTIME/mbgLtNgSysTempCelsius)>={$MBG_INTERNAL_TEMP_CRITICAL}'
+        - uuid: c73e2ce1b0a540d88899ff5c4270c6b3
+          name: 'Refclock Mode'
+          type: SNMP_AGENT
+          snmp_oid: .1.3.6.1.4.1.5597.3.2.4.0
+          key: mbgLtRefClockMode
+          delay: 5m
+          history: 1d
+          description: |
+            "current mode of refclock connected to NTP time server as value"
+                --- " 0: not available"
+                --- " 1: Normal Operation"
+                --- " 2: Tracking/Searching"
+                --- " 3: Antenna Faulty"
+                --- " 4: Warm Boot"
+                --- " 5: Cold Boot"
+                --- " 6: Antenna Short Circuit"
+          valuemap:
+            name: 'Meinberg mbgLtRefClockModeVal MAP'
+          tags:
+            - tag: Application
+              value: NTP
+          triggers:
+            - uuid: 5dd5ad369e38454dad49fe822f1b1bc7
+              expression: 'last(/Device - MEINBERG LANTIME/mbgLtRefClockMode)=3 or last(/Device - MEINBERG LANTIME/mbgLtRefClockMode)=6'
+              name: 'Antena Fault'
+              priority: HIGH
+              description: 'Trigger on Antena Fault or ShortCircuit'
+      discovery_rules:
+        - uuid: 18c75a494c2348e19a119121a955ff85
+          name: 'Cluster Discovery'
+          type: SNMP_AGENT
+          snmp_oid: 'discovery[{#SNMPVALUE},1.3.6.1.4.1.5597.30.0.6.2.1.1]'
+          key: mbgLtNgClusterIndex
+          delay: 1h
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: e2bf165be77045dc8e0b0a0cfaf10247
+              name: 'Clock Class'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.6.2.1.7.{#SNMPINDEX}'
+              key: 'mbgLtNgClusterClockClass[{#SNMPINDEX}]'
+              delay: 5m
+              history: 30d
+              trends: 90d
+              description: 'Reference''s clock class'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgClusterClockClass'
+              tags:
+                - tag: Application
+                  value: Cluster
+            - uuid: 994532277d824c73b029541ff0c6e0ef
+              name: 'Clock Status'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.6.2.1.8.{#SNMPINDEX}'
+              key: 'mbgLtNgClusterClockStatus[{#SNMPINDEX}]'
+              delay: 5m
+              history: 30d
+              trends: 90d
+              description: 'Reference''s clock status'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgClusterClockStatus'
+              tags:
+                - tag: Application
+                  value: Cluster
+              trigger_prototypes:
+                - uuid: 2129079a7cf540c4bcfbbfbaae88a5d7
+                  expression: 'last(/Device - MEINBERG LANTIME/mbgLtNgClusterClockStatus[{#SNMPINDEX}])=3'
+                  name: 'Cluster Clock in Failure State'
+                  priority: AVERAGE
+            - uuid: 387c09a1330e49d585c0f9dbfd61b7ec
+              name: Falseticker
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.6.2.1.10.{#SNMPINDEX}'
+              key: 'mbgLtNgClusterIsFalseticker[{#SNMPINDEX}]'
+              delay: 5m
+              history: 30d
+              trends: 90d
+              description: 'Am I a falseticker?'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgClusterIsFalseticker'
+              tags:
+                - tag: Application
+                  value: Cluster
+            - uuid: 6b58b1f176ca427893fbe10df167170e
+              name: Priority
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.6.2.1.6.{#SNMPINDEX}'
+              key: 'mbgLtNgClusterMasterPriority[{#SNMPINDEX}]'
+              delay: 1h
+              history: 30d
+              trends: 90d
+              description: 'Priority of cluster master'
+              tags:
+                - tag: Application
+                  value: Cluster
+            - uuid: ed3c572f330241e28d7bf4df02d518b6
+              name: 'Member State'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.6.2.1.3.{#SNMPINDEX}'
+              key: 'mbgLtNgClusterPortState[{#SNMPINDEX}]'
+              delay: 5m
+              history: 30d
+              trends: 90d
+              description: 'State of cluster'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgClusterPortState'
+              tags:
+                - tag: Application
+                  value: Cluster
+              trigger_prototypes:
+                - uuid: 24fa42eec7b1480bb17728efa924c8ce
+                  expression: '(last(/Device - MEINBERG LANTIME/mbgLtNgClusterPortState[{#SNMPINDEX}],#1)<>last(/Device - MEINBERG LANTIME/mbgLtNgClusterPortState[{#SNMPINDEX}],#2))=1'
+                  name: 'Cluster membership change'
+                  priority: INFO
+            - uuid: ae61d3b088b04fcf89e2736732fad47e
+              name: 'Reconfiguration State'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.6.2.1.9.{#SNMPINDEX}'
+              key: 'mbgLtNgClusterReconfigurationState[{#SNMPINDEX}]'
+              delay: 5m
+              history: 30d
+              trends: 90d
+              description: 'Current reconfiguration state'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgClusterReconfigurationState'
+              tags:
+                - tag: Application
+                  value: Cluster
+              trigger_prototypes:
+                - uuid: 1597d9f90eb14cab8c01518cd1f37141
+                  expression: '(last(/Device - MEINBERG LANTIME/mbgLtNgClusterReconfigurationState[{#SNMPINDEX}],#1)<>last(/Device - MEINBERG LANTIME/mbgLtNgClusterReconfigurationState[{#SNMPINDEX}],#2))=1'
+                  name: 'Cluster reconfiguration state change'
+                  priority: INFO
+        - uuid: be203b639b3242588b4a231b152da800
+          name: 'PTP Discovery'
+          type: SNMP_AGENT
+          snmp_oid: 'discovery[{#SNMPVALUE},1.3.6.1.4.1.5597.30.0.3.2.1.1,{#PORTSTATE},1.3.6.1.4.1.5597.30.0.3.2.1.3]'
+          key: mbgLtNgPtpIndex
+          delay: 1h
+          filter:
+            conditions:
+              - macro: '{#PORTSTATE}'
+                value: '3'
+                operator: NOT_MATCHES_REGEX
+                formulaid: A
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 1ebb17e7304945d184ef135e578f0f9c
+              name: 'PTP Module - {#SNMPVALUE} - Availability'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.20.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpAvail[{#SNMPINDEX}]'
+              history: 30d
+              trends: 90d
+              description: 'Signals whether PTP instance is avail or not'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgPtpAvail'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+            - uuid: 5eb11c6420ea444ba0338f30f8279d06
+              name: 'PTP Module - {#SNMPVALUE} - Clock Accuracy'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.5.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpClockAccuracy[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              trends: '0'
+              description: 'Indicates the source of time'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgPtpClockAccuracy'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+            - uuid: 23e7d8f8c60a4152a0f6d9806949ccda
+              name: 'PTP Module - {#SNMPVALUE} - Clock Class'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.6.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpClockClass[{#SNMPINDEX}]'
+              delay: 1h
+              history: 1w
+              trends: '0'
+              description: 'Denotes the traceability of the time or frequency'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+            - uuid: ec59283c90eb4d15a9b13ff9bc59246e
+              name: 'PTP Module - {#SNMPVALUE} - Asymmetric Network Delay'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.19.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpDelayAsymmetry[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              trends: '0'
+              units: ns
+              description: 'Asymmetric network delay in nanoseconds'
+              preprocessing:
+                - type: RTRIM
+                  parameters:
+                    - ' ns'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+            - uuid: 052786c92f2d4927ae869a05a0be6173
+              name: 'PTP Module - {#SNMPVALUE} - Delay Mechanism'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.15.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpDelayMec[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              trends: '0'
+              description: 'Delay mechanism'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgPtpDelayMec'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+            - uuid: 25cd9f25ef854dc58b3bddf41e5d42d3
+              name: 'PTP Module - {#SNMPVALUE} - Grandmaster MAC'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.4.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpGrandmasterMac[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              value_type: TEXT
+              trends: '0'
+              description: 'MAC address of current grandmaster'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+            - uuid: 860e0ebc655f4099b49813e6c8194927
+              name: 'PTP Module - {#SNMPVALUE} - Grandmaster Offset'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.8.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpOffsetFromGM[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              trends: '0'
+              units: ns
+              description: 'Offset from grandmaster in nanoseconds'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+            - uuid: 613ff090e7b842a38166a1d99bb873b9
+              name: 'PTP Module - {#SNMPVALUE} - Network Delay'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.14.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpPathDelay[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              trends: '0'
+              units: ns
+              description: 'Network delay in nanoseconds'
+              preprocessing:
+                - type: RTRIM
+                  parameters:
+                    - ' ns'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+            - uuid: 4b6b080a18e446f19314dd720afedaa3
+              name: 'PTP Module - {#SNMPVALUE} - Port Link Status'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.12.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpPortLinkup[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              trends: '0'
+              description: 'PTP port''s physical link-up'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgPtpPortLinkup'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+            - uuid: 1f90d78373dd4148bc5707e24cb2893d
+              name: 'PTP Module - {#SNMPVALUE} - State'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.3.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpPortState[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              trends: 90d
+              description: 'Port state as integer'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgPtpPortState'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+              trigger_prototypes:
+                - uuid: d2b9e897926c45c689f80504aacc3cd3
+                  expression: 'last(/Device - MEINBERG LANTIME/mbgLtNgPtpPortState[{#SNMPINDEX}])=2'
+                  name: 'PTP Module - {#SNMPVALUE} - Faulty'
+                  priority: AVERAGE
+            - uuid: 32373bd844f14622a0202c65b5fc8f03
+              name: 'PTP Module - {#SNMPVALUE} - System Time'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.11.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpSysTime[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              value_type: TEXT
+              trends: '0'
+              description: 'Current system time'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+            - uuid: 5d4b115c8d7d4154b49e4cf25dc187b1
+              name: 'PTP Module - {#SNMPVALUE} - PTP Seconds'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.9.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpTimeSeconds[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              trends: '0'
+              units: s
+              description: 'PTP seconds'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgPtpTimeSource'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+            - uuid: 37fe6bac5ce443d18239771d71dbf45e
+              name: 'PTP Module - {#SNMPVALUE} - Time Source'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.7.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpTimeSource[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              trends: '0'
+              description: 'Source of time being used'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgPtpTimeSource'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+            - uuid: dcb35e99791f4ea29f7f3be459a7aa4a
+              name: 'PTP Module - {#SNMPVALUE} - Time on TSU'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.10.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpTsuTime[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              value_type: TEXT
+              trends: '0'
+              description: 'Current time on PTP TSU'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+            - uuid: d954f27dd6094e11b805cfd446859250
+              name: 'PTP Module - {#SNMPVALUE} - UTC Offset'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.3.2.1.8.{#SNMPINDEX}'
+              key: 'mbgLtNgPtpUtcOffset[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              trends: '0'
+              description: 'Offset from PTP''s TAI time to UTC time'
+              tags:
+                - tag: Application
+                  value: 'PTP Module'
+        - uuid: 6f9a03bbd13a47348447832c73dcc9d3
+          name: 'Reference Clock Discovery'
+          type: SNMP_AGENT
+          snmp_oid: 'discovery[{#SNMPVALUE},1.3.6.1.4.1.5597.30.0.1.2.1.1, {#TYPE}, 1.3.6.1.4.1.5597.30.0.1.2.1.2]'
+          key: mbgLtNgRefclockTable
+          delay: 1h
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 1fea38f59eaa4a8e9cca23623f49b13c
+              name: 'Reference Clock - {#SNMPVALUE} - Additional Information'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.1.2.1.10.{#SNMPINDEX}'
+              key: 'mbgLtNgRefclockAdditionalInfo[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              trends: 90d
+              description: 'Any kind of additional information concerning a refclock'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgRefclockAdditionalInfo'
+              tags:
+                - tag: Application
+                  value: 'Reference Clock {#SNMPVALUE}'
+            - uuid: 7e91f9442b114d52bb99f828a7a116f0
+              name: 'Reference Clock - {#SNMPVALUE} - Leap Second Date'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.1.2.1.11.{#SNMPINDEX}'
+              key: 'mbgLtNgRefclockLeapSecondDate[{#SNMPINDEX}]'
+              delay: 1h
+              history: 1w
+              value_type: TEXT
+              trends: '0'
+              description: 'Date for next leap second'
+              tags:
+                - tag: Application
+                  value: 'Reference Clock {#SNMPVALUE}'
+            - uuid: 49174c07e6934299bffd98d66f576f21
+              name: 'Reference Clock - {#SNMPVALUE} - Satellites total'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.1.2.1.7.{#SNMPINDEX}'
+              key: 'mbgLtNgRefclockMaxStatusA[{#SNMPINDEX}]'
+              delay: 1h
+              history: 1w
+              trends: 90d
+              description: |
+                Maximum status A depending on reflcock
+                gps         :indicates number of satellites in view
+                long wave
+                -pzf     :100
+                -other   :not supported
+                irig        :not supported
+              tags:
+                - tag: Application
+                  value: 'Reference Clock {#SNMPVALUE}'
+            - uuid: f46451cacec64939bcd2bb218a3f47f7
+              name: 'Reference Clock - {#SNMPVALUE} - Status Value B MAX'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.1.2.1.9.{#SNMPINDEX}'
+              key: 'mbgLtNgRefclockMaxStatusB[{#SNMPINDEX}]'
+              delay: 1h
+              history: 1w
+              trends: 90d
+              description: |
+                Maximum status B depending on reflcock
+                gps         :not supported
+                long wave
+                -all     :100
+                irig        :not supported
+              tags:
+                - tag: Application
+                  value: 'Reference Clock {#SNMPVALUE}'
+            - uuid: 9c5d470890a14e5d8b07dc9199d9750e
+              name: 'Reference Clock - {#SNMPVALUE} - State'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.1.2.1.4.{#SNMPINDEX}'
+              key: 'mbgLtNgRefclockState[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              trends: 90d
+              description: |
+                State of GPS refclock conneted to NTP time server as value
+                0:not available
+                1:synchronized
+                2:not synchronized
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgRefclockState'
+              tags:
+                - tag: Application
+                  value: 'Reference Clock {#SNMPVALUE}'
+              trigger_prototypes:
+                - uuid: c9d8437894dd4217a0bcc827d0a4d925
+                  expression: 'last(/Device - MEINBERG LANTIME/mbgLtNgRefclockState[{#SNMPINDEX}])=2'
+                  name: 'Reference Clock - {#SNMPVALUE} - Not synchronized'
+                  priority: WARNING
+            - uuid: eeff82660cb549fcb59838d2a6432239
+              name: 'Reference Clock - {#SNMPVALUE} - Satellites good'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.1.2.1.6.{#SNMPINDEX}'
+              key: 'mbgLtNgRefclockStatusA[{#SNMPINDEX}]'
+              delay: 1h
+              history: 1w
+              trends: 90d
+              description: |
+                Status A depending on reflcock
+                gps         :indicates number of good satellites in view
+                long wave
+                -pzf     :correlation
+                -other   :not supported
+                irig        :not supported
+              tags:
+                - tag: Application
+                  value: 'Reference Clock {#SNMPVALUE}'
+            - uuid: 6b8aa9f8954646ed90b1cc37e502ed58
+              name: 'Reference Clock - {#SNMPVALUE} - Status Value B'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.1.2.1.8.{#SNMPINDEX}'
+              key: 'mbgLtNgRefclockStatusB[{#SNMPINDEX}]'
+              delay: 1h
+              history: 1w
+              trends: 90d
+              description: |
+                Status B depending on reflcock
+                gps         :not supported
+                long wave
+                -all     :field strength
+                irig        :not supported
+              tags:
+                - tag: Application
+                  value: 'Reference Clock {#SNMPVALUE}'
+            - uuid: 60b83511ea764682b6d32d9641660e3b
+              name: 'Reference Clock - {#SNMPVALUE} - Substate'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.1.2.1.5.{#SNMPINDEX}'
+              key: 'mbgLtNgRefclockSubstate[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              trends: 90d
+              description: |
+                More detailed state depending on refclock type
+                0:no substate available
+                gps:1-4
+                long waves (PZF,WWVB,MSF,...):50-52 (not supported by all types)
+                irig:100-101
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgRefclockSubstate'
+              tags:
+                - tag: Application
+                  value: 'Reference Clock {#SNMPVALUE}'
+            - uuid: 73238ad254d0424f85bd05400d533a8f
+              name: 'Reference Clock - {#SNMPVALUE} - Type'
+              type: SNMP_AGENT
+              snmp_oid: '.1.3.6.1.4.1.5597.30.0.1.2.1.2.{#SNMPINDEX}'
+              key: 'mbgLtNgRefclockType[{#SNMPINDEX}]'
+              delay: 1h
+              history: 1w
+              trends: '0'
+              description: 'Type of refclock'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgRefclockType'
+              tags:
+                - tag: Application
+                  value: 'Reference Clock {#SNMPVALUE}'
+            - uuid: 38f40cf634e64cb8be10dd694caedb77
+              name: 'Reference Clock - {#SNMPVALUE} - Usage'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.1.2.1.3.{#SNMPINDEX}'
+              key: 'mbgLtNgRefclockUsage[{#SNMPINDEX}]'
+              delay: 5m
+              history: 1w
+              trends: 90d
+              description: 'what this refclock is used for'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgRefclockUsage'
+              tags:
+                - tag: Application
+                  value: 'Reference Clock {#SNMPVALUE}'
+              trigger_prototypes:
+                - uuid: f483d02ad26b4b70abbf285c6d4130e2
+                  expression: '(last(/Device - MEINBERG LANTIME/mbgLtNgRefclockUsage[{#SNMPINDEX}],#1)<>last(/Device - MEINBERG LANTIME/mbgLtNgRefclockUsage[{#SNMPINDEX}],#2))=1'
+                  name: 'Reference Clock - {#SNMPVALUE} - Source Changed'
+                  priority: INFO
+          graph_prototypes:
+            - uuid: 002185c1355341d1bb60324665345d59
+              name: 'GPS+GLN Satellites'
+              ymin_type_1: FIXED
+              graph_items:
+                - drawtype: BOLD_LINE
+                  color: 6666FF
+                  calc_fnc: MIN
+                  item:
+                    host: 'Device - MEINBERG LANTIME'
+                    key: 'mbgLtNgRefclockMaxStatusA[{#SNMPINDEX}]'
+                - sortorder: '1'
+                  drawtype: BOLD_LINE
+                  color: 00C800
+                  calc_fnc: ALL
+                  item:
+                    host: 'Device - MEINBERG LANTIME'
+                    key: 'mbgLtNgRefclockStatusA[{#SNMPINDEX}]'
+        - uuid: c710e71261674d25a9b637e8f041497e
+          name: 'Fan Discovery'
+          type: SNMP_AGENT
+          snmp_oid: 'discovery[{#SNMPVALUE},1.3.6.1.4.1.5597.30.0.5.1.2.1.1]'
+          key: mbgLtNgSysFanIndex
+          delay: 1h
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 3ec4a14d153e4769ac85d2cd1414cbe5
+              name: 'Fan - {#SNMPVALUE} - Error'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.5.1.2.1.3.{#SNMPINDEX}'
+              key: 'mbgLtNgSysFanError[{#SNMPINDEX}]'
+              history: 1w
+              trends: 90d
+              description: 'Fan''s error field'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgSysFanError'
+              tags:
+                - tag: Application
+                  value: Fan
+              trigger_prototypes:
+                - uuid: 8d27371018774022acb0dd2ece72c5cf
+                  expression: 'last(/Device - MEINBERG LANTIME/mbgLtNgSysFanError[{#SNMPINDEX}])=2'
+                  name: 'Fan - {#SNMPVALUE} - In Error State'
+                  priority: AVERAGE
+            - uuid: 7eb341dccd7249ff9407f2b442b119ab
+              name: 'Fan - {#SNMPVALUE} - Status'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.5.1.2.1.2.{#SNMPINDEX}'
+              key: 'mbgLtNgSysFanStatus[{#SNMPINDEX}]'
+              history: 1w
+              trends: 90d
+              description: 'Status of fan'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgSysFanStatus'
+              tags:
+                - tag: Application
+                  value: Fan
+              trigger_prototypes:
+                - uuid: c4b0343083184c0e9f690c471bf3f57f
+                  expression: 'last(/Device - MEINBERG LANTIME/mbgLtNgSysFanStatus[{#SNMPINDEX}])=1'
+                  name: 'Fan - {#SNMPVALUE} - Offline'
+                  priority: WARNING
+        - uuid: 1da32c8e9fa34747870cc28ba20a1ae5
+          name: 'Power Supply Discovery'
+          type: SNMP_AGENT
+          snmp_oid: 'discovery[{#SNMPVALUE},.1.3.6.1.4.1.5597.30.0.5.0.2.1.1]'
+          key: mbgLtNgSysPsTable
+          delay: 1h
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 3955ec6514c24c939ff59ce4847e3c00
+              name: 'Power Supply - {#SNMPVALUE} - Status'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.5597.30.0.5.0.2.1.2.{#SNMPINDEX}'
+              key: 'mbgLtNgSysPsStatus[{#SNMPINDEX}]'
+              history: 1w
+              trends: 90d
+              description: 'Status of power supply'
+              valuemap:
+                name: 'MBG-LANTIME-NG-MIB::mbgLtNgSysPsStatus'
+              tags:
+                - tag: Application
+                  value: 'Power Supply'
+              trigger_prototypes:
+                - uuid: 2ff1f4964b824d09bd3abc95321fe9a2
+                  expression: 'last(/Device - MEINBERG LANTIME/mbgLtNgSysPsStatus[{#SNMPINDEX}])=1'
+                  name: 'Power Supply - {#SNMPVALUE} - Down'
+                  priority: AVERAGE
+      tags:
+        - tag: class
+          value: time-server
+        - tag: target
+          value: lantime
+      macros:
+        - macro: '{$MBG_INTERNAL_TEMP_CRITICAL}'
+          value: '72'
+          description: 'Threshold for critical internal temperature'
+        - macro: '{$MBG_INTERNAL_TEMP_HIGH}'
+          value: '62'
+          description: 'Threshold for high internal temperature'
+        - macro: '{$SENSOR_RECOVERY_TIME}'
+          value: 5m
+      valuemaps:
+        - uuid: c17850e172ca44c9a0d4f9fb10af9587
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgClusterClockClass'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '3'
+              newvalue: gps
+            - value: '4'
+              newvalue: pzf
+            - value: '5'
+              newvalue: am
+            - value: '6'
+              newvalue: irig
+            - value: '7'
+              newvalue: pps
+            - value: '8'
+              newvalue: ptp
+            - value: '9'
+              newvalue: ntp
+            - value: '10'
+              newvalue: e1
+            - value: '11'
+              newvalue: rdt
+        - uuid: 6b1c4ab601d44add848fc47b3ebf0a33
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgClusterClockStatus'
+          mappings:
+            - value: '0'
+              newvalue: '{notAvailable'
+            - value: '1'
+              newvalue: normalOperation
+            - value: '2'
+              newvalue: freeRunningOrTracking
+            - value: '3'
+              newvalue: antennaFailure
+            - value: '4'
+              newvalue: invalid
+        - uuid: ec67fe6bdb4742e69b842de37be939d6
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgClusterIsFalseticker'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '1'
+              newvalue: 'no'
+            - value: '2'
+              newvalue: 'yes'
+        - uuid: 1e3419ac98644581846bcd773b0a6a05
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgClusterPortState'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '1'
+              newvalue: master
+            - value: '2'
+              newvalue: slave
+            - value: '3'
+              newvalue: listening
+        - uuid: d2bbca5123a645efbfef0c699333ea8b
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgClusterReconfigurationState'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '1'
+              newvalue: normal
+            - value: '2'
+              newvalue: masterToSlave
+            - value: '3'
+              newvalue: slaveToMaster
+        - uuid: 4558f9c96e05436ba0a8d399beeef8fe
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgNtpCurrentState'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '1'
+              newvalue: notSynchronized
+            - value: '2'
+              newvalue: synchronized
+        - uuid: 7d4aa23dde2345468f97b1b1aa479db8
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgPtpAvail'
+          mappings:
+            - value: '0'
+              newvalue: 'no'
+            - value: '1'
+              newvalue: 'yes'
+        - uuid: 025b6f6cf6f74d008e25cb769f4be0de
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgPtpClockAccuracy'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '32'
+              newvalue: timeAccurateTo25ns
+            - value: '33'
+              newvalue: timeAccurateTo100ns
+            - value: '34'
+              newvalue: timeAccurateTo250ns
+            - value: '35'
+              newvalue: timeAccurateTo1us
+            - value: '36'
+              newvalue: timeAccurateTo2Point5us
+            - value: '37'
+              newvalue: timeAccurateTo10us
+            - value: '38'
+              newvalue: timeAccurateTo25us
+            - value: '39'
+              newvalue: timeAccurateTo100us
+            - value: '40'
+              newvalue: timeAccurateTo250us
+            - value: '41'
+              newvalue: timeAccurateTo1ms
+            - value: '42'
+              newvalue: timeAccurateTo2to5ms
+            - value: '43'
+              newvalue: timeAccurateTo10ms
+            - value: '44'
+              newvalue: timeAccurateTo25ms
+            - value: '45'
+              newvalue: timeAccurateTo100ms
+            - value: '46'
+              newvalue: timeAccurateTo250ms
+            - value: '47'
+              newvalue: timeAccurateTo1s
+            - value: '48'
+              newvalue: timeAccurateTo10s
+            - value: '49'
+              newvalue: timeAccurateToGT10s
+            - value: '254'
+              newvalue: timeAccurateToUnknown
+        - uuid: c5bdff4c271c4171abce5be609f38095
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgPtpDelayMec'
+          mappings:
+            - value: '0'
+              newvalue: end2End
+            - value: '1'
+              newvalue: peer2Peer
+        - uuid: e6d9539f174848418d790f8bbbd478d2
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgPtpPortLinkup'
+          mappings:
+            - value: '0'
+              newvalue: 'off'
+            - value: '1'
+              newvalue: 'on'
+        - uuid: 1e6f83512a2147ed91d7207e0fe5f672
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgPtpPortState'
+          mappings:
+            - value: '1'
+              newvalue: initializing
+            - value: '2'
+              newvalue: faulty
+            - value: '3'
+              newvalue: disabled
+            - value: '4'
+              newvalue: listening
+            - value: '5'
+              newvalue: preMaster
+            - value: '6'
+              newvalue: master
+            - value: '7'
+              newvalue: passive
+            - value: '8'
+              newvalue: uncalibrated
+            - value: '9'
+              newvalue: slave
+        - uuid: 899547d0bd314796950ba74cc2db1db0
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgPtpTimeSource'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '16'
+              newvalue: atomicClock
+            - value: '32'
+              newvalue: gps
+            - value: '48'
+              newvalue: terrestrialRadio
+            - value: '64'
+              newvalue: ptp
+            - value: '80'
+              newvalue: ntp
+            - value: '96'
+              newvalue: handSet
+            - value: '144'
+              newvalue: other
+            - value: '160'
+              newvalue: internalOscillator
+        - uuid: de25de352fc94e2fbec3447dbdb13f5e
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgRefclockAdditionalInfo'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '1'
+              newvalue: leapSecondAnnounced(
+        - uuid: 179fd46384d84b0e885de11014b32d73
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgRefclockState'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '1'
+              newvalue: synchronized
+            - value: '2'
+              newvalue: notSynchronized
+        - uuid: e5336a6a78c64e7b93dfcb818d741177
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgRefclockSubstate'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '1'
+              newvalue: gpsSync
+            - value: '2'
+              newvalue: gpsTracking
+            - value: '3'
+              newvalue: gpsAntennaDisconnected
+            - value: '4'
+              newvalue: gpsWarmBoot
+            - value: '5'
+              newvalue: gpsColdBoot
+            - value: '6'
+              newvalue: gpsAntennaShortCircuit
+            - value: '50'
+              newvalue: lwNeverSync
+            - value: '51'
+              newvalue: lwNotSync
+            - value: '52'
+              newvalue: lwSync
+            - value: '100'
+              newvalue: tcrNotSync
+            - value: '101'
+              newvalue: tcrSync
+            - value: '149'
+              newvalue: mrsIntOscSync
+            - value: '150'
+              newvalue: mrsGpsSync
+            - value: '151'
+              newvalue: mrs10MhzSync
+            - value: '152'
+              newvalue: mrsPpsInSync
+            - value: '153'
+              newvalue: mrs10MhzPpsInSync
+            - value: '154'
+              newvalue: mrsIrigSync
+            - value: '155'
+              newvalue: mrsNtpSync
+            - value: '156'
+              newvalue: mrsPtpIeee1588Sync
+            - value: '157'
+              newvalue: mrsPtpOverE1Sync
+            - value: '158'
+              newvalue: mrsFixedFreqInSync
+            - value: '159'
+              newvalue: mrsPpsStringSync
+            - value: '160'
+              newvalue: mrsVarFreqGpioSync
+            - value: '161'
+              newvalue: mrsReserved
+            - value: '162'
+              newvalue: mrsDcf77PzfSync
+            - value: '163'
+              newvalue: mrsLongwaveSync
+            - value: '164'
+              newvalue: mrsGlonassGpsSync
+            - value: '165'
+              newvalue: mrsHavequickSync
+            - value: '166'
+              newvalue: mrsExtOscSync
+            - value: '167'
+              newvalue: mrsSyncE
+        - uuid: c13129348456471a9422f2dc47c33f3a
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgRefclockType'
+          mappings:
+            - value: '1'
+              newvalue: gps166
+            - value: '2'
+              newvalue: gps167
+            - value: '3'
+              newvalue: gps167SV
+            - value: '4'
+              newvalue: gps167PC
+            - value: '5'
+              newvalue: gps167PCI
+            - value: '6'
+              newvalue: gps163
+            - value: '7'
+              newvalue: gps168PCI
+            - value: '8'
+              newvalue: gps161
+            - value: '9'
+              newvalue: gps169PCI
+            - value: '10'
+              newvalue: tcr167PCI
+            - value: '11'
+              newvalue: gps164
+            - value: '12'
+              newvalue: gps170PCI
+            - value: '13'
+              newvalue: pzf511
+            - value: '14'
+              newvalue: gps170
+            - value: '15'
+              newvalue: tcr511
+            - value: '16'
+              newvalue: am511
+            - value: '17'
+              newvalue: msf511
+            - value: '18'
+              newvalue: grc170
+            - value: '19'
+              newvalue: gps170PEX
+            - value: '20'
+              newvalue: gps162
+            - value: '21'
+              newvalue: ptp270PEX
+            - value: '22'
+              newvalue: frc511PEX
+            - value: '23'
+              newvalue: gen170
+            - value: '24'
+              newvalue: tcr170PEX
+            - value: '25'
+              newvalue: wwvb511
+            - value: '26'
+              newvalue: mgr170
+            - value: '27'
+              newvalue: jjy511
+            - value: '28'
+              newvalue: pzf600
+            - value: '29'
+              newvalue: tcr600
+            - value: '30'
+              newvalue: gps180
+            - value: '31'
+              newvalue: gln170
+            - value: '32'
+              newvalue: gps180PEX
+            - value: '33'
+              newvalue: tcr180PEX
+            - value: '34'
+              newvalue: pzf180PEX
+            - value: '35'
+              newvalue: mgr180
+            - value: '36'
+              newvalue: msf600
+            - value: '37'
+              newvalue: wwvb600
+            - value: '38'
+              newvalue: jjy600
+            - value: '39'
+              newvalue: gps180HS
+            - value: '40'
+              newvalue: gps180AMC
+            - value: '41'
+              newvalue: esi180
+            - value: '42'
+              newvalue: cpe180
+            - value: '43'
+              newvalue: lno180
+            - value: '44'
+              newvalue: grc180
+            - value: '45'
+              newvalue: liu
+            - value: '46'
+              newvalue: dcf600HS
+            - value: '47'
+              newvalue: dcf600RS
+            - value: '48'
+              newvalue: mri
+            - value: '49'
+              newvalue: bpe
+            - value: '50'
+              newvalue: gln180Pex
+            - value: '51'
+              newvalue: n2x
+            - value: '52'
+              newvalue: rsc180
+            - value: '53'
+              newvalue: lneGb
+            - value: '54'
+              newvalue: lnePpg180
+            - value: '55'
+              newvalue: scg
+            - value: '56'
+              newvalue: mdu300
+            - value: '57'
+              newvalue: sdi
+            - value: '58'
+              newvalue: fdm180
+            - value: '59'
+              newvalue: spt
+            - value: '60'
+              newvalue: pzf180
+            - value: '61'
+              newvalue: rel1000
+            - value: '62'
+              newvalue: hps100
+            - value: '63'
+              newvalue: vsg180
+            - value: '64'
+              newvalue: msf180
+            - value: '65'
+              newvalue: wwvb180
+            - value: '66'
+              newvalue: cpc180
+            - value: '67'
+              newvalue: ctc100
+            - value: '68'
+              newvalue: tcr180
+            - value: '69'
+              newvalue: lue180
+            - value: '70'
+              newvalue: cpc01
+            - value: '71'
+              newvalue: tsu01
+            - value: '72'
+              newvalue: cmc01
+            - value: '73'
+              newvalue: scu01
+            - value: '74'
+              newvalue: fcu01
+            - value: '75'
+              newvalue: mssb100
+            - value: '76'
+              newvalue: lne180sfp
+            - value: '77'
+              newvalue: gts180
+            - value: '78'
+              newvalue: gps180csm
+            - value: '79'
+              newvalue: grc181
+            - value: '80'
+              newvalue: n2x180
+            - value: '81'
+              newvalue: gns180pex
+            - value: '82'
+              newvalue: mdu180
+            - value: '83'
+              newvalue: mdu312
+            - value: '84'
+              newvalue: gps165
+            - value: '85'
+              newvalue: gns181UC
+            - value: '86'
+              newvalue: psx4GE
+            - value: '87'
+              newvalue: rsc180rdu
+            - value: '88'
+              newvalue: wtf
+            - value: '89'
+              newvalue: fdm180m
+            - value: '90'
+              newvalue: lsg180
+            - value: '91'
+              newvalue: gps190
+            - value: '92'
+              newvalue: gns181
+            - value: '93'
+              newvalue: pio180
+            - value: '94'
+              newvalue: fcm180
+            - value: '95'
+              newvalue: tcr180usb
+            - value: '96'
+              newvalue: ssp100
+            - value: '97'
+              newvalue: gns165
+            - value: '98'
+              newvalue: rsc180rdmp
+            - value: '99'
+              newvalue: gps16x
+            - value: '100'
+              newvalue: mshps100
+            - value: '101'
+              newvalue: bpestm
+            - value: '102'
+              newvalue: vsi180
+        - uuid: 0fdbcfcfceec44cc91deb7790e1e1e02
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgRefclockUsage'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '1'
+              newvalue: secondary
+            - value: '2'
+              newvalue: compare
+            - value: '3'
+              newvalue: primary
+        - uuid: bfecb7713ba2468594d08f882e0767ee
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgSysFanError'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '1'
+              newvalue: 'no'
+            - value: '2'
+              newvalue: 'yes'
+        - uuid: 6c73abfc82e9451b8a2b5cd07d5f43a5
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgSysFanStatus'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '1'
+              newvalue: 'off'
+            - value: '2'
+              newvalue: 'on'
+        - uuid: c1a8a0fc29f04c0b85f3532a3311e164
+          name: 'MBG-LANTIME-NG-MIB::mbgLtNgSysPsStatus'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '1'
+              newvalue: down
+            - value: '2'
+              newvalue: up
+        - uuid: cc00f707081d4f5ab7bf5fec1de20f0b
+          name: 'Meinberg mbgLtRefClockModeVal MAP'
+          mappings:
+            - value: '0'
+              newvalue: notAvailable
+            - value: '1'
+              newvalue: normalOperation
+            - value: '2'
+              newvalue: trackingSearching
+            - value: '3'
+              newvalue: antennaFaulty
+            - value: '4'
+              newvalue: warmBoot
+            - value: '5'
+              newvalue: coldBoot
+            - value: '6'
+              newvalue: antennaShortcircuit
