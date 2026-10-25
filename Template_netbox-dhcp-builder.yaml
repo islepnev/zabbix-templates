@@ -1,0 +1,324 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    - uuid: fc4c9cf8b43f4877aaef482e1935378c
+      template: netbox-dhcp-builder
+      name: netbox-dhcp-builder
+      description: 'dhcpd with bindings from NetBox (netbox-dhcp-builder). Polls /metrics of the host.'
+      groups:
+        - name: Templates/Applications
+      items:
+        - uuid: 50b1e7b59a5f40d4bc2d3aca5cb412c2
+          name: 'Metrics'
+          type: HTTP_AGENT
+          key: netbox_dhcp_builder.metrics
+          delay: 1m
+          history: '0'
+          value_type: TEXT
+          trends: '0'
+          url: 'http://{HOST.CONN}:{$NETBOX_DHCP_BUILDER.METRICS.PORT}/metrics'
+          tags:
+            - tag: component
+              value: raw
+        - uuid: 886991bfc3bf4beb96abe64bd9f99f14
+          name: 'Version'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.version
+          delay: '0'
+          value_type: CHAR
+          trends: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_build_info
+                - label
+                - version
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: application
+        - uuid: c692685fe62f405285f21b23d8232af6
+          name: 'Revision'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.revision
+          delay: '0'
+          value_type: CHAR
+          trends: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_build_info
+                - label
+                - revision
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: application
+        - uuid: 7568c5cffaa341f68638f0e52dee3d94
+          name: 'dhcpd running'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.dhcpd_up
+          delay: '0'
+          valuemap:
+            name: 'Yes/No'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_dhcpd_up
+                - value
+                - ''
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: dhcpd
+          triggers:
+            - uuid: 65e946188bb4463991f9952bc1424dd2
+              expression: 'nodata(/netbox-dhcp-builder/netbox_dhcp_builder.dhcpd_up,5m)=1'
+              name: 'netbox-dhcp-builder metrics unavailable'
+              priority: HIGH
+              description: 'No metrics for 5 minutes: service stopped, port {$NETBOX_DHCP_BUILDER.METRICS.PORT} closed by the host firewall, or the port is taken by another process (ERROR "Cannot listen on port" in the service log).'
+            - uuid: 3babf337f7df4090a866705514bdabb6
+              expression: 'max(/netbox-dhcp-builder/netbox_dhcp_builder.dhcpd_up,3m)=0'
+              name: 'dhcpd is not running'
+              priority: HIGH
+              description: 'dhcpd process is absent for 3 minutes: no interface in a subnet declared in dhcpd.conf, or dhcpd fails at start. See the dhcpd.service log.'
+              dependencies:
+                - name: 'netbox-dhcp-builder metrics unavailable'
+                  expression: 'nodata(/netbox-dhcp-builder/netbox_dhcp_builder.dhcpd_up,5m)=1'
+        - uuid: d70c86731fde4398b7e380de092549c3
+          name: 'dhcpd.conf includes bindings file'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.bindings_included
+          delay: '0'
+          description: 'Checked at service start.'
+          valuemap:
+            name: 'Yes/No'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_bindings_included
+                - value
+                - ''
+              error_handler: DISCARD_VALUE
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: dhcpd
+          triggers:
+            - uuid: c8681bfe89f64e5191a0118ceab7b9c9
+              expression: 'last(/netbox-dhcp-builder/netbox_dhcp_builder.bindings_included)=0'
+              name: 'dhcpd.conf does not include bindings file'
+              priority: WARNING
+              description: 'Bindings from NetBox are not used by dhcpd. Add include "/etc/dhcp/dhcpd-netbox-hosts.conf"; to dhcpd.conf and restart the service.'
+        - uuid: 2ff1c143730249e8b80616d3f38fc0fc
+          name: 'dhcpd.conf includes subnets file'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.subnets_included
+          delay: '0'
+          description: 'Checked at service start; present only with parent= in NETBOX_FILTER.'
+          valuemap:
+            name: 'Yes/No'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_subnets_included
+                - value
+                - ''
+              error_handler: DISCARD_VALUE
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: dhcpd
+          triggers:
+            - uuid: 2bc2f4847be04a62912c541a0b68e3ff
+              expression: 'last(/netbox-dhcp-builder/netbox_dhcp_builder.subnets_included)=0'
+              name: 'dhcpd.conf does not include subnets file'
+              priority: WARNING
+              description: 'Subnets from NetBox are not used by dhcpd. Add include "/etc/dhcp/dhcpd-netbox-subnets.conf"; to dhcpd.conf and restart the service.'
+        - uuid: b3f2aada77a948fa931d9caea7c1e6c3
+          name: 'Subnets'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.subnets
+          delay: '0'
+          description: 'Subnet declarations in the subnets file.'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_subnets
+                - value
+                - ''
+              error_handler: DISCARD_VALUE
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: dhcpd
+        - uuid: 7e6e7b53bdce4a409c6050ef931f3eea
+          name: 'Reservations'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.reservations
+          delay: '0'
+          description: 'Host reservations in the bindings file.'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_reservations
+                - value
+                - ''
+              error_handler: DISCARD_VALUE
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: dhcpd
+        - uuid: f20810463b924c92be5584845a9e796e
+          name: 'NetBox polls'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.polls_total
+          delay: '0'
+          description: 'Counter since service start.'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_polls_total
+                - value
+                - ''
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: netbox
+        - uuid: 203f635641274e939efc26af9460591c
+          name: 'NetBox poll errors'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.poll_errors
+          delay: '0'
+          description: 'Failed polls per minute: NetBox unavailable, empty or invalid export, dhcpd configuration check failed, write error.'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_poll_errors_total
+                - value
+                - ''
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: netbox
+        - uuid: d01684964c234d74b64cca0e5ad6dd12
+          name: 'NetBox consecutive poll errors'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.consecutive_poll_errors
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_consecutive_poll_errors
+                - value
+                - ''
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: netbox
+          triggers:
+            - uuid: 415db8f2a5814011b7cfe5d26199ed07
+              expression: 'last(/netbox-dhcp-builder/netbox_dhcp_builder.consecutive_poll_errors)>={$NETBOX_DHCP_BUILDER.POLL.ERRORS.MAX}'
+              name: 'Bindings not updated from NetBox: {ITEM.LASTVALUE1} failed polls'
+              priority: WARNING
+              description: 'dhcpd serves the previous bindings and subnets. Cause in the service log: NetBox unavailable, empty or invalid export, dhcpd configuration check failed, no prefixes, no host interface in the subnets, no disk space.'
+              dependencies:
+                - name: 'netbox-dhcp-builder metrics unavailable'
+                  expression: 'nodata(/netbox-dhcp-builder/netbox_dhcp_builder.dhcpd_up,5m)=1'
+        - uuid: 6b56125e859044faa931d51ede40e246
+          name: 'NetBox last successful poll'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.last_success
+          delay: '0'
+          units: unixtime
+          trends: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_last_success_timestamp_seconds
+                - value
+                - ''
+              error_handler: DISCARD_VALUE
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: netbox
+        - uuid: f3136ffebc0f46a58b6cff569034d973
+          name: 'NetBox request duration'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.netbox_request_duration
+          delay: '0'
+          value_type: FLOAT
+          units: s
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_netbox_request_duration_seconds
+                - value
+                - ''
+              error_handler: DISCARD_VALUE
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: netbox
+        - uuid: e8a4c894a27941fbadfc589016e67271
+          name: 'Configuration updates'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.updates
+          delay: '0'
+          description: 'Configuration updates applied to dhcpd per minute.'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_updates_total
+                - value
+                - ''
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: dhcpd
+      macros:
+        - macro: '{$NETBOX_DHCP_BUILDER.METRICS.PORT}'
+          value: '9767'
+        - macro: '{$NETBOX_DHCP_BUILDER.POLL.ERRORS.MAX}'
+          value: '10'
+          description: 'Failed polls in a row before alert; poll interval 30 s.'
+      valuemaps:
+        - uuid: dce5593c89394b59a92771ae4a8b626b
+          name: 'Yes/No'
+          mappings:
+            - value: '0'
+              newvalue: 'No'
+            - value: '1'
+              newvalue: 'Yes'
+  triggers:
+    - uuid: 9b6d4c305ca3492cad2a5296598dd39b
+      expression: 'max(/netbox-dhcp-builder/netbox_dhcp_builder.polls_total,10m)-min(/netbox-dhcp-builder/netbox_dhcp_builder.polls_total,10m)=0'
+      name: 'NetBox polling stalled'
+      priority: WARNING
+      description: 'No NetBox poll completed for 10 minutes (poll interval 30 s). Restart the service.'
+      dependencies:
+        - name: 'netbox-dhcp-builder metrics unavailable'
+          expression: 'nodata(/netbox-dhcp-builder/netbox_dhcp_builder.dhcpd_up,5m)=1'
