@@ -91,6 +91,54 @@ zabbix_export:
               dependencies:
                 - name: 'netbox-dhcp-builder metrics unavailable'
                   expression: 'nodata(/netbox-dhcp-builder/netbox_dhcp_builder.dhcpd_up,5m)=1'
+        - uuid: 45c12a7b62574d4a9de534cd7c69e06a
+          name: 'dhcpd unexpected exits'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.dhcpd_exits
+          delay: '0'
+          description: 'Container only: dhcpd exits not caused by a configuration update, per minute; entrypoint.sh restarts dhcpd.'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_dhcpd_unexpected_exits_total
+                - value
+                - ''
+              error_handler: DISCARD_VALUE
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: dhcpd
+          triggers:
+            - uuid: 53ca4af64c7046bd8562314f0b17e3e2
+              expression: 'sum(/netbox-dhcp-builder/netbox_dhcp_builder.dhcpd_exits,15m)>0'
+              name: 'dhcpd exits unexpectedly'
+              priority: AVERAGE
+              description: 'dhcpd exits and is restarted by the container. Cause in the container log, e.g. "Not configured to listen on any interfaces". Resolves after 15 minutes without exits.'
+        - uuid: ce6bde4350644f9a9b1a386b28471234
+          name: 'Manual mode'
+          type: DEPENDENT
+          key: netbox_dhcp_builder.manual_mode
+          delay: '0'
+          description: 'Container only: NETBOX_API_URL not set; 0 without the metric.'
+          valuemap:
+            name: 'Yes/No'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - netbox_dhcp_builder_manual_mode
+                - value
+                - ''
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '0'
+          master_item:
+            key: netbox_dhcp_builder.metrics
+          tags:
+            - tag: component
+              value: netbox
         - uuid: d70c86731fde4398b7e380de092549c3
           name: 'dhcpd.conf includes bindings file'
           type: DEPENDENT
@@ -315,7 +363,7 @@ zabbix_export:
               newvalue: 'Yes'
   triggers:
     - uuid: 9b6d4c305ca3492cad2a5296598dd39b
-      expression: 'max(/netbox-dhcp-builder/netbox_dhcp_builder.polls_total,10m)-min(/netbox-dhcp-builder/netbox_dhcp_builder.polls_total,10m)=0'
+      expression: 'max(/netbox-dhcp-builder/netbox_dhcp_builder.polls_total,10m)-min(/netbox-dhcp-builder/netbox_dhcp_builder.polls_total,10m)=0 and last(/netbox-dhcp-builder/netbox_dhcp_builder.manual_mode)=0'
       name: 'NetBox polling stalled'
       priority: WARNING
       description: 'No NetBox poll completed for 10 minutes (poll interval 30 s). Restart the service.'
