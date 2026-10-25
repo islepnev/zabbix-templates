@@ -363,10 +363,10 @@ zabbix_export:
               newvalue: 'Yes'
   triggers:
     - uuid: 9b6d4c305ca3492cad2a5296598dd39b
-      expression: 'max(/netbox-dhcp-builder/netbox_dhcp_builder.polls_total,10m)-min(/netbox-dhcp-builder/netbox_dhcp_builder.polls_total,10m)=0 and last(/netbox-dhcp-builder/netbox_dhcp_builder.manual_mode)=0'
+      expression: 'max(/netbox-dhcp-builder/netbox_dhcp_builder.polls_total,10m)-min(/netbox-dhcp-builder/netbox_dhcp_builder.polls_total,10m)=0 and count(/netbox-dhcp-builder/netbox_dhcp_builder.polls_total,10m)>=9 and last(/netbox-dhcp-builder/netbox_dhcp_builder.manual_mode)=0'
       name: 'NetBox polling stalled'
       priority: WARNING
-      description: 'No NetBox poll completed for 10 minutes (poll interval 30 s). Restart the service.'
+      description: 'No NetBox poll completed for 10 minutes (poll interval 30 s), at least 9 values of 10 collected. Restart the service.'
       dependencies:
         - name: 'netbox-dhcp-builder metrics unavailable'
           expression: 'nodata(/netbox-dhcp-builder/netbox_dhcp_builder.dhcpd_up,5m)=1'
