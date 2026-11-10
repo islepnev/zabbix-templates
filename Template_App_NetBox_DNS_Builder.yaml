@@ -1,0 +1,328 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    - uuid: 5e5b11fbb42447b0bd0e82983a2bc354
+      template: 'Template App NetBox DNS Builder'
+      name: 'Template App NetBox DNS Builder'
+      description: 'BIND9 zones from NetBox (netbox-dns-builder). Polls /status of the host. Requires netbox-dns-builder with consecutive_failures in /status.'
+      groups:
+        - name: Templates/Applications
+      items:
+        - uuid: 03bad6e608b14bb69ce563d7f98de5cf
+          name: 'NetBox DNS Builder: Get stats'
+          type: HTTP_AGENT
+          key: netbox_dns_builder.get
+          history: '0'
+          value_type: TEXT
+          trends: '0'
+          timeout: 3s
+          url: '{$NETBOX_DNS_BUILDER.API.SCHEME}://{HOST.CONN}:{$NETBOX_DNS_BUILDER.API.PORT}/status'
+          tags:
+            - tag: Application
+              value: 'NetBox DNS Builder'
+        - uuid: e355277dd0ce4c9a9042cb6cc7d1ca1a
+          name: 'NetBox DNS Builder: Consecutive failed updates'
+          type: DEPENDENT
+          key: netbox_dns_builder.consecutive_failures
+          delay: '0'
+          description: 'Zone updates failed in a row since the last successful one; reset to 0 on success and on service restart.'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.consecutive_failures
+          master_item:
+            key: netbox_dns_builder.get
+          tags:
+            - tag: Application
+              value: 'NetBox DNS Builder'
+          triggers:
+            - uuid: 247dd0b1821740399a716a3fb6bf43bf
+              expression: 'nodata(/Template App NetBox DNS Builder/netbox_dns_builder.consecutive_failures,5m)=1'
+              name: 'NetBox DNS Builder: /status unavailable'
+              priority: HIGH
+              description: 'No /status data for 5 minutes: service stopped, port {$NETBOX_DNS_BUILDER.API.PORT} closed, or the service version lacks consecutive_failures.'
+            - uuid: 17641a69e1c8438eafb22b9d19a7e3c1
+              expression: 'last(/Template App NetBox DNS Builder/netbox_dns_builder.consecutive_failures)>0'
+              name: 'NetBox DNS Builder: zones not updated from NetBox'
+              event_name: 'NetBox DNS Builder: zones not updated from NetBox: {?last(/Template App NetBox DNS Builder/netbox_dns_builder.last_error)}'
+              opdata: 'failed updates: {ITEM.LASTVALUE1}'
+              priority: AVERAGE
+              description: 'BIND serves the previous zones; changes in NetBox are not published. Cause in last_error and the service log: NetBox unavailable, invalid export, named-checkzone or rndc reload failed. Recovers on the next successful update (webhook or restart).'
+              dependencies:
+                - name: 'NetBox DNS Builder: /status unavailable'
+                  expression: 'nodata(/Template App NetBox DNS Builder/netbox_dns_builder.consecutive_failures,5m)=1'
+        - uuid: 6d5e476e55484ef4b83fbdefa698fc21
+          name: 'NetBox DNS Builder: Last error'
+          type: DEPENDENT
+          key: netbox_dns_builder.last_error
+          delay: '0'
+          value_type: CHAR
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.last_error
+              error_handler: CUSTOM_VALUE
+              error_handler_params: ''
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          master_item:
+            key: netbox_dns_builder.get
+          tags:
+            - tag: Application
+              value: 'NetBox DNS Builder'
+        - uuid: 2903b9d303734aea83e8186245b15131
+          name: 'NetBox DNS Builder: Last update timestamp'
+          type: DEPENDENT
+          key: netbox_dns_builder.last_update
+          delay: '0'
+          history: 90d
+          units: unixtime
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.last_update
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  const date = new Date(value);
+                  const timestampSeconds = Math.floor(date.getTime() / 1000);
+                  return(timestampSeconds)
+          master_item:
+            key: netbox_dns_builder.get
+          tags:
+            - tag: Application
+              value: 'NetBox DNS Builder'
+        - uuid: a8457d90887b462d9dc8ab27e9b1d456
+          name: 'NetBox DNS Builder: Last webhook timestamp'
+          type: DEPENDENT
+          key: netbox_dns_builder.last_webhook.timestamp
+          delay: '0'
+          history: 90d
+          value_type: TEXT
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.last_webhook.timestamp
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          master_item:
+            key: netbox_dns_builder.get
+          tags:
+            - tag: Application
+              value: 'NetBox DNS Builder'
+        - uuid: b3e7c7d45afb4d74b1cf089a233f8a89
+          name: 'NetBox DNS Builder: Named status active'
+          type: DEPENDENT
+          key: netbox_dns_builder.named_status.active
+          delay: '0'
+          history: 90d
+          value_type: FLOAT
+          valuemap:
+            name: bool
+          preprocessing:
+            - type: CHECK_NOT_SUPPORTED
+              parameters:
+                - '-1'
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            - type: JSONPATH
+              parameters:
+                - $.named_status.active
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+            - type: BOOL_TO_DECIMAL
+          master_item:
+            key: netbox_dns_builder.get
+          tags:
+            - tag: Application
+              value: 'NetBox DNS Builder'
+          triggers:
+            - uuid: 8eb0a5e5f184405ba300235072c124ef
+              expression: 'last(/Template App NetBox DNS Builder/netbox_dns_builder.named_status.active)<>1'
+              name: 'DNS Server is down'
+              priority: AVERAGE
+              tags:
+                - tag: scope
+                  value: availability
+              dependencies:
+                - name: 'NetBox DNS Builder: /status unavailable'
+                  expression: 'nodata(/Template App NetBox DNS Builder/netbox_dns_builder.consecutive_failures,5m)=1'
+        - uuid: d45a77f35efa44d39c889d7e1215c9f1
+          name: 'NetBox DNS Builder: Named last configured'
+          type: DEPENDENT
+          key: netbox_dns_builder.named_status.parsed_rndc_status.last_configured
+          delay: '0'
+          history: 90d
+          units: unixtime
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - '$.named_status.parsed_rndc_status["last configured"]'
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  const date = new Date(value);
+                  const timestampSeconds = Math.floor(date.getTime() / 1000);
+                  return(timestampSeconds)
+          master_item:
+            key: netbox_dns_builder.get
+          tags:
+            - tag: Application
+              value: 'NetBox DNS Builder'
+        - uuid: 18a768cfe64e4452b3050c6560ad3daa
+          name: 'NetBox DNS Builder: Named server status'
+          type: DEPENDENT
+          key: netbox_dns_builder.named_status.parsed_rndc_status.server
+          delay: '0'
+          history: 90d
+          value_type: TEXT
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.named_status.parsed_rndc_status.server
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1d
+          master_item:
+            key: netbox_dns_builder.get
+          tags:
+            - tag: Application
+              value: 'NetBox DNS Builder'
+          triggers:
+            - uuid: c5f4c8987b014044887c94cf7a7f764c
+              expression: 'find(/Template App NetBox DNS Builder/netbox_dns_builder.named_status.parsed_rndc_status.server,,,"up and running")<>1'
+              name: 'server is not up and running'
+              status: DISABLED
+              priority: INFO
+              tags:
+                - tag: scope
+                  value: availability
+      discovery_rules:
+        - uuid: 2240a57ab44b417f8106e6073f4ffbfd
+          name: 'NetBox DNS Builder: Zone discovery'
+          type: DEPENDENT
+          key: netbox_dns_builder.zone.discovery
+          delay: '0'
+          lifetime: 30d
+          description: 'Discover DNS zones managed by NetBox DNS Builder.'
+          item_prototypes:
+            - uuid: f99ad85634714355a7b4554c12350f87
+              name: 'NetBox DNS Builder: {#ZONE_NAME} Nodes'
+              type: DEPENDENT
+              key: 'netbox_dns_builder.zone.nodes[{#ZONE_NAME}]'
+              delay: '0'
+              history: 90d
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.loaded_zones_status.zones[?(@.name == ''{#ZONE_NAME}'')].nodes'
+                - type: JAVASCRIPT
+                  parameters:
+                    - |
+                      var result = JSON.parse(value);
+                      if (!Array.isArray(result) || result.length === 0) {
+                          throw "No matching value found";
+                      }
+                      return result[0];
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 1h
+              master_item:
+                key: netbox_dns_builder.get
+              tags:
+                - tag: Application
+                  value: 'NetBox DNS Builder'
+                - tag: 'DNS Zone'
+                  value: '{#ZONE_NAME}'
+            - uuid: c03878d47f2a4da5a00c5bd39ba58604
+              name: 'NetBox DNS Builder: {#ZONE_NAME} Serial'
+              type: DEPENDENT
+              key: 'netbox_dns_builder.zone.serial[{#ZONE_NAME}]'
+              delay: '0'
+              history: 90d
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.loaded_zones_status.zones[?(@.name == ''{#ZONE_NAME}'')].serial'
+                - type: JAVASCRIPT
+                  parameters:
+                    - |
+                      var result = JSON.parse(value);
+                      if (!Array.isArray(result) || result.length === 0) {
+                          throw "No matching value found";
+                      }
+                      return result[0];
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 1h
+              master_item:
+                key: netbox_dns_builder.get
+              tags:
+                - tag: 'DNS Zone'
+                  value: '{#ZONE_NAME}'
+                - tag: Application
+                  value: 'NetBox DNS Builder'
+          graph_prototypes:
+            - uuid: 6f22396a2d9347fa88147438c07fc451
+              name: 'Number of DNS entries in {#ZONE_NAME}'
+              graph_items:
+                - sortorder: '1'
+                  color: 1A7C11
+                  item:
+                    host: 'Template App NetBox DNS Builder'
+                    key: 'netbox_dns_builder.zone.nodes[{#ZONE_NAME}]'
+          master_item:
+            key: netbox_dns_builder.get
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var json = JSON.parse(value);
+                  var zones = json.loaded_zones_status.zones;
+
+                  var obj = {
+                      data: zones.map(function(zone) {
+                          return {
+                              "{#ZONE_NAME}": zone.name,
+                              "{#TYPE}": zone.type
+                          };
+                      })
+                  };
+                  return JSON.stringify(obj)
+      tags:
+        - tag: class
+          value: software
+        - tag: target
+          value: netbox
+      macros:
+        - macro: '{$NETBOX_DNS_BUILDER.API.PORT}'
+          value: '8000'
+          description: 'API port for NetBox DNS Builder.'
+        - macro: '{$NETBOX_DNS_BUILDER.API.SCHEME}'
+          value: http
+          description: 'API scheme for NetBox DNS Builder (http/https).'
+      valuemaps:
+        - uuid: e8eaeda75ac2427d8655443cc6ad6cd7
+          name: bool
+          mappings:
+            - value: '1'
+              newvalue: 'true'
+            - value: '0'
+              newvalue: 'false'
+            - value: '2'
+              newvalue: unknown
