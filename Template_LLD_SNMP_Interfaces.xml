@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
-    <version>5.4</version>
-    <date>2023-06-16T18:01:49Z</date>
-    <groups>
-        <group>
+    <version>7.2</version>
+    <template_groups>
+        <template_group>
             <uuid>e7946cf06c3c44daa3ae0f50b4457f4c</uuid>
             <name>Templates/Switches</name>
-        </group>
-    </groups>
+        </template_group>
+    </template_groups>
     <templates>
         <template>
             <uuid>d8762d48a99d460a972ccf57ea4152e4</uuid>
@@ -29,25 +28,25 @@
                         <evaltype>AND</evaltype>
                         <conditions>
                             <condition>
-                                <macro>{#IFDESCR}</macro>
-                                <value>@interface-discovery</value>
-                                <formulaid>B</formulaid>
-                            </condition>
-                            <condition>
                                 <macro>{#IFADMINSTATUS}</macro>
                                 <value>@interface-discovery-admin-status</value>
-                                <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFDESCR}</macro>
+                                <value>@interface-discovery</value>
                             </condition>
                         </conditions>
                     </filter>
+                    <lifetime>30d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
                     <description>Discovering interfaces from IF-MIB</description>
                     <item_prototypes>
                         <item_prototype>
                             <uuid>986169c06a024f039b9a2e0ceb469b9a</uuid>
-                            <name>ifAdminStatus {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>ifAdminStatus {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifAdminStatus.{#SNMPINDEX}</snmp_oid>
-                            <key>ifAdminStatus.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <key>ifAdminStatus.["{#SNMPINDEX}"]</key>
                             <history>30d</history>
                             <valuemap>
                                 <name>ifAdminStatus</name>
@@ -60,7 +59,6 @@
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -70,31 +68,51 @@
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                             <trigger_prototypes>
                                 <trigger_prototype>
                                     <uuid>9b0381690e04408e93360e73ca4b0395</uuid>
-                                    <expression>(last(/Template_LLD_SNMP_Interfaces/ifAdminStatus.[&quot;{#SNMPINDEX}&quot;],#1)&lt;&gt;last(/Template_LLD_SNMP_Interfaces/ifAdminStatus.[&quot;{#SNMPINDEX}&quot;],#2))=1</expression>
-                                    <name>{HOST.HOST}:{#IFDESCR} &quot;{#IFALIAS}&quot; Admin Status has changed</name>
+                                    <expression>(last(/Template_LLD_SNMP_Interfaces/ifAdminStatus.["{#SNMPINDEX}"],#1)&lt;&gt;last(/Template_LLD_SNMP_Interfaces/ifAdminStatus.["{#SNMPINDEX}"],#2))=1</expression>
+                                    <name>{HOST.HOST}:{#IFDESCR} "{#IFALIAS}" Admin Status has changed</name>
+                                    <discover>NO_DISCOVER</discover>
+                                    <tags>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>notice</value>
+                                        </tag>
+                                    </tags>
                                 </trigger_prototype>
                             </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
                             <uuid>312eb905b35540ca8929940e5f7d90c1</uuid>
-                            <name>Bytes In  {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>Bytes In  {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifHCInOctets.{#SNMPINDEX}</snmp_oid>
-                            <key>ifHCInOctets.[&quot;{#SNMPINDEX}&quot;]</key>
-                            <delay>15s</delay>
+                            <key>ifHCInOctets.["{#SNMPINDEX}"]</key>
+                            <delay>30s</delay>
                             <history>30d</history>
                             <value_type>FLOAT</value_type>
                             <units>B/s</units>
                             <preprocessing>
                                 <step>
                                     <type>CHANGE_PER_SECOND</type>
-                                    <parameters>
-                                        <parameter/>
-                                    </parameters>
                                 </step>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
@@ -103,7 +121,6 @@
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -113,24 +130,37 @@
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                         </item_prototype>
                         <item_prototype>
                             <uuid>8585d66a660b4e0e9171cc7f1a297e49</uuid>
-                            <name>Bytes Out {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>Bytes Out {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifHCOutOctets.{#SNMPINDEX}</snmp_oid>
-                            <key>ifHCOutOctets.[&quot;{#SNMPINDEX}&quot;]</key>
-                            <delay>15s</delay>
+                            <key>ifHCOutOctets.["{#SNMPINDEX}"]</key>
+                            <delay>30s</delay>
                             <history>30d</history>
                             <value_type>FLOAT</value_type>
                             <units>B/s</units>
                             <preprocessing>
                                 <step>
                                     <type>CHANGE_PER_SECOND</type>
-                                    <parameters>
-                                        <parameter/>
-                                    </parameters>
                                 </step>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
@@ -139,7 +169,6 @@
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -149,14 +178,30 @@
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                         </item_prototype>
                         <item_prototype>
                             <uuid>6557f1907de54b50b6d807d22c4969d3</uuid>
-                            <name>ifHighSpeed {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>ifHighSpeed {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifHighSpeed.{#SNMPINDEX}</snmp_oid>
-                            <key>ifHighSpeed.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <key>ifHighSpeed.["{#SNMPINDEX}"]</key>
                             <history>30d</history>
                             <valuemap>
                                 <name>ifHighSpeed</name>
@@ -169,7 +214,6 @@
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -179,23 +223,36 @@
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                         </item_prototype>
                         <item_prototype>
                             <uuid>458bde01d9b348f79cee321aaa1ba789</uuid>
-                            <name>In Discards {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>In Discards {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifInDiscards.{#SNMPINDEX}</snmp_oid>
-                            <key>ifInDiscards.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <key>ifInDiscards.["{#SNMPINDEX}"]</key>
                             <delay>30s</delay>
                             <history>30d</history>
                             <value_type>FLOAT</value_type>
                             <preprocessing>
                                 <step>
                                     <type>CHANGE_PER_SECOND</type>
-                                    <parameters>
-                                        <parameter/>
-                                    </parameters>
                                 </step>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
@@ -204,7 +261,6 @@
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -214,32 +270,51 @@
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                             <trigger_prototypes>
                                 <trigger_prototype>
                                     <uuid>491f3a572f254e0d9781261fe1b58e0b</uuid>
-                                    <expression>last(/Template_LLD_SNMP_Interfaces/ifInDiscards.[&quot;{#SNMPINDEX}&quot;])&gt;{$IF_ERROR_THR}</expression>
-                                    <name>{HOST.HOST}:{#IFDESCR} &quot;{#IFALIAS}&quot; In Discards &gt; {$IF_ERROR_THR}</name>
+                                    <expression>last(/Template_LLD_SNMP_Interfaces/ifInDiscards.["{#SNMPINDEX}"])&gt;{$IF_ERROR_THR}</expression>
+                                    <name>{HOST.HOST}:{#IFDESCR} "{#IFALIAS}" In Discards &gt; {$IF_ERROR_THR}</name>
                                     <priority>INFO</priority>
                                     <description>ifInDiscards over {$IF_ERROR_THR} in last {$IF_ERROR_PERIOD} seconds.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>performance</value>
+                                        </tag>
+                                    </tags>
                                 </trigger_prototype>
                             </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
                             <uuid>a470ec0f219f41f4a765b0827fd5640b</uuid>
-                            <name>In Errors {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>In Errors {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifInErrors.{#SNMPINDEX}</snmp_oid>
-                            <key>ifInErrors.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <key>ifInErrors.["{#SNMPINDEX}"]</key>
                             <delay>30s</delay>
                             <history>30d</history>
                             <value_type>FLOAT</value_type>
                             <preprocessing>
                                 <step>
                                     <type>CHANGE_PER_SECOND</type>
-                                    <parameters>
-                                        <parameter/>
-                                    </parameters>
                                 </step>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
@@ -248,7 +323,6 @@
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -258,32 +332,44 @@
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                         </item_prototype>
                         <item_prototype>
                             <uuid>2d2df41634c84adc943506399b4c7215</uuid>
-                            <name>In Non-Unicast Packets {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>In Non-Unicast Packets {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifInNUcastPkts.{#SNMPINDEX}</snmp_oid>
-                            <key>ifInNUcastPkts.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <key>ifInNUcastPkts.["{#SNMPINDEX}"]</key>
                             <delay>30s</delay>
                             <history>30d</history>
                             <value_type>FLOAT</value_type>
                             <preprocessing>
                                 <step>
                                     <type>CHANGE_PER_SECOND</type>
-                                    <parameters>
-                                        <parameter/>
-                                    </parameters>
                                 </step>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
                                     <parameters>
-                                        <parameter>900</parameter>
+                                        <parameter>300</parameter>
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -293,48 +379,52 @@
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                             <trigger_prototypes>
                                 <trigger_prototype>
-                                    <uuid>16e6bad6f9724a9ba8f507239b47b34a</uuid>
-                                    <expression>avg(/Template_LLD_SNMP_Interfaces/ifInNUcastPkts.[&quot;{#SNMPINDEX}&quot;],5m)&gt;5000</expression>
-                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
-                                    <recovery_expression>avg(/Template_LLD_SNMP_Interfaces/ifInNUcastPkts.[&quot;{#SNMPINDEX}&quot;],15m)&lt;2500</recovery_expression>
-                                    <name>{HOST.HOST}:{#IFDESCR} &quot;{#IFALIAS}&quot; In Non-Unicast &gt; 5k</name>
-                                    <priority>INFO</priority>
-                                    <dependencies>
-                                        <dependency>
-                                            <name>{HOST.HOST}:{#IFDESCR} &quot;{#IFALIAS}&quot; In Non-Unicast &gt; 20k</name>
-                                            <expression>avg(/Template_LLD_SNMP_Interfaces/ifInNUcastPkts.[&quot;{#SNMPINDEX}&quot;],5m)&gt;20000</expression>
-                                            <recovery_expression>avg(/Template_LLD_SNMP_Interfaces/ifInNUcastPkts.[&quot;{#SNMPINDEX}&quot;],15m)&lt;10000</recovery_expression>
-                                        </dependency>
-                                    </dependencies>
-                                </trigger_prototype>
-                                <trigger_prototype>
                                     <uuid>1f2eb6a621b341129a040180fd86b4c4</uuid>
-                                    <expression>avg(/Template_LLD_SNMP_Interfaces/ifInNUcastPkts.[&quot;{#SNMPINDEX}&quot;],5m)&gt;20000</expression>
+                                    <expression>avg(/Template_LLD_SNMP_Interfaces/ifInNUcastPkts.["{#SNMPINDEX}"],5m)&gt;{$IF_BUM_THR}</expression>
                                     <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
-                                    <recovery_expression>avg(/Template_LLD_SNMP_Interfaces/ifInNUcastPkts.[&quot;{#SNMPINDEX}&quot;],15m)&lt;10000</recovery_expression>
-                                    <name>{HOST.HOST}:{#IFDESCR} &quot;{#IFALIAS}&quot; In Non-Unicast &gt; 20k</name>
-                                    <priority>WARNING</priority>
+                                    <recovery_expression>avg(/Template_LLD_SNMP_Interfaces/ifInNUcastPkts.["{#SNMPINDEX}"],15m)&lt;0.5*{$IF_BUM_THR}</recovery_expression>
+                                    <name>{HOST.HOST}:{#IFDESCR} "{#IFALIAS}" In Non-Unicast &gt; {$IF_BUM_THR}</name>
+                                    <priority>INFO</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>performance</value>
+                                        </tag>
+                                    </tags>
                                 </trigger_prototype>
                             </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
                             <uuid>9d236b8122e24a829c84f670990eddd6</uuid>
-                            <name>In Unicast Packets {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>In Unicast Packets {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifInUcastPkts.{#SNMPINDEX}</snmp_oid>
-                            <key>ifInUcastPkts.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <key>ifInUcastPkts.["{#SNMPINDEX}"]</key>
                             <delay>30s</delay>
                             <history>30d</history>
                             <value_type>FLOAT</value_type>
                             <preprocessing>
                                 <step>
                                     <type>CHANGE_PER_SECOND</type>
-                                    <parameters>
-                                        <parameter/>
-                                    </parameters>
                                 </step>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
@@ -343,7 +433,6 @@
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -353,14 +442,30 @@
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                         </item_prototype>
                         <item_prototype>
                             <uuid>a6eed06962734e49a395e6154a343f7c</uuid>
-                            <name>ifLastChange {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>ifLastChange {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifLastChange.{#SNMPINDEX}</snmp_oid>
-                            <key>ifLastChange.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <key>ifLastChange.["{#SNMPINDEX}"]</key>
                             <history>30d</history>
                             <value_type>FLOAT</value_type>
                             <units>s</units>
@@ -378,7 +483,6 @@
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -388,14 +492,30 @@
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                         </item_prototype>
                         <item_prototype>
                             <uuid>89b3a3454b174b06bb4275e004d1cb62</uuid>
-                            <name>ifOperStatus {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>ifOperStatus {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifOperStatus.{#SNMPINDEX}</snmp_oid>
-                            <key>ifOperStatus.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <key>ifOperStatus.["{#SNMPINDEX}"]</key>
                             <history>30d</history>
                             <valuemap>
                                 <name>ifOperStatus</name>
@@ -408,7 +528,6 @@
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -418,36 +537,55 @@
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                             <trigger_prototypes>
                                 <trigger_prototype>
                                     <uuid>69338992e4d640eebe3d471767f8824f</uuid>
-                                    <expression>(last(/Template_LLD_SNMP_Interfaces/ifOperStatus.[&quot;{#SNMPINDEX}&quot;],#1)&lt;&gt;last(/Template_LLD_SNMP_Interfaces/ifOperStatus.[&quot;{#SNMPINDEX}&quot;],#2))=1 and last(/Template_LLD_SNMP_Interfaces/ifOperStatus.[&quot;{#SNMPINDEX}&quot;])=2 and {$IFOPERSTATUS.MUTE}=0</expression>
+                                    <expression>(last(/Template_LLD_SNMP_Interfaces/ifOperStatus.["{#SNMPINDEX}"],#1)&lt;&gt;last(/Template_LLD_SNMP_Interfaces/ifOperStatus.["{#SNMPINDEX}"],#2))=1 and last(/Template_LLD_SNMP_Interfaces/ifOperStatus.["{#SNMPINDEX}"])=2 and {$IFOPERSTATUS.MUTE}=0 and "{#IFALIAS}"&lt;&gt;""</expression>
                                     <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
-                                    <recovery_expression>last(/Template_LLD_SNMP_Interfaces/ifOperStatus.[&quot;{#SNMPINDEX}&quot;])&lt;&gt;2 or {$IFOPERSTATUS.MUTE}=1</recovery_expression>
-                                    <name>Interface {#IFNAME} &quot;{#IFALIAS}&quot;: Link down</name>
+                                    <recovery_expression>last(/Template_LLD_SNMP_Interfaces/ifOperStatus.["{#SNMPINDEX}"])&lt;&gt;2 or {$IFOPERSTATUS.MUTE}=1 or "{#IFALIAS}"=""</recovery_expression>
+                                    <name>Interface {#IFNAME} "{#IFALIAS}": Link down</name>
                                     <priority>AVERAGE</priority>
                                     <description>Link state changed to Down.
 
 To mute this trigger permanently for all interfaces on this host, set macro IFOPERSTATUS.MUTE to 1.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>availability</value>
+                                        </tag>
+                                    </tags>
                                 </trigger_prototype>
                             </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
                             <uuid>b9ca31218e9a461c9ef63b7b077ce4b3</uuid>
-                            <name>Out Discards {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>Out Discards {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifOutDiscards.{#SNMPINDEX}</snmp_oid>
-                            <key>ifOutDiscards.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <key>ifOutDiscards.["{#SNMPINDEX}"]</key>
                             <delay>30s</delay>
                             <history>30d</history>
                             <value_type>FLOAT</value_type>
                             <preprocessing>
                                 <step>
                                     <type>CHANGE_PER_SECOND</type>
-                                    <parameters>
-                                        <parameter/>
-                                    </parameters>
                                 </step>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
@@ -456,7 +594,6 @@ To mute this trigger permanently for all interfaces on this host, set macro IFOP
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -466,45 +603,70 @@ To mute this trigger permanently for all interfaces on this host, set macro IFOP
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                             <trigger_prototypes>
                                 <trigger_prototype>
                                     <uuid>e752a275d97c45c7abe7e23b5357faa0</uuid>
-                                    <expression>last(/Template_LLD_SNMP_Interfaces/ifOutDiscards.[&quot;{#SNMPINDEX}&quot;]) &gt; 10000</expression>
-                                    <name>{HOST.HOST}:{#IFDESCR} &quot;{#IFALIAS}&quot; Out Discards &gt;10.000</name>
+                                    <expression>last(/Template_LLD_SNMP_Interfaces/ifOutDiscards.["{#SNMPINDEX}"]) &gt; 10000</expression>
+                                    <name>{HOST.HOST}:{#IFDESCR} "{#IFALIAS}" Out Discards &gt;10.000</name>
                                     <priority>WARNING</priority>
                                     <description>Output packet drop rate over 10.000 p/s</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>performance</value>
+                                        </tag>
+                                    </tags>
                                 </trigger_prototype>
                                 <trigger_prototype>
                                     <uuid>bc07808e33624a16886c5dec6f5b7eb8</uuid>
-                                    <expression>last(/Template_LLD_SNMP_Interfaces/ifOutDiscards.[&quot;{#SNMPINDEX}&quot;]) &gt; 1000</expression>
-                                    <name>{HOST.HOST}:{#IFDESCR} &quot;{#IFALIAS}&quot; Out Discards &gt;1000</name>
+                                    <expression>last(/Template_LLD_SNMP_Interfaces/ifOutDiscards.["{#SNMPINDEX}"]) &gt; 1000</expression>
+                                    <name>{HOST.HOST}:{#IFDESCR} "{#IFALIAS}" Out Discards &gt;1000</name>
                                     <priority>INFO</priority>
                                     <description>Output packet drop rate over 1000 p/s</description>
                                     <dependencies>
                                         <dependency>
-                                            <name>{HOST.HOST}:{#IFDESCR} &quot;{#IFALIAS}&quot; Out Discards &gt;10.000</name>
-                                            <expression>last(/Template_LLD_SNMP_Interfaces/ifOutDiscards.[&quot;{#SNMPINDEX}&quot;]) &gt; 10000</expression>
+                                            <name>{HOST.HOST}:{#IFDESCR} "{#IFALIAS}" Out Discards &gt;10.000</name>
+                                            <expression>last(/Template_LLD_SNMP_Interfaces/ifOutDiscards.["{#SNMPINDEX}"]) &gt; 10000</expression>
                                         </dependency>
                                     </dependencies>
+                                    <tags>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>performance</value>
+                                        </tag>
+                                    </tags>
                                 </trigger_prototype>
                             </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
                             <uuid>81267a2c4dad4834b12dc14dc6ae099e</uuid>
-                            <name>Out Errors {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>Out Errors {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifOutErrors.{#SNMPINDEX}</snmp_oid>
-                            <key>ifOutErrors.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <key>ifOutErrors.["{#SNMPINDEX}"]</key>
                             <delay>30s</delay>
                             <history>30d</history>
                             <value_type>FLOAT</value_type>
                             <preprocessing>
                                 <step>
                                     <type>CHANGE_PER_SECOND</type>
-                                    <parameters>
-                                        <parameter/>
-                                    </parameters>
                                 </step>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
@@ -513,7 +675,6 @@ To mute this trigger permanently for all interfaces on this host, set macro IFOP
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -523,23 +684,36 @@ To mute this trigger permanently for all interfaces on this host, set macro IFOP
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                         </item_prototype>
                         <item_prototype>
                             <uuid>1ff7c644d4254e62963b74740c9a68d5</uuid>
-                            <name>Out Non-Unicast Packets {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>Out Non-Unicast Packets {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifOutNUcastPkts.{#SNMPINDEX}</snmp_oid>
-                            <key>ifOutNUcastPkts.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <key>ifOutNUcastPkts.["{#SNMPINDEX}"]</key>
                             <delay>30s</delay>
                             <history>30d</history>
                             <value_type>FLOAT</value_type>
                             <preprocessing>
                                 <step>
                                     <type>CHANGE_PER_SECOND</type>
-                                    <parameters>
-                                        <parameter/>
-                                    </parameters>
                                 </step>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
@@ -548,7 +722,6 @@ To mute this trigger permanently for all interfaces on this host, set macro IFOP
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -558,35 +731,54 @@ To mute this trigger permanently for all interfaces on this host, set macro IFOP
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                             <trigger_prototypes>
                                 <trigger_prototype>
                                     <uuid>284aa644812044c789b2ce466e3932e5</uuid>
-                                    <expression>last(/Template_LLD_SNMP_Interfaces/ifOutNUcastPkts.[&quot;{#SNMPINDEX}&quot;])&gt;{$IF_BCAST_THR}</expression>
+                                    <expression>last(/Template_LLD_SNMP_Interfaces/ifOutNUcastPkts.["{#SNMPINDEX}"])&gt;{$IF_BCAST_THR}</expression>
                                     <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
-                                    <recovery_expression>max(/Template_LLD_SNMP_Interfaces/ifOutNUcastPkts.[&quot;{#SNMPINDEX}&quot;],15m)&lt; 0.5 * {$IF_BCAST_THR}</recovery_expression>
-                                    <name>{HOST.HOST}:{#IFDESCR} &quot;{#IFALIAS}&quot; Out Broadcasts &gt; {$IF_BCAST_THR}</name>
+                                    <recovery_expression>max(/Template_LLD_SNMP_Interfaces/ifOutNUcastPkts.["{#SNMPINDEX}"],15m)&lt; 0.5 * {$IF_BCAST_THR}</recovery_expression>
+                                    <name>{HOST.HOST}:{#IFDESCR} "{#IFALIAS}" Out Broadcasts &gt; {$IF_BCAST_THR}</name>
                                     <status>DISABLED</status>
                                     <priority>INFO</priority>
                                     <description>Broadcast rate over {$IF_BCAST_THR}</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>performance</value>
+                                        </tag>
+                                    </tags>
                                 </trigger_prototype>
                             </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
                             <uuid>1dfdab0b30cb4e93b8595ab8b00568c1</uuid>
-                            <name>Out Unicast Packets {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>Out Unicast Packets {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifOutUcastPkts.{#SNMPINDEX}</snmp_oid>
-                            <key>ifOutUcastPkts.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <key>ifOutUcastPkts.["{#SNMPINDEX}"]</key>
                             <delay>30s</delay>
                             <history>30d</history>
                             <value_type>FLOAT</value_type>
                             <preprocessing>
                                 <step>
                                     <type>CHANGE_PER_SECOND</type>
-                                    <parameters>
-                                        <parameter/>
-                                    </parameters>
                                 </step>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
@@ -595,7 +787,6 @@ To mute this trigger permanently for all interfaces on this host, set macro IFOP
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -605,14 +796,30 @@ To mute this trigger permanently for all interfaces on this host, set macro IFOP
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                         </item_prototype>
                         <item_prototype>
                             <uuid>b291846a13754b9ca664869f8e822d69</uuid>
-                            <name>ifSpeed {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>ifSpeed {#IFDESCR} "{#IFALIAS}"</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>IF-MIB::ifSpeed.{#SNMPINDEX}</snmp_oid>
-                            <key>ifSpeed.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <key>ifSpeed.["{#SNMPINDEX}"]</key>
                             <history>30d</history>
                             <valuemap>
                                 <name>ifSpeed</name>
@@ -625,7 +832,6 @@ To mute this trigger permanently for all interfaces on this host, set macro IFOP
                                     </parameters>
                                 </step>
                             </preprocessing>
-                            <request_method>POST</request_method>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -635,27 +841,49 @@ To mute this trigger permanently for all interfaces on this host, set macro IFOP
                                     <tag>Application</tag>
                                     <value>Interfaces</value>
                                 </tag>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                                <tag>
+                                    <tag>description</tag>
+                                    <value>{#IFALIAS}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface</tag>
+                                    <value>{#IFNAME}</value>
+                                </tag>
+                                <tag>
+                                    <tag>interface-role</tag>
+                                    <value>{#ROLE}</value>
+                                </tag>
                             </tags>
                         </item_prototype>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
                             <uuid>27777afb7dab446a913df11240e6783a</uuid>
-                            <expression>min(/Template_LLD_SNMP_Interfaces/ifInErrors.[&quot;{#SNMPINDEX}&quot;],5m)&gt;{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;}
-or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&gt;{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;}</expression>
+                            <expression>min(/Template_LLD_SNMP_Interfaces/ifInErrors.["{#SNMPINDEX}"],15m)&gt;{$IF.ERRORS.WARN:"{#IFNAME}"}
+or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.["{#SNMPINDEX}"],15m)&gt;{$IF.ERRORS.WARN:"{#IFNAME}"}</expression>
                             <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
-                            <recovery_expression>max(/Template_LLD_SNMP_Interfaces/ifInErrors.[&quot;{#SNMPINDEX}&quot;],5m)&lt; 0.8*{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;} and max(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&lt; 0.8*{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;}</recovery_expression>
-                            <name>{HOST.HOST}:{#IFDESCR} &quot;{#IFALIAS}&quot; High error rate ( &gt; {$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;} for 5m)</name>
+                            <recovery_expression>max(/Template_LLD_SNMP_Interfaces/ifInErrors.["{#SNMPINDEX}"],15m)&lt; 0.8*{$IF.ERRORS.WARN:"{#IFNAME}"} and max(/Template_LLD_SNMP_Interfaces/ifOutErrors.["{#SNMPINDEX}"],15m)&lt; 0.8*{$IF.ERRORS.WARN:"{#IFNAME}"}</recovery_expression>
+                            <name>{HOST.HOST}:{#IFDESCR} "{#IFALIAS}" High error rate ( &gt; {$IF.ERRORS.WARN:"{#IFNAME}"} for 15m)</name>
                             <opdata>errors in: {ITEM.LASTVALUE1}, errors out: {ITEM.LASTVALUE2}</opdata>
                             <priority>WARNING</priority>
-                            <description>Recovers when below 80% of {$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;} threshold</description>
+                            <description>Recovers when below 80% of {$IF.ERRORS.WARN:"{#IFNAME}"} threshold</description>
                             <manual_close>YES</manual_close>
+                            <tags>
+                                <tag>
+                                    <tag>scope</tag>
+                                    <value>performance</value>
+                                </tag>
+                            </tags>
                         </trigger_prototype>
                     </trigger_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
                             <uuid>3333cee2fa734514a640e79bfcaded31</uuid>
-                            <name>Bytes (avg) {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>Bytes (avg) {#IFDESCR} "{#IFALIAS}"</name>
                             <ymin_type_1>FIXED</ymin_type_1>
                             <graph_items>
                                 <graph_item>
@@ -663,7 +891,7 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <color>00BB00</color>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifHCInOctets.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifHCInOctets.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -672,14 +900,14 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <color>0000FF</color>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifHCOutOctets.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifHCOutOctets.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
                             <uuid>eca19dbadb944f219c212a94356c6f1e</uuid>
-                            <name>Bytes (max) {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>Bytes (max) {#IFDESCR} "{#IFALIAS}"</name>
                             <ymin_type_1>FIXED</ymin_type_1>
                             <graph_items>
                                 <graph_item>
@@ -688,7 +916,7 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifHCInOctets.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifHCInOctets.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -698,14 +926,14 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifHCOutOctets.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifHCOutOctets.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
                             <uuid>ea490445aed94f1595e04f44889ea72e</uuid>
-                            <name>Interface Details {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>Interface Details {#IFDESCR} "{#IFALIAS}"</name>
                             <ymin_type_1>FIXED</ymin_type_1>
                             <graph_items>
                                 <graph_item>
@@ -714,7 +942,7 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifInUcastPkts.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifInUcastPkts.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -724,7 +952,7 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifInNUcastPkts.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifInNUcastPkts.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -734,7 +962,7 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifOutUcastPkts.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifOutUcastPkts.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -744,7 +972,7 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifOutNUcastPkts.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifOutNUcastPkts.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -754,7 +982,7 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifInDiscards.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifInDiscards.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -764,7 +992,7 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifInErrors.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifInErrors.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -774,7 +1002,7 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifOutDiscards.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifOutDiscards.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -784,14 +1012,14 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifOutErrors.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifOutErrors.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
                             <uuid>28056878ea0440e1be2e2138910c27d8</uuid>
-                            <name>Interface Errors {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>Interface Errors {#IFDESCR} "{#IFALIAS}"</name>
                             <ymin_type_1>FIXED</ymin_type_1>
                             <graph_items>
                                 <graph_item>
@@ -800,7 +1028,7 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifInDiscards.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifInDiscards.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -810,7 +1038,7 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifInErrors.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifInErrors.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -820,7 +1048,7 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifOutDiscards.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifOutDiscards.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -830,14 +1058,14 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifOutErrors.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifOutErrors.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
                             <uuid>3a3cb52e4e9f46c9b2f7d99cb49d0aa6</uuid>
-                            <name>Interface state {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
+                            <name>Interface state {#IFDESCR} "{#IFALIAS}"</name>
                             <ymin_type_1>FIXED</ymin_type_1>
                             <graph_items>
                                 <graph_item>
@@ -845,7 +1073,7 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>ALL</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifOperStatus.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifOperStatus.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -854,19 +1082,45 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                     <calc_fnc>ALL</calc_fnc>
                                     <item>
                                         <host>Template_LLD_SNMP_Interfaces</host>
-                                        <key>ifAdminStatus.[&quot;{#SNMPINDEX}&quot;]</key>
+                                        <key>ifAdminStatus.["{#SNMPINDEX}"]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                     </graph_prototypes>
-                    <request_method>POST</request_method>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>var data = JSON.parse(value);
+
+for (var i = 0; i &lt; data.length; i++) {
+    var alias = data[i]["{#IFALIAS}"] || "";
+    alias = alias.replace(/^\s+|\s+$/g, '');
+
+    data[i]["{#ROLE}"] = "";
+
+    var m = alias.match(/^(FEX|UPL|OSPF|VPC|PTP|WAN|TRUNK)[ -]?(.*)$/);
+    if (m) {
+        data[i]["{#ROLE}"] = m[1];
+        // data[i]["{#IFALIAS}"] = m[2].replace(/^\s+|\s+$/g, '');
+    }
+}
+
+return JSON.stringify(data);</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
                 </discovery_rule>
             </discovery_rules>
             <macros>
                 <macro>
                     <macro>{$IF.ERRORS.WARN}</macro>
                     <value>2</value>
+                </macro>
+                <macro>
+                    <macro>{$IF.UTIL.MAX}</macro>
+                    <value>90</value>
                 </macro>
                 <macro>
                     <macro>{$IFOPERSTATUS.MUTE}</macro>
@@ -937,8 +1191,8 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                         <page>
                             <widgets>
                                 <widget>
-                                    <type>GRAPH_PROTOTYPE</type>
-                                    <width>24</width>
+                                    <type>graphprototype</type>
+                                    <width>72</width>
                                     <height>5</height>
                                     <fields>
                                         <field>
@@ -950,9 +1204,14 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                             <type>GRAPH_PROTOTYPE</type>
                                             <name>graphid</name>
                                             <value>
-                                                <name>Bytes (avg) {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
                                                 <host>Template_LLD_SNMP_Interfaces</host>
+                                                <name>Bytes (avg) {#IFDESCR} "{#IFALIAS}"</name>
                                             </value>
+                                        </field>
+                                        <field>
+                                            <type>STRING</type>
+                                            <name>reference</name>
+                                            <value>AAABJ</value>
                                         </field>
                                     </fields>
                                 </widget>
@@ -967,8 +1226,8 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                         <page>
                             <widgets>
                                 <widget>
-                                    <type>GRAPH_PROTOTYPE</type>
-                                    <width>24</width>
+                                    <type>graphprototype</type>
+                                    <width>72</width>
                                     <height>5</height>
                                     <fields>
                                         <field>
@@ -980,9 +1239,14 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                             <type>GRAPH_PROTOTYPE</type>
                                             <name>graphid</name>
                                             <value>
-                                                <name>Bytes (max) {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
                                                 <host>Template_LLD_SNMP_Interfaces</host>
+                                                <name>Bytes (max) {#IFDESCR} "{#IFALIAS}"</name>
                                             </value>
+                                        </field>
+                                        <field>
+                                            <type>STRING</type>
+                                            <name>reference</name>
+                                            <value>AAABG</value>
                                         </field>
                                     </fields>
                                 </widget>
@@ -997,8 +1261,8 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                         <page>
                             <widgets>
                                 <widget>
-                                    <type>GRAPH_PROTOTYPE</type>
-                                    <width>24</width>
+                                    <type>graphprototype</type>
+                                    <width>72</width>
                                     <height>5</height>
                                     <fields>
                                         <field>
@@ -1010,9 +1274,14 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                             <type>GRAPH_PROTOTYPE</type>
                                             <name>graphid</name>
                                             <value>
-                                                <name>Interface Details {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
                                                 <host>Template_LLD_SNMP_Interfaces</host>
+                                                <name>Interface Details {#IFDESCR} "{#IFALIAS}"</name>
                                             </value>
+                                        </field>
+                                        <field>
+                                            <type>STRING</type>
+                                            <name>reference</name>
+                                            <value>AAABH</value>
                                         </field>
                                     </fields>
                                 </widget>
@@ -1027,8 +1296,8 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                         <page>
                             <widgets>
                                 <widget>
-                                    <type>GRAPH_PROTOTYPE</type>
-                                    <width>24</width>
+                                    <type>graphprototype</type>
+                                    <width>72</width>
                                     <height>5</height>
                                     <fields>
                                         <field>
@@ -1040,9 +1309,14 @@ or min(/Template_LLD_SNMP_Interfaces/ifOutErrors.[&quot;{#SNMPINDEX}&quot;],5m)&
                                             <type>GRAPH_PROTOTYPE</type>
                                             <name>graphid</name>
                                             <value>
-                                                <name>Interface Errors {#IFDESCR} &quot;{#IFALIAS}&quot;</name>
                                                 <host>Template_LLD_SNMP_Interfaces</host>
+                                                <name>Interface Errors {#IFDESCR} "{#IFALIAS}"</name>
                                             </value>
+                                        </field>
+                                        <field>
+                                            <type>STRING</type>
+                                            <name>reference</name>
+                                            <value>AAABI</value>
                                         </field>
                                     </fields>
                                 </widget>
