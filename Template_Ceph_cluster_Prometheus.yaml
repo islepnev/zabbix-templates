@@ -1,0 +1,149 @@
+zabbix_export:
+  version: '7.2'
+  template_groups:
+    - uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    - uuid: 19d9073a607e4faf83fe8056684e010d
+      template: Template_Ceph_cluster_Prometheus
+      name: 'Ceph cluster by Prometheus'
+      description: 'Ceph cluster health checks and OSD node disk saturation from Prometheus (ceph-mgr prometheus module, node_exporter). Host macro {$CEPH.CLUSTER} selects the ceph_cluster label.'
+      groups:
+        - name: Templates
+      items:
+        - uuid: d1377f6dc8cf4430b4467cdc677acc1b
+          name: 'Disks busy over 90%'
+          type: HTTP_AGENT
+          key: ceph.prom.disks.busy90
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - '$.data.result[0].value[1]'
+          timeout: 10s
+          url: '{$PROMETHEUS.URL}/api/v1/query'
+          query_fields:
+            - name: query
+              value: 'count(irate(node_disk_io_time_seconds_total{ceph_cluster="{$CEPH.CLUSTER}",device=~"^(sd[a-z]+|nvme[0-9]+n[0-9]+)$"}[5m]) > 0.9) or vector(0)'
+          triggers:
+            - uuid: e6a550b4b50747bea6ba7d16ca9bab9c
+              expression: 'min(/Template_Ceph_cluster_Prometheus/ceph.prom.disks.busy90,15m)>={$CEPH.DISKS.BUSY90.MAX}'
+              name: '{$CEPH.DISKS.BUSY90.MAX} or more disks busy over 90% for 15m on {HOST.NAME}'
+              priority: WARNING
+        - uuid: f0edbc7f93ca49b78d2749dcb6839af4
+          name: 'Disks busy over 99%'
+          type: HTTP_AGENT
+          key: ceph.prom.disks.busy99
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - '$.data.result[0].value[1]'
+          timeout: 10s
+          url: '{$PROMETHEUS.URL}/api/v1/query'
+          query_fields:
+            - name: query
+              value: 'count(irate(node_disk_io_time_seconds_total{ceph_cluster="{$CEPH.CLUSTER}",device=~"^(sd[a-z]+|nvme[0-9]+n[0-9]+)$"}[5m]) > 0.99) or vector(0)'
+          triggers:
+            - uuid: 9f11c3cbcea8474babf653f69a86a307
+              expression: 'min(/Template_Ceph_cluster_Prometheus/ceph.prom.disks.busy99,15m)>=1'
+              name: 'Disks busy over 99% for 15m on {HOST.NAME}'
+              priority: WARNING
+        - uuid: 65b859a272b14509be5454b202a4e281
+          name: 'Ceph health checks (raw)'
+          type: HTTP_AGENT
+          key: ceph.prom.health.raw
+          history: '0'
+          value_type: TEXT
+          timeout: 10s
+          url: '{$PROMETHEUS.URL}/api/v1/query'
+          query_fields:
+            - name: query
+              value: 'ceph_health_detail{ceph_cluster="{$CEPH.CLUSTER}"}'
+        - uuid: 52fa1f2692e84f97ac6b9104e6d84c6c
+          name: 'Ceph health status'
+          type: HTTP_AGENT
+          key: ceph.prom.status
+          valuemap:
+            name: 'Ceph health status'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - '$.data.result[0].value[1]'
+          timeout: 10s
+          url: '{$PROMETHEUS.URL}/api/v1/query'
+          query_fields:
+            - name: query
+              value: 'ceph_health_status{ceph_cluster="{$CEPH.CLUSTER}"}'
+          triggers:
+            - uuid: 7454321805cf461498b206c9cb7169ca
+              expression: 'nodata(/Template_Ceph_cluster_Prometheus/ceph.prom.status,15m)=1'
+              name: 'Ceph cluster data missing on {HOST.NAME}'
+              priority: AVERAGE
+      discovery_rules:
+        - uuid: d34031b0faa24b54b62726516abfe594
+          name: 'Ceph health checks discovery'
+          type: DEPENDENT
+          key: ceph.prom.health.discovery
+          filter:
+            conditions:
+              - macro: '{#NAME}'
+                value: '{$CEPH.HEALTH.MUTED}'
+                operator: NOT_MATCHES_REGEX
+          lifetime_type: DELETE_IMMEDIATELY
+          item_prototypes:
+            - uuid: c3f71a87a91d4278b545a5f380deca13
+              name: 'Ceph check {#NAME}'
+              type: DEPENDENT
+              key: 'ceph.prom.health[{#NAME}]'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.data.result[?(@.metric.name==''{#NAME}'')].value[1].first()'
+              master_item:
+                key: ceph.prom.health.raw
+              trigger_prototypes:
+                - uuid: b701150da6f740b9a99ad664c15685df
+                  expression: 'last(/Template_Ceph_cluster_Prometheus/ceph.prom.health[{#NAME}])=1'
+                  name: 'Ceph {#NAME} on {HOST.NAME}'
+                  priority: WARNING
+          master_item:
+            key: ceph.prom.health.raw
+          lld_macro_paths:
+            - lld_macro: '{#NAME}'
+              path: $.metric.name
+            - lld_macro: '{#SEVERITY}'
+              path: $.metric.severity
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.data.result
+          overrides:
+            - name: 'HEALTH_ERR to High'
+              step: '1'
+              filter:
+                conditions:
+                  - macro: '{#SEVERITY}'
+                    value: ^HEALTH_ERR$
+              operations:
+                - operationobject: TRIGGER_PROTOTYPE
+                  operator: LIKE
+                  value: Ceph
+                  severity: HIGH
+      macros:
+        - macro: '{$CEPH.CLUSTER}'
+        - macro: '{$CEPH.DISKS.BUSY90.MAX}'
+          value: '20'
+        - macro: '{$CEPH.HEALTH.MUTED}'
+          value: ^$
+          description: 'Regex of health checks muted in Ceph (ceph health mute)'
+        - macro: '{$PROMETHEUS.URL}'
+          value: 'http://prometheus.he.jinr.ru:9090'
+      valuemaps:
+        - uuid: c24de6c3487449518d0fc26eee6acd64
+          name: 'Ceph health status'
+          mappings:
+            - value: '0'
+              newvalue: HEALTH_OK
+            - value: '1'
+              newvalue: HEALTH_WARN
+            - value: '2'
+              newvalue: HEALTH_ERR
