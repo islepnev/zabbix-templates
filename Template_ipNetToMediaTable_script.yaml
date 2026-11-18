@@ -1,0 +1,37 @@
+zabbix_export:
+  version: '7.2'
+  template_groups:
+    - uuid: c8555c4afdc44baeb4cadb03dfcc6c5d
+      name: Routers
+    - uuid: e7946cf06c3c44daa3ae0f50b4457f4c
+      name: Templates/Switches
+  templates:
+    - uuid: 4ff0f3ca269f4216b4f129c6492eb6b7
+      template: Template_ipNetToMediaTable_script
+      name: Template_ipNetToMediaTable_script
+      description: |
+        Walks IP-MIB::ipNetToMediaTable and stores information in monitoring database switchmon, table arpwatch
+        
+        git@afi-git.jinr.ru:lhep-network/zabbix-external-scripts.git
+        Perl SNMP::Info
+      groups:
+        - name: Routers
+        - name: Templates/Switches
+      items:
+        - uuid: db54b253e9b1420b925f4a4844b25a34
+          name: 'Number of ipNetToMediaTable entries'
+          type: EXTERNAL
+          key: 'zbx_get_ipNetToMediaTable.pl[{HOST.CONN}]'
+          delay: 5m
+          history: 90d
+          description: 'Walks ipNetToMediaTable (ARP cache) and stores in database all found entries'
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - '([0-9]+)'
+                - \1
+          tags:
+            - tag: Application
+              value: arpwatch
+      tags:
+        - tag: ARP

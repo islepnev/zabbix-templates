@@ -1,0 +1,87 @@
+zabbix_export:
+  version: '7.2'
+  template_groups:
+    - uuid: cf23b17383074fc696f8df3cf475cad2
+      name: Templates/Switches/Cisco
+  templates:
+    - uuid: d0d3fbeb868440cfb4605252cc1e72b1
+      template: Role_Cisco_Nexus_Leaf_OLD_Template
+      name: Role_Cisco_Nexus_Leaf_OLD_Template
+      templates:
+        - name: 'Template Cisco DHCP Relay'
+        - name: 'Template SNMP Router OSPF v2'
+        - name: Template_arpwatch_script
+        - name: Template_Cisco_CPU_LLD
+        - name: Template_Cisco_Ethernet_Port
+        - name: Template_Cisco_Nexus_NTP
+        - name: Template_Cisco_Nexus_OS_Version
+        - name: Template_Cisco_Nexus_Temperature_Sensors
+        - name: Template_Cisco_SNMP_Transceiver_Sensors
+        - name: Template_ICMP_Ping
+        - name: Template_IP_MIB
+        - name: Template_LLD_SNMP_Interfaces
+        - name: Template_macport
+        - name: Template_SNMP_System
+      groups:
+        - name: Templates/Switches/Cisco
+      items:
+        - uuid: c18a4acc112043dda4647ceecc3837d2
+          name: 'Number of dhcp-snooping entries'
+          type: EXTERNAL
+          key: 'zbx_get_cisco_dhcp_snooping.pl[{HOST.CONN}]'
+          delay: 10m
+          history: 90d
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - '([0-9]+)'
+                - \1
+          tags:
+            - tag: Application
+              value: dhcp-snooping
+          triggers:
+            - uuid: fb151c1e6e2f4497a7b856d06ec7134c
+              expression: 'last(/Role_Cisco_Nexus_Leaf_OLD_Template/zbx_get_cisco_dhcp_snooping.pl[{HOST.CONN}],#2)>0 and nodata(/Role_Cisco_Nexus_Leaf_OLD_Template/zbx_get_cisco_dhcp_snooping.pl[{HOST.CONN}],15m)=1'
+              name: 'Missing dhcp-snooping data for 15 min'
+              status: DISABLED
+              priority: INFO
+            - uuid: 6f235f0e314a4fbd91ff3a69c2359019
+              expression: 'nodata(/Role_Cisco_Nexus_Leaf_OLD_Template/zbx_get_cisco_dhcp_snooping.pl[{HOST.CONN}],30m)=1'
+              name: 'No data from zbx_get_dhcp_snooping.pl script for 30 min'
+              priority: INFO
+      valuemaps:
+        - uuid: 589186f8cb8d4fa68e6134660a49befa
+          name: CiscoEnvMonState
+          mappings:
+            - value: '1'
+              newvalue: normal
+            - value: '2'
+              newvalue: warning
+            - value: '3'
+              newvalue: critical
+            - value: '4'
+              newvalue: shutdown
+            - value: '5'
+              newvalue: notPresent
+            - value: '6'
+              newvalue: notFunctioning
+        - uuid: 7ea692ce8b6e4b44a4be2c621c15e92a
+          name: ciscoEnvMonSupplySource
+          mappings:
+            - value: '1'
+              newvalue: unknown
+            - value: '2'
+              newvalue: ac
+            - value: '3'
+              newvalue: dc
+            - value: '4'
+              newvalue: externalPowerSupply
+            - value: '5'
+              newvalue: internalRedundant
+        - uuid: f1eddbca5fe04bbcb558415ba2b0ca87
+          name: TruthValue
+          mappings:
+            - value: '1'
+              newvalue: 'true'
+            - value: '2'
+              newvalue: 'false'
